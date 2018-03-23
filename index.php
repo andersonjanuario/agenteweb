@@ -7,7 +7,9 @@
 	  <?php require_once('_navbar.php'); ?>	
       <!-- Side-Nav-->
 	  <?php require_once('_sidbar.php'); ?>	
-	  <?php require_once('_content.php'); ?> 	
+	  <div id="div_central">
+		<?php require_once('_content.php'); ?> 	
+	  </div>
     </div>
   </body>
 </html>

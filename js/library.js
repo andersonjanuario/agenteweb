@@ -7,33 +7,33 @@ $(document).ready(function() {
      * Função responsavel por gerar ação atraves de um bottao ou ate mesmo imagem
      */
     $('.buttonMenu').on('click', function() {
-        controlador = $(this).attr('controlador');
-        funcao = $(this).attr('funcao');
-        retorno = $(this).attr('retorno');
-        secao = $(this).attr('secao');
+        c = $(this).attr('c');
+        f = $(this).attr('f');
+        r = $(this).attr('r');
+        s = $(this).attr('s');
 
         $.ajax({
             url: 'controlador.php',
             type: 'POST',
-            data: 'retorno=' + retorno + '&controlador=' + controlador + '&funcao=' + funcao,
+            data: 'r=' + r + '&c=' + c + '&f=' + f,
             success: function(result) {
-                $('#' + retorno).html(result);
+                $('#' + r).html(result);
             },
             beforeSend: function() {
-                $('#loader').css({
+                /*$('#loader').css({
                     display: "block"
-                });
+                });*/
             },
             complete: function() {
-                $('#loader').css({
+                /*$('#loader').css({
                     display: "none"
                 });
                 $('#div_a').remove();
-                $('#' + retorno).css('display', '');
+                $('#' + r).css('display', '');
 
                 $('.breadcrumb_menu').css('display', 'none');
-                $('.' + secao).css('display', '');
-
+                $('.' + s).css('display', '');
+                */
             }
         });
     });

@@ -19,7 +19,7 @@
             <li><a href="charts.html"><i class="fa fa-pie-chart"></i><span>New Letters</span></a></li>
             <li class="treeview"><a href="#"><i class="fa fa-file-text"></i><span>Paginas</span><i class="fa fa-angle-right"></i></a>
               <ul class="treeview-menu">
-                <li funcao="telaListarUsuario" controlador="ControladorUsuario" retorno="div_central" secao="usuario" class="buttonMenu">
+                <li f="telaTemplate" c="ControladorTemplate" r="div_central" s="template" class="buttonMenu">
 					<a><i class="fa fa-circle-o"></i> Pagina 1 - Teste</a>
 				</li>
                 <li><a href="page-login.html"><i class="fa fa-circle-o"></i> Pagina 2</a></li>                

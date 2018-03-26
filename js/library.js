@@ -19,28 +19,45 @@ $(document).ready(function() {
             success: function(result) {
                 $('#' + r).html(result);
             },
-            beforeSend: function() {
-                /*$('#loader').css({
-                    display: "block"
-                });*/
-            },
-            complete: function() {
-                /*$('#loader').css({
-                    display: "none"
-                });
-                $('#div_a').remove();
-                $('#' + r).css('display', '');
-
-                $('.breadcrumb_menu').css('display', 'none');
-                $('.' + s).css('display', '');
-                */
-            }
+            beforeSend: function() {},
+            complete: function() {}
         });
     });
-
-
+	
 
 }); //FIM do documento do ready
+
+function request(){
+    valido = true;
+    $('.mgs_alerta').each(function() {
+        if ($(this).val() === '' || $(this).val() === null) {
+            valido = false;
+            alert('campos são obrigatorios!');
+        } else {
+          //Caso percora mais de arquivos  
+        }
+    });
+
+    if(valido === true){
+        $('#formDados').each(function() {
+            campos = $(this).serialize();			
+        });
+
+        $.ajax({
+            url: 'controlador.php',
+            type: 'POST',
+            data: campos,
+            success: function(result) {
+                $('#formDados').each (function(){
+                  this.reset();
+                });          
+                $('#grid').html(result);
+            },
+            beforeSend: function() {},
+            complete: function() {}
+        });        
+    }
+}
 
 /**
  * Função reponsavel por gerar o "Data Picker" no formulário

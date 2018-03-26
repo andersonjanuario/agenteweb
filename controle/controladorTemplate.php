@@ -11,8 +11,7 @@ class ControladorTemplate {
 
 	public function listarTemplate($id = null){
 		try {
-			$moduloTemplate = new DaoTemplate();
-			
+			$moduloTemplate = new DaoTemplate();			
 			return $moduloTemplate->listarTemplate($id);
 			$moduloTemplate->__destruct();
 		} catch (Exception $e) {
@@ -21,50 +20,35 @@ class ControladorTemplate {
 	}
 	
 
-	public function incluirTemplate($post){
+	public function incluirTemplate($request){
 		try {
-			$template = new Template();
-			$template->setTitulo($post["titulo"]);
-			$template->setDescricao($post["descricao"]);			
-			$template->setStatus('1');
 			$moduloTemplate = new DaoTemplate();
-			
-			if($moduloTemplate->incluirTemplate($template)){
-				return $this->telaCadastrarTemplate();	
+			if($moduloTemplate->incluirTemplate($request)){
+				return $this->telaGridTemplate();	
 			}		
 			$moduloTemplate->__destruct();
 		} catch (Exception $e) {
 		}
 	}
 
-	public function alterarTemplate($post){
+	public function alterarTemplate($request){
 		try {
-			$template = new Template();
-			$template->setId($post["id"]);
-			$template->setNome($post["nome"]);
-			$template->setTitulo($post["titulo"]);
-			$template->setDescricao($post["descricao"]);			
-			$template->setStatus('1');		
-			
 			$moduloTemplate = new DaoTemplate();
-			if($moduloTemplate->alterarTemplate($template)){
-				return $this->telaListarTemplate();
+			if($moduloTemplate->alterarTemplate($request)){
+				return $this->telaGridTemplate();
 			}
 			$moduloTemplate->__destruct();
 		} catch (Exception $e) {
 			return $e;
-		} 
-		
-		
+		} 		
 	}
 
-	public function excluirTemplate($post){
+	public function excluirTemplate($request){
 		try {
-			$id = $post["id"];
 			$moduloTemplate = new DaoTemplate();
-			$moduloTemplate->excluirTemplate($id);
+			$moduloTemplate->excluirTemplate($request["id"]);
 			$moduloTemplate->__destruct();
-			return $this->telaListarTemplate();
+			return $this->telaGridTemplate();
 		} catch (Exception $e) {
 			return $e;
 		}
@@ -73,13 +57,24 @@ class ControladorTemplate {
 	public function telaTemplate($post = null){
 		try {
 			$viewTemplate = new ViewTemplate();
-			return $viewTemplate->telaTemplate($post);
+			return $viewTemplate->telaTemplate($this->listarTemplate(null));
 			$viewTemplate->__destruct();
 		} catch (Exception $e) {
 			return $e;
 		}
 	}	
 
+	public function telaGridTemplate($post = null){
+		try {
+			$viewTemplate = new ViewTemplate();
+			return $viewTemplate->telaGridTemplate($this->listarTemplate(null));
+			$viewTemplate->__destruct();
+		} catch (Exception $e) {
+			return $e;
+		}
+	}	
+	
+/*
 	public function telaCadastrarTemplate($post = null){
 		try {
 			$viewTemplate = new ViewTemplate();
@@ -121,7 +116,7 @@ class ControladorTemplate {
 		}
 	}
 	
-
+*/
 
 }
 ?>

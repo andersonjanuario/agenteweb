@@ -11,7 +11,8 @@ class ControladorTemplate {
 
 	public function listarTemplate($id = null){
 		try {
-			$moduloTemplate = new DaoTemplate();			
+			$moduloTemplate = new DaoTemplate();
+			
 			return $moduloTemplate->listarTemplate($id);
 			$moduloTemplate->__destruct();
 		} catch (Exception $e) {
@@ -20,61 +21,80 @@ class ControladorTemplate {
 	}
 	
 
-	public function incluirTemplate($request){
+	public function incluirTemplate($post){
 		try {
+			$template = new Template();
+			$template->setNome($post["nome"]);
+			$template->setSexo($post["sexo"]);			
+			$template->setProfissao($post["profissao"]);
+			$template->setFaixaSalarial(valorMonetario($post["faixa_salarial"],"1"));
+			$template->setDataNascimento(desformataData($post["data_nascimento"]));
+			$template->setCpf($post["cpf"]);			
+			$template->setImagem($post["imagem"]);
+                        $template->setArquivo($post["arquivo"]);
+			$template->setLogradouro($post["logradouro"]);
+			$template->setNumero($post["numero"]);
+			$template->setCep($post["cep"]);
+			$template->setEstado($post["estado"]);
+			$template->setTelefoneResidencial($post["telefone_residencial"]);
+			$template->setEmail($post["email"]);
+			$template->setPais($post["pais"]);
+			$template->setStatus('1');
 			$moduloTemplate = new DaoTemplate();
-			if($moduloTemplate->incluirTemplate($request)){
-				return $this->telaGridTemplate();	
+			
+			if($moduloTemplate->incluirTemplate($template)){
+				return $this->telaCadastrarTemplate();	
 			}		
 			$moduloTemplate->__destruct();
 		} catch (Exception $e) {
 		}
 	}
 
-	public function alterarTemplate($request){
+	public function alterarTemplate($post){
 		try {
+			$template = new Template();
+			$template->setId($post["id"]);
+			$template->setNome($post["nome"]);
+			$template->setSexo($post["sexo"]);			
+			$template->setProfissao($post["profissao"]);
+			$template->setFaixaSalarial(valorMonetario($post["faixa_salarial"],"1"));
+			$template->setDataNascimento(desformataData($post["data_nascimento"]));
+			$template->setCpf($post["cpf"]);			
+			$template->setImagem($post["imagem"]);
+			$template->setArquivo($post["arquivo"]);
+                        $template->setLogradouro($post["logradouro"]);
+			$template->setNumero($post["numero"]);
+			$template->setCep($post["cep"]);
+			$template->setEstado($post["estado"]);
+			$template->setTelefoneResidencial($post["telefone_residencial"]);
+			$template->setEmail($post["email"]);
+			$template->setPais($post["pais"]);
+			$template->setStatus('1');		
+			
 			$moduloTemplate = new DaoTemplate();
-			if($moduloTemplate->alterarTemplate($request)){
-				return $this->telaGridTemplate();
+			if($moduloTemplate->alterarTemplate($template)){
+				return $this->telaListarTemplate();
 			}
 			$moduloTemplate->__destruct();
 		} catch (Exception $e) {
 			return $e;
-		} 		
+		} 
+		
+		
 	}
 
-	public function excluirTemplate($request){
+	public function excluirTemplate($post){
 		try {
+			$id = $post["id"];
 			$moduloTemplate = new DaoTemplate();
-			$moduloTemplate->excluirTemplate($request["id"]);
+			$moduloTemplate->excluirTemplate($id);
 			$moduloTemplate->__destruct();
-			return $this->telaGridTemplate();
+			return $this->telaListarTemplate();
 		} catch (Exception $e) {
 			return $e;
 		}
 	}
-	
-	public function telaTemplate($post = null){
-		try {
-			$viewTemplate = new ViewTemplate();
-			return $viewTemplate->telaTemplate($this->listarTemplate(null));
-			$viewTemplate->__destruct();
-		} catch (Exception $e) {
-			return $e;
-		}
-	}	
 
-	public function telaGridTemplate($post = null){
-		try {
-			$viewTemplate = new ViewTemplate();
-			return $viewTemplate->telaGridTemplate($this->listarTemplate(null));
-			$viewTemplate->__destruct();
-		} catch (Exception $e) {
-			return $e;
-		}
-	}	
-	
-/*
 	public function telaCadastrarTemplate($post = null){
 		try {
 			$viewTemplate = new ViewTemplate();
@@ -116,7 +136,7 @@ class ControladorTemplate {
 		}
 	}
 	
-*/
+
 
 }
 ?>

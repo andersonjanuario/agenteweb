@@ -37,7 +37,6 @@ class ControladorUsuario {
 			$usuario->setSenha(md5($post["senha"]));
 			$usuario->setImagem($post["imagem"]);
 			$usuario->setPerfil($post["perfil"]);			
-			//$usuario->setEmpresa($post["empresa"]);			
 			$usuario->setStatus('1');
 			
 			$moduloUsuario = new DaoUsuario();

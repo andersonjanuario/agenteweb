@@ -134,9 +134,9 @@ class ViewClasse{
 							<td class="getId" style="cursor:pointer"  id="<?php echo $classe->getId(); ?>" funcao="telaVisualizarClasse" controlador="ControladorClasse" retorno="div_central"><?php echo ($classe->getFuncao())?$classe->getFuncao():"-";?></td> 
 							<td class="getId" style="cursor:pointer"  id="<?php echo $classe->getId(); ?>" funcao="telaVisualizarClasse" controlador="ControladorClasse" retorno="div_central"><?php echo ($classe->getSecao())?$classe->getSecao():"-";?></td> 
                             <td class="getId" style="cursor:pointer"  id="<?php echo $classe->getId(); ?>" funcao="telaVisualizarClasse" controlador="ControladorClasse" retorno="div_central"><?php echo ($classe->getModulo())?$classe->getModulo()->getNome():"-";?></td> 
-							<td >
-								<input type="image" src="images/icn_edit.png" title="Alterar" id="<?php echo $classe->getId(); ?>" class="getId" funcao="telaAlterarClasse" controlador="ControladorClasse" retorno="div_central">
-								<input type="image" src="images/icn_trash.png" title="Excluir" id="<?php echo $classe->getId(); ?>" class="deleteId" funcao="excluirClasse" controlador="ControladorClasse" retorno="div_central" mensagem="4">
+							<td style="text-align:center;width:100px">
+								<button class="btn btn-secondary getId btn-list" type="button" title="Alterar" id="<?php echo $classe->getId(); ?>" funcao="telaAlterarClasse" controlador="ControladorClasse" retorno="div_central"><i class="fa fa-lg fa-edit"></i></button>
+								<button class="btn btn-secondary deleteId btn-list" type="button" title="Excluir" id="<?php echo $classe->getId(); ?>" funcao="excluirClasse" controlador="ControladorClasse" retorno="div_central" mensagem="4"><i class="fa fa-lg fa-trash"></i></button>
 							</td> 
 						</tr>                         
                     <?php

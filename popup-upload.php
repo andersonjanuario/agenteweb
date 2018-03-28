@@ -15,7 +15,7 @@ function geraThumb($path, $imagem) {
     $arquivo_destino = $path . "thumbnail" . $imagem;
     $nome_arquivo_destino = "thumbnail" . $imagem;
 
-    if (strtolower($ext) == "jpg") {
+    if (strtolower($ext) == "jpg" || strtolower($ext) == "jpeg") {
         $img_origem = imagecreatefromjpeg($arquivo_origem);
     }
     if (strtolower($ext) == "gif") {
@@ -38,7 +38,7 @@ function geraThumb($path, $imagem) {
         $img_destino = imagecreatetruecolor($nova_largura, $nova_altura);
         imagecopyresampled($img_destino, $img_origem, 0, 0, 0, 0, $nova_largura, $nova_altura, imagesx($img_origem), imagesy($img_origem));
 
-        if (strtolower($ext) == "jpg") {
+        if (strtolower($ext) == "jpg" || strtolower($ext) == "jpeg") {
             imageJPEG($img_destino, $arquivo_destino, 85);
         }
         if (strtolower($ext) == "gif") {
@@ -68,7 +68,7 @@ function redimensionaImg($path, $imagem, $largura) {
     $arquivo_destino = $arquivo_origem;
     $nome_arquivo_destino = $imagem;
 
-    if (strtolower($ext) == "jpg") {
+    if (strtolower($ext) == "jpg"  || strtolower($ext) == "jpeg") {
         $img_origem = imagecreatefromjpeg($arquivo_origem);
     }
     if (strtolower($ext) == "gif") {
@@ -85,7 +85,7 @@ function redimensionaImg($path, $imagem, $largura) {
         $img_destino = imagecreatetruecolor($nova_largura, $nova_altura);
         imagecopyresampled($img_destino, $img_origem, 0, 0, 0, 0, $nova_largura, $nova_altura, imagesx($img_origem), imagesy($img_origem));
 
-        if (strtolower($ext) == "jpg") {
+        if (strtolower($ext) == "jpg"  || strtolower($ext) == "jpeg") {
             imageJPEG($img_destino, $arquivo_destino, 85);
         }
         if (strtolower($ext) == "gif") {

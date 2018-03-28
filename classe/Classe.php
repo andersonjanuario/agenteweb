@@ -10,7 +10,7 @@ class Classe{
 	private $controlador;
 	private $funcao;
 	private $acao;
-        private $secao;
+    private $secao;
 
 	//construtor
 	public function __construct(){}

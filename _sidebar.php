@@ -8,7 +8,7 @@
         </div>
       </div>
       <ul class="app-menu">
-        <li><a class="app-menu__item active" href="index.html"><i class="app-menu__icon fa fa-dashboard"></i><span class="app-menu__label">Dashboard</span></a></li>
+        <li><a class="app-menu__item active" href="main.php"><i class="app-menu__icon fa fa-home"></i><span class="app-menu__label">Dashboard</span></a></li>
         <?php
             $controladorAcao = new ControladorAcao();                
             $objAcao = $controladorAcao->listarClasseAcaoParaMenu($_SESSION["login"]);            

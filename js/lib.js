@@ -533,8 +533,7 @@ $(document).ready(function() {
                 $('#msgSlide').html('<span>Usuário ou senha invalidos!</span>');
                 $('#msgSlide').slideDown('slow', function() {
                     setTimeout("$('#msgSlide').slideUp('slow')", 3000);
-                });
-                //msgSlide(mensagem);
+                });            
             });
         }
 
@@ -602,9 +601,9 @@ $(document).ready(function() {
 function setDatePicker(containerElement) {
     var datePicker = $('#' + containerElement);
     datePicker.datepicker({
-        showOn: "button",
-        buttonImage: "img/calendar.gif",
-        buttonImageOnly: true
+        //showOn: "button",
+        //buttonImage: "img/calendar.gif",
+        //buttonImageOnly: true
     });
 }
 

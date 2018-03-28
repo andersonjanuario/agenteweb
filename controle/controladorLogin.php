@@ -34,7 +34,15 @@ class ControladorLogin {
 					return "<script>javascript:open('main.php', '_top')</script>";
 				}
 			}else{
-				return "<script>javascript:open('index.php?i=1', '_top')</script>";
+				return "<script>javascript:
+					        $('#formLogin').each(function() {
+					            mensagem = $(this).children('#mensagem').val();
+					            $('#msgSlide').html('<span>Usuário ou senha invalidos!</span>');
+					            $('#msgSlide').slideDown('slow', function() {
+					                setTimeout(\"$('#msgSlide').slideUp('slow')\", 3000);
+					            });
+					        });
+				</script>";
 			}
 						
 			$moduloLogin->__destruct();

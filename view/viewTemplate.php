@@ -269,10 +269,10 @@ class ViewTemplate {
                       <tr>
                         <th>Código</th>
                         <th>Nome</th>
-                        <th>Telefone</th>
+                        <!--th>Telefone</th>
                         <th>E-mail</th>
                         <th>Logradouro</th>
-                        <th>Estado</th> 
+                        <th>Estado</th--> 
                         <th class="sorting_disabled" >Ações</th> 
                       </tr>
                     </thead>
@@ -286,7 +286,7 @@ class ViewTemplate {
                                     <td class="getId center"  style="cursor:pointer"  id="<?php echo $template->getId(); ?>" funcao="telaVisualizarTemplate" controlador="ControladorTemplate" retorno="div_central">
                                         <?php echo limitarTexto($template->getNome(), 27); ?>
                                     </td>
-                                    <td class="getId center"  style="cursor:pointer"  id="<?php echo $template->getId(); ?>" funcao="telaVisualizarTemplate" controlador="ControladorTemplate" retorno="div_central">
+                                    <!--td class="getId center"  style="cursor:pointer"  id="<?php echo $template->getId(); ?>" funcao="telaVisualizarTemplate" controlador="ControladorTemplate" retorno="div_central">
                                         <?php
                                         if ($template->getTelefoneResidencial()) {
                                             echo limitarTexto($template->getTelefoneResidencial(), 20);
@@ -321,11 +321,11 @@ class ViewTemplate {
                                             echo "-";
                                         }
                                         ?>
-                                    </td>                       
-                                    <td >
+                                    </td-->                       
+                                    <td style="text-align:center;width:100px;">
                                         <?php
-                                        echo ($perfil !== 'C')? '<input type="image" src="images/icn_edit.png" title="Alterar" id="'.$template->getId().'" class="getId" funcao="telaAlterarTemplate" controlador="ControladorTemplate" retorno="div_central">':'<input type="image" src="images/icn_edit_disable.png" title="Excluir" mensagem="4" style="cursor: default;">'; 
-                                        echo ($perfil === 'A')? '<input type="image" src="images/icn_trash.png" title="Excluir" id="'.$template->getId().'" class="deleteId" funcao="excluirTemplate" controlador="ControladorTemplate" retorno="div_central" mensagem="4">':'<input type="image" src="images/icn_trash_disable.png" title="Excluir" mensagem="4" style="cursor: default;">'; 
+                                            echo ($perfil !== 'C')? '<button class="btn btn-secondary getId btn-list" type="button" title="Alterar" id="'.$template->getId().'" funcao="telaAlterarTemplate" controlador="ControladorTemplate" retorno="div_central"><i class="fa fa-lg fa-edit"></i></button>':'<input type="image" src="images/icn_edit_disable.png" title="Editar" >';
+                                            echo ($perfil === 'A')? '<button class="btn btn-secondary deleteId btn-list" type="button" title="Excluir" id="'.$template->getId().'" funcao="excluirTemplate" controlador="ControladorTemplate" retorno="div_central" mensagem="4"><i class="fa fa-lg fa-trash"></i></button>':'<input type="image" src="images/icn_trash_disable.png" title="Excluir" >'; 
                                         ?>                                        
                                     </td > 
                                 </tr> 

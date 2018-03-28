@@ -20,8 +20,7 @@ class Login{
 		return $this->id;
 	}
 
-	public function setId($id){
-		
+	public function setId($id){		
 		if($id == ""){
 			throw new Exception('Atributo Id foi passado como nulo'); 
 		}

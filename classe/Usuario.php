@@ -6,7 +6,6 @@ class Usuario{
 	private $imagem;
 	private $login;
 	private $senha;
-	//private $empresa;
 	private $status;
 	private $perfil;
 	
@@ -64,17 +63,6 @@ class Usuario{
 		return $this->senha;
 	}
 	
-//	function setEmpresa($empresa){
-//		if($empresa == ""){
-//			throw new Exception('Atributo empresa foi passado como nulo');
-//		} 
-//		$this->empresa = $empresa;
-//	}
-//	
-//	function getEmpresa(){
-//		return $this->empresa;
-//	}
-	
 	function setImagem($imagem){
 		$this->imagem = $imagem;
 	}
@@ -92,8 +80,7 @@ class Usuario{
 	
 	function getStatus(){
 		return $this->status;
-	}
-	
+	}	
 	
 	function setPerfil($perfil){
 		$this->perfil = $perfil;

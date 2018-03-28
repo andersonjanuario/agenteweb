@@ -95,9 +95,9 @@ class ViewModulo {
                         <tr> 
                             <td class="getId" style="cursor:pointer"  id="<?php echo $modulo->getId(); ?>" funcao="telaVisualizarModulo" controlador="ControladorModulo" retorno="div_central"><?php echo str_pad($modulo->getId(), 5, "0", STR_PAD_LEFT); ?></td> 
                             <td class="getId" style="cursor:pointer"  id="<?php echo $modulo->getId(); ?>" funcao="telaVisualizarModulo" controlador="ControladorModulo" retorno="div_central"><?php echo $modulo->getNome(); ?></td> 
-                            <td >
-                                <input type="image" src="images/icn_edit.png" title="Alterar" id="<?php echo $modulo->getId(); ?>" class="getId" funcao="telaAlterarModulo" controlador="ControladorModulo" retorno="div_central">
-                                <input type="image" src="images/icn_trash.png" title="Excluir" id="<?php echo $modulo->getId(); ?>" class="deleteId" funcao="excluirModulo" controlador="ControladorModulo" retorno="div_central" mensagem="4">
+                            <td style="text-align:center;width:100px;">                              
+                                <button class="btn btn-secondary getId btn-list" type="button" title="Alterar" id="<?php echo $modulo->getId(); ?>" funcao="telaAlterarModulo" controlador="ControladorModulo" retorno="div_central"><i class="fa fa-lg fa-edit"></i></button>
+                                <button class="btn btn-secondary deleteId btn-list" type="button" title="Excluir" id="<?php echo $modulo->getId(); ?>" funcao="excluirModulo" controlador="ControladorModulo" retorno="div_central" mensagem="4"><i class="fa fa-lg fa-trash"></i></button>
                             </td> 
                         </tr> 
                     <?php

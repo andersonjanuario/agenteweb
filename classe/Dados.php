@@ -5,7 +5,7 @@ class Dados{
 	private $local = "localhost";
 	private $usuario = "root";
 	private $senha  = "";
-	private $banco = "conteudo";
+	private $banco = "agenteweb";
 
 	public function __construct(){
 	}

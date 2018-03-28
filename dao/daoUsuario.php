@@ -12,7 +12,7 @@ class DaoUsuario extends Dados{
 			$conexao = $this->conectarBanco();
 			$retorno = array();
 			$sql = "SELECT u.id, u.nome, u.imagem, u.login, u.senha, u.status, u.id_perfil
-          			FROM tb_conteudo_usuario u 
+          			FROM tb_agenteweb_usuario u 
 					WHERE u.status = '1'";
 			$sql .= ($id != null)?" AND u.id = ".$id:"";
 			$sql .= " GROUP BY u.id";
@@ -44,7 +44,7 @@ class DaoUsuario extends Dados{
 			$retorno = array();
 			$conexao = $this->conectarBanco();
 			$sql = "SELECT u.id, u.nome, u.imagem, u.login, u.senha, u.status, u.id_perfil              				
-          			FROM tb_conteudo_usuario u WHERE u.status = '1'";
+          			FROM tb_agenteweb_usuario u WHERE u.status = '1'";
 			$sql .= ($id != null)?" AND u.id = ".$id:"";
 			$sql .= " GROUP BY u.id";
 			
@@ -73,10 +73,7 @@ class DaoUsuario extends Dados{
 	public function incluirUsuario($usuario){
 		try {	
 			$conexao = $this->conectarBanco();
-			$sql = "INSERT INTO tb_conteudo_usuario(nome,imagem,login,senha,id_perfil,status) VALUES ('".$usuario->getNome()."','".$usuario->getImagem()."','".$usuario->getLogin()."','".$usuario->getSenha()."','".$usuario->getPerfil()."','".$usuario->getStatus()."')";
-//			mysqli_query($conexao,$sql) or die ('Erro na execução  do insert!');
-//			$usuario->setId(mysql_insert_id());
-//			$sql = "INSERT INTO tb_conteudo_usuario_empresa (id_usuario,id_empresa) VALUES ('".$usuario->getId()."','".$usuario->getEmpresa()."')";
+			$sql = "INSERT INTO tb_agenteweb_usuario(nome,imagem,login,senha,id_perfil,status) VALUES ('".$usuario->getNome()."','".$usuario->getImagem()."','".$usuario->getLogin()."','".$usuario->getSenha()."','".$usuario->getPerfil()."','".$usuario->getStatus()."')";
 			$retorno = mysqli_query($conexao,$sql) or die ('Erro na execução do insert relacional!');
 			$this->FecharBanco($conexao);
 			return $retorno;
@@ -90,7 +87,7 @@ class DaoUsuario extends Dados{
 		try {	
 
 			$conexao = $this->conectarBanco();
-			$sql = "UPDATE tb_conteudo_usuario SET  
+			$sql = "UPDATE tb_agenteweb_usuario SET  
 					nome = '".$usuario->getNome()."',
 					imagem = '".$usuario->getImagem()."',
 					login = '".$usuario->getLogin()."',
@@ -110,7 +107,7 @@ class DaoUsuario extends Dados{
 	public function excluirUsuario($id){
 		try {
 			$conexao = $this->conectarBanco();
-			$sql = "UPDATE tb_conteudo_usuario SET status = '0' WHERE id =".$id."";
+			$sql = "UPDATE tb_agenteweb_usuario SET status = '0' WHERE id =".$id."";
 			$retorno = mysqli_query($conexao,$sql) or die ('Erro na execução do delet!');
 			$this->FecharBanco($conexao);
 			return $retorno;
@@ -119,22 +116,6 @@ class DaoUsuario extends Dados{
 		}
 
 	}
-
-//	public function validaUsuarioEmpresa($usuario){
-//		try {	
-//			$conexao = $this->conectarBanco();
-//			$sql = "SELECT ue.id as id_usuario_empresa FROM tb_conteudo_usuario_empresa ue WHERE ue.id_usuario = ".$usuario->getId()." AND ue.id_empresa = ".$usuario->getEmpresa()->getId()."";
-//			
-//			$query = mysqli_query($conexao,$sql) or die ('Erro na execução do listar!');
-//			if($objetoUsuario =  mysqli_fetch_object($query)){
-//				$retorno = $objetoUsuario->id_usuario_empresa; 
-//			}
-//			$this->FecharBanco($conexao);
-//			return $retorno;
-//		} catch (Exception $e) {
-//			return $e;
-//		}	
-//	} 
 
 
 }

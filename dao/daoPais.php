@@ -11,7 +11,7 @@ class DaoPais extends Dados{
 		try {
 			$retorno = array();	
 			$conexao = $this->conectarBanco();
-			$sql = "SELECT id,nome FROM tb_conteudo_pais";
+			$sql = "SELECT id,nome FROM tb_agenteweb_pais";
 			$sql .= ($id != null)?" AND id = ".$id:"";
 			$query = mysqli_query($conexao,$sql) or die ('Erro na execução dos dados!');
 			while($objetoPais =  mysqli_fetch_object($query)){

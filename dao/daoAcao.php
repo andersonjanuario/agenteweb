@@ -17,9 +17,9 @@ class DaoAcao extends Dados{
 			$sql = "SELECT c.id,c.nome,c.id_perfil,c.controlador,c.funcao,c.status,c.secao,
 					       c.id_modulo, m.nome as nome_modulo, m.status as status_modulo,
 					       IF(a.perfil IS NULL,'0',a.perfil ) as perfil
-					FROM tb_conteudo_classe c
-					INNER JOIN tb_conteudo_modulo m ON (c.id_modulo = m.id)
-					LEFT JOIN tb_conteudo_acao_usuario a ON (a.id_classe = c.id AND a.id_usuario = ".$usuario->getId().")
+					FROM tb_agenteweb_classe c
+					INNER JOIN tb_agenteweb_modulo m ON (c.id_modulo = m.id)
+					LEFT JOIN tb_agenteweb_acao_usuario a ON (a.id_classe = c.id AND a.id_usuario = ".$usuario->getId().")
 					WHERE c.status = '1'";
 			
 			$query = mysqli_query($conexao,$sql) or die ('Erro na execução do listar acao!');
@@ -72,11 +72,11 @@ class DaoAcao extends Dados{
 		try {	
 			$conexao = $this->conectarBanco();
 			
-            $sql_remove = "DELETE FROM `tb_conteudo_acao_usuario` WHERE `id_usuario` = ".$usuario->getId()."";
+            $sql_remove = "DELETE FROM `tb_agenteweb_acao_usuario` WHERE `id_usuario` = ".$usuario->getId()."";
 			$remove = mysqli_query($conexao, $sql_remove) or die ('Erro na execução do delet!');
 			
 			
-			$sql = "INSERT INTO `tb_conteudo_acao_usuario` (
+			$sql = "INSERT INTO `tb_agenteweb_acao_usuario` (
                                                             `id` ,
                                                             `id_classe` ,
                                                             `id_usuario` ,
@@ -109,9 +109,9 @@ class DaoAcao extends Dados{
 			$sql = "SELECT c.id,c.nome,c.id_perfil,c.controlador,c.funcao,c.status,c.secao,
 					       c.id_modulo, m.nome as nome_modulo, m.status as status_modulo,
 					       IF(a.perfil IS NULL,'0',a.perfil ) as perfil
-					FROM tb_conteudo_classe c
-					INNER JOIN tb_conteudo_modulo m ON (c.id_modulo = m.id)
-					INNER JOIN tb_conteudo_acao_usuario a ON (a.id_classe = c.id AND a.id_usuario = ".$usuario->getId().")
+					FROM tb_agenteweb_classe c
+					INNER JOIN tb_agenteweb_modulo m ON (c.id_modulo = m.id)
+					INNER JOIN tb_agenteweb_acao_usuario a ON (a.id_classe = c.id AND a.id_usuario = ".$usuario->getId().")
 					WHERE c.status = '1' AND a.perfil <> '0'";
 			
 			$query = mysqli_query($conexao,$sql) or die ('Erro na execução do listarClasseAcaoParaMenu!: '.$sql);
@@ -164,10 +164,10 @@ class DaoAcao extends Dados{
 		try {	
 			$conexao = $this->conectarBanco();
 			$sql = "SELECT aue.perfil 
-					FROM tb_conteudo_acao_usuario aue
+					FROM tb_agenteweb_acao_usuario aue
 					WHERE aue.status = 1 AND 
 					      aue.id_usuario = ".$usuario->getId()."  AND 
-					      aue.id_classe  = (SELECT id FROM tb_conteudo_classe WHERE status = '1' AND funcao LIKE '%".$acao."%' )";
+					      aue.id_classe  = (SELECT id FROM tb_agenteweb_classe WHERE status = '1' AND funcao LIKE '%".$acao."%' )";
 			
 			
 			$query = mysqli_query($conexao,$sql) or die ('Erro na execução do listar!');

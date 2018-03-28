@@ -14,8 +14,8 @@ class DaoClasse extends Dados{
 			$conexao = $this->conectarBanco();
 			$sql = "SELECT c.id,c.nome,c.id_perfil,c.controlador,c.funcao,c.status,c.secao,
 					       c.id_modulo, m.nome as nome_modulo, m.status as status_modulo
-					FROM tb_conteudo_classe c
-					INNER JOIN tb_conteudo_modulo m ON (c.id_modulo = m.id)
+					FROM tb_agenteweb_classe c
+					INNER JOIN tb_agenteweb_modulo m ON (c.id_modulo = m.id)
 					WHERE c.status = '1'";
 			$sql .= ($id != null)?" AND c.id = ".$id:"";
 			$query = mysqli_query($conexao,$sql) or die ('Erro na execução  do listar!');
@@ -47,7 +47,7 @@ class DaoClasse extends Dados{
 	public function incluirClasse($classe){
 		try {	
 			$conexao = $this->conectarBanco();
-			$sql = "INSERT INTO tb_conteudo_classe(nome,id_perfil,controlador,funcao,secao,id_modulo,status) VALUES ('".$classe->getNome()."',2,'".$classe->getControlador()."','".$classe->getFuncao()."','".$classe->getSecao()."','".$classe->getModulo()."','".$classe->getStatus()."')";
+			$sql = "INSERT INTO tb_agenteweb_classe(nome,id_perfil,controlador,funcao,secao,id_modulo,status) VALUES ('".$classe->getNome()."',2,'".$classe->getControlador()."','".$classe->getFuncao()."','".$classe->getSecao()."','".$classe->getModulo()."','".$classe->getStatus()."')";
 			
 			$retorno = mysqli_query($conexao,$sql) or die ('Erro na execução  do insert!');
 			$this->FecharBanco($conexao);
@@ -61,7 +61,7 @@ class DaoClasse extends Dados{
 		try {	
 			
 			$conexao = $this->conectarBanco();
-			$sql = "UPDATE tb_conteudo_classe SET nome = '".$classe->getNome()."', secao = '".$classe->getSecao()."', funcao = '".$classe->getFuncao()."', id_perfil = 2, controlador = '".$classe->getControlador()."', id_modulo = '".$classe->getModulo()."', status = '".$classe->getStatus()."' WHERE id =".$classe->getId()."";
+			$sql = "UPDATE tb_agenteweb_classe SET nome = '".$classe->getNome()."', secao = '".$classe->getSecao()."', funcao = '".$classe->getFuncao()."', id_perfil = 2, controlador = '".$classe->getControlador()."', id_modulo = '".$classe->getModulo()."', status = '".$classe->getStatus()."' WHERE id =".$classe->getId()."";
 			$retorno = mysqli_query($conexao,$sql) or die ('Erro na execução  do update!');
 			$this->FecharBanco($conexao);
 			return $retorno;
@@ -74,10 +74,10 @@ class DaoClasse extends Dados{
 		try {
 			$conexao = $this->conectarBanco();
 			
-			$sql = "UPDATE tb_conteudo_classe SET status = '0' WHERE id = ".$id."";
+			$sql = "UPDATE tb_agenteweb_classe SET status = '0' WHERE id = ".$id."";
 			$retorno = mysqli_query($conexao,$sql) or die ('Erro na execução  do delet!');
 			
-			$sql = "UPDATE tb_conteudo_acao_usuario SET status = '0' WHERE id_classe = ".$id."";
+			$sql = "UPDATE tb_agenteweb_acao_usuario SET status = '0' WHERE id_classe = ".$id."";
 			$retorno = mysqli_query($conexao,$sql) or die ('Erro na execução  do delet!');
 			
 			

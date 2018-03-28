@@ -11,7 +11,7 @@ class DaoLogin extends Dados{
 		try {	
 			$conexao = $this->conectarBanco();
 			
-			$sql = "SELECT id,login,senha FROM tb_conteudo_usuario WHERE login = '".$post["login"]."' AND senha = '".$post["senha"]."' AND status = '1'";
+			$sql = "SELECT id,login,senha FROM tb_agenteweb_usuario WHERE login = '".$post["login"]."' AND senha = '".$post["senha"]."' AND status = '1'";
 			$query = mysqli_query($conexao,$sql) or die ('Erro na execução  do listar!');
 			if(mysqli_num_rows($query) == 1){
 				$obj =  mysqli_fetch_object($query);
@@ -36,7 +36,7 @@ class DaoLogin extends Dados{
 	public function incluirLogin($login){
 		try {	
 			$conexao = $this->conectarBanco();
-			$sql = "INSERT INTO tb_conteudo_login (id_usuario,data,status) VALUES ('".$login->getUsuario()."',NOW(),'".$login->getStatus()."')";
+			$sql = "INSERT INTO tb_agenteweb_login (id_usuario,data,status) VALUES ('".$login->getUsuario()."',NOW(),'".$login->getStatus()."')";
 			$retorno = mysqli_query($conexao,$sql) or die ('Erro na execução  do insert!');
 			$this->FecharBanco($conexao);
 			return $retorno;
@@ -48,7 +48,7 @@ class DaoLogin extends Dados{
 	
 	public function ultimoAcesso($id){
 		$conexao = $this->conectarBanco();
-		$sql = "SELECT timediff(NOW(),data) as tempo_de_diferenca FROM tb_conteudo_login WHERE id_usuario = '".$id."' ORDER BY id DESC LIMIT 1,1";
+		$sql = "SELECT timediff(NOW(),data) as tempo_de_diferenca FROM tb_agenteweb_login WHERE id_usuario = '".$id."' ORDER BY id DESC LIMIT 1,1";
 		$query = mysqli_query($conexao,$sql) or die ('Erro na execução  do listar!');
 		if($obj =  mysqli_fetch_object($query)){
 			return $tempo_de_diferenca = $obj->tempo_de_diferenca;

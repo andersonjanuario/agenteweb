@@ -19,8 +19,8 @@ class DaoTemplate extends Dados {
             $sql = "SELECT	c.id,c.nome,c.sexo,c.profissao,c.faixa_salarial,c.data_nascimento,c.cpf,c.imagem,c.arquivo,
 							c.logradouro,c.numero,c.cep,c.estado,c.telefone_residencial,
 							c.email,c.data_cadastro,c.data_modificacao,c.id_pais,p1.nome as nome_pais,c.status							
-							FROM tb_conteudo_template c 							
-							LEFT JOIN tb_conteudo_pais p1 ON (c.id_pais = p1.id)
+							FROM tb_agenteweb_template c 							
+							LEFT JOIN tb_agenteweb_pais p1 ON (c.id_pais = p1.id)
 					WHERE c.status = '1'";
             $sql .= ($id != null) ? " AND c.id = " . $id : "";
             $query = mysqli_query($conexao,$sql) or die('Erro na execução do listar!');
@@ -68,7 +68,7 @@ class DaoTemplate extends Dados {
         try {
             $conexao = $this->conectarBanco();
             
-            $sql = "INSERT INTO tb_conteudo_template (  id,
+            $sql = "INSERT INTO tb_agenteweb_template (  id,
                                                         nome,
                                                         sexo,                                                        
                                                         profissao,
@@ -119,7 +119,7 @@ class DaoTemplate extends Dados {
         try {
 
             $conexao = $this->conectarBanco();
-            $sql = "UPDATE tb_conteudo_template SET nome = '" . $template->getNome() . "',
+            $sql = "UPDATE tb_agenteweb_template SET nome = '" . $template->getNome() . "',
 											sexo = '" . $template->getSexo() . "',											
 											profissao = '" . $template->getProfissao() . "',
 											faixa_salarial = '" . $template->getFaixaSalarial() . "',
@@ -150,7 +150,7 @@ class DaoTemplate extends Dados {
         try {
             $conexao = $this->conectarBanco();
 
-            $sql = "UPDATE tb_conteudo_template SET status = '0' WHERE id = " . $id . "";            
+            $sql = "UPDATE tb_agenteweb_template SET status = '0' WHERE id = " . $id . "";            
             $retorno = mysqli_query($conexao,$sql) or die('Erro na execução do delet!');
 
             $this->FecharBanco($conexao);

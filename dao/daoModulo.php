@@ -11,7 +11,7 @@ class DaoModulo extends Dados{
 		try {	
 			$retorno = array();
 			$conexao = $this->conectarBanco();
-			$sql = "SELECT id,nome,status FROM tb_conteudo_modulo WHERE status = '1' ";
+			$sql = "SELECT id,nome,status FROM tb_agenteweb_modulo WHERE status = '1' ";
 			$sql .= ($id != null)?" AND id = ".$id:"";
 			$query = mysqli_query($conexao,$sql) or die ('Erro na execução  do listar!');
 			while($objetoModulo =  mysqli_fetch_object($query)){
@@ -32,7 +32,7 @@ class DaoModulo extends Dados{
 	public function incluirModulo($modulo){
 		try {	
 			$conexao = $this->conectarBanco();
-			$sql = "INSERT INTO tb_conteudo_modulo(nome,status) VALUES ('".$modulo->getNome()."','".$modulo->getStatus()."')";
+			$sql = "INSERT INTO tb_agenteweb_modulo(nome,status) VALUES ('".$modulo->getNome()."','".$modulo->getStatus()."')";
 			$retorno = mysqli_query($conexao,$sql) or die ('Erro na execução  do insert!');
 			$this->FecharBanco($conexao);
 			return $retorno;
@@ -44,7 +44,7 @@ class DaoModulo extends Dados{
 	public function alterarModulo($modulo){
 		try {	
 			$conexao = $this->conectarBanco();
-			$sql = "UPDATE tb_conteudo_modulo SET nome = '".$modulo->getNome()."',status = '".$modulo->getStatus()."' WHERE id =".$modulo->getId()."";
+			$sql = "UPDATE tb_agenteweb_modulo SET nome = '".$modulo->getNome()."',status = '".$modulo->getStatus()."' WHERE id =".$modulo->getId()."";
 			$retorno = mysqli_query($conexao,$sql) or die ('Erro na execução  do update!');
 			$this->FecharBanco($conexao);
 			return $retorno;
@@ -57,13 +57,13 @@ class DaoModulo extends Dados{
 		try {
 			$conexao = $this->conectarBanco();
 			
-			$sql = "UPDATE tb_conteudo_acao_usuario SET status = '0' WHERE id_classe IN (SELECT id FROM tb_conteudo_classe WHERE id_modulo = ".$id.")";
+			$sql = "UPDATE tb_agenteweb_acao_usuario SET status = '0' WHERE id_classe IN (SELECT id FROM tb_agenteweb_classe WHERE id_modulo = ".$id.")";
 			$retorno = mysqli_query($conexao,$sql) or die ('Erro na execução  do delet acao usuario empresa!');
 						
-			$sql = "UPDATE tb_conteudo_classe SET status = '0' WHERE id_modulo = ".$id."";
+			$sql = "UPDATE tb_agenteweb_classe SET status = '0' WHERE id_modulo = ".$id."";
 			$retorno = mysqli_query($conexao,$sql) or die ('Erro na execução  do delet classe!');
 			
-			$sql = "UPDATE tb_conteudo_modulo SET status = '0' WHERE id = ".$id."";
+			$sql = "UPDATE tb_agenteweb_modulo SET status = '0' WHERE id = ".$id."";
 			$retorno = mysqli_query($conexao,$sql) or die ('Erro na execução  do delet modulo!');
 			
 			$this->FecharBanco($conexao);

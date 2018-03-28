@@ -24,14 +24,14 @@ require_once "controle/controladorModulo.php";
 require_once "controle/controladorTemplate.php";
 
 
-require_once "modulo/daoAcao.php";
-require_once "modulo/daoClasse.php";
+require_once "dao/daoAcao.php";
+require_once "dao/daoClasse.php";
 
-require_once "modulo/daoLogin.php";
-require_once "modulo/daoPais.php";
-require_once "modulo/daoUsuario.php";
-require_once "modulo/daoModulo.php";
-require_once "modulo/daoTemplate.php";
+require_once "dao/daoLogin.php";
+require_once "dao/daoPais.php";
+require_once "dao/daoUsuario.php";
+require_once "dao/daoModulo.php";
+require_once "dao/daoTemplate.php";
 
 require_once "view/viewAcao.php";
 require_once "view/viewClasse.php";

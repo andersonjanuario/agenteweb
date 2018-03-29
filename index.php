@@ -7,7 +7,7 @@
     <!-- Main CSS-->
     <link rel="stylesheet" type="text/css" href="css/main.css">
     <!-- Font-icon css-->
-    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="css/font-awesome-4.7.0/font-awesome.min.css">
     <title>Login - Agente Web</title>
   </head>
   <body>
@@ -46,7 +46,7 @@
             </div>
           </div>
           <div class="form-group btn-container">
-            <a id="loginbtn" class="btn btn-primary btn-block formLogin" style="color:#FFF;"><i class="fa fa-sign-in fa-lg fa-fw"></i>Logar</a>
+            <a id="loginbtn" class="btn btn-primary btn-block formLogin" onClick="fncFormLogin(this)" style="color:#FFF;"><i class="fa fa-sign-in fa-lg fa-fw"></i>Logar</a>
           </div>
         </form>
         <!--form class="forget-form" action="index.html">
@@ -68,7 +68,7 @@
     <script src="js/jquery-3.2.1.min.js"></script>
     <script src="js/popper.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
-    <script src="js/main.js"></script>
+    <script src="js/library.js" type="text/javascript" ></script>
     <!-- The javascript plugin to display page loading on top-->
     <script src="js/plugins/pace.min.js"></script>
     <script type="text/javascript">
@@ -78,17 +78,15 @@
       	return false;
       });
     </script>
-
-    <script src="js/lib.js" type="text/javascript" ></script>
-        <script language="JavaScript">
-          function enterPressed(evn) {
-            if (window.event && window.event.keyCode == 13) {
-              $('.formLogin').click();
-            } else if (evn && evn.keyCode == 13) {
-              $('.formLogin').click();           
-            }
-          }
-          document.onkeypress = enterPressed;
-        </script>    
-      </body>
+    <script language="JavaScript">
+      function enterPressed(evn) {
+        if (window.event && window.event.keyCode == 13) {
+          $('.formLogin').click();
+        } else if (evn && evn.keyCode == 13) {
+          $('.formLogin').click();           
+        }
+      }
+      document.onkeypress = enterPressed;
+    </script>    
+  </body>
 </html>

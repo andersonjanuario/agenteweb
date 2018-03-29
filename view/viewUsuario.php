@@ -11,8 +11,7 @@ class ViewUsuario{
 	
 	public function telaCadastrarUsuario(){		
 		?>
-		<script src="js/popupUpload.js" type="text/javascript"></script>
-        <script type="text/javascript">
+		<script type="text/javascript">
         <?php
           //echo ($post) ? "$.growlUI2('" . $post . "', '&nbsp;');" : "";
         ?> 
@@ -23,7 +22,7 @@ class ViewUsuario{
 
 	      <div class="app-title">
 	        <div>
-	          <h1><i class="fa fa-dashboard"></i> Módulos </h1>
+	          <h1><i class="fa fa-id-card"></i> Módulos </h1>
 	          <!--p>A free and modular admin template</p-->
 	        </div>
 	        <ul class="app-breadcrumb breadcrumb">
@@ -81,7 +80,8 @@ class ViewUsuario{
 		            <input type="hidden" name="retorno" id="retorno" value="div_central"/>
 		            <input type="hidden" name="controlador" id="controlador" value="ControladorUsuario"/>
 		            <input type="hidden" name="funcao" id="funcao" value="incluirUsuario"/>
-		            <input type="hidden" name="mensagem" id="mensagem" value="1"/>              
+		            <input type="hidden" name="mensagem" id="mensagem" value="1"/> 
+		            <input type="hidden" name="imagem" id="imagem" value="" />             
 
 		            <!--div class="form-group">
 		                <label>Imagem Largura Máxima: 640px<br /> 
@@ -125,13 +125,12 @@ class ViewUsuario{
 	              </form>
 	            </div>
 	            <div class="tile-footer">
-	              <button class="btn btn-primary formCadastro" type="button"><i class="fa fa-fw fa-lg fa-check-circle"></i>Salvar</button>
-	              &nbsp;&nbsp;&nbsp;<a class="btn btn-secondary buttonCadastro" href="#" funcao="telaListarUsuario" controlador="ControladorUsuario" retorno="div_central" ><i class="fa fa-fw fa-lg fa-times-circle"></i>Voltar</a>
+	              <button class="btn btn-primary " onClick="fncFormCadastro(this)" type="button"><i class="fa fa-fw fa-lg fa-check-circle"></i>Salvar</button>
+	              &nbsp;&nbsp;&nbsp;<a class="btn btn-secondary " onClick="fncButtonCadastro(this)" href="#" funcao="telaListarUsuario" controlador="ControladorUsuario" retorno="div_central" ><i class="fa fa-fw fa-lg fa-times-circle"></i>Voltar</a>
 	            </div>
 	          </div>
 	        </div>
-	      </div>
-	      <script src="js/lib.js"></script>
+	      </div>	      
 	<?php
 	} 
 	
@@ -141,7 +140,7 @@ class ViewUsuario{
       <div class="app-title">
         <div>
           <h1><i class="fa fa-th-list"></i> Módulos &nbsp;&nbsp;&nbsp;
-            <a href="#" class="btn btn-primary buttonCadastro" funcao="telaCadastrarUsuario" controlador="ControladorUsuario" retorno="div_central">Novo</a>
+            <a href="#" class="btn btn-primary " onClick="fncButtonCadastro(this)" funcao="telaCadastrarUsuario" controlador="ControladorUsuario" retorno="div_central"><i class="fa fa-fw fa-lg fa-plus"></i>Novo</a>
           </h1>
           <!--p>Table to display analytical data effectively</p-->
         </div>
@@ -170,13 +169,13 @@ class ViewUsuario{
                         foreach ($objUsuario as $usuario) {
                     ?>    
 						<tr> 
-							<td class="getId" style="cursor:pointer"  id="<?php echo $usuario->getId(); ?>" funcao="telaVisualizarUsuario" controlador="ControladorUsuario" retorno="div_central"><?php echo str_pad($usuario->getId(), 5, "0", STR_PAD_LEFT); ?></td> 
-							<td class="getId" style="cursor:pointer"  id="<?php echo $usuario->getId(); ?>" funcao="telaVisualizarUsuario" controlador="ControladorUsuario" retorno="div_central"><?php echo $usuario->getNome(); ?></td> 
-							<td class="getId" style="cursor:pointer"  id="<?php echo $usuario->getId(); ?>" funcao="telaVisualizarUsuario" controlador="ControladorUsuario" retorno="div_central"><?php echo $usuario->getLogin();?></td> 
+							<td onClick="getId(this)" style="cursor:pointer"  id="<?php echo $usuario->getId(); ?>" funcao="telaVisualizarUsuario" controlador="ControladorUsuario" retorno="div_central"><?php echo str_pad($usuario->getId(), 5, "0", STR_PAD_LEFT); ?></td> 
+							<td onClick="getId(this)" style="cursor:pointer"  id="<?php echo $usuario->getId(); ?>" funcao="telaVisualizarUsuario" controlador="ControladorUsuario" retorno="div_central"><?php echo $usuario->getNome(); ?></td> 
+							<td onClick="getId(this)" style="cursor:pointer"  id="<?php echo $usuario->getId(); ?>" funcao="telaVisualizarUsuario" controlador="ControladorUsuario" retorno="div_central"><?php echo $usuario->getLogin();?></td> 
 							<td style="text-align:center;width:140px;">
-								<button class="btn btn-secondary getId btn-list" type="button" title="Alterar" id="<?php echo $usuario->getId(); ?>" funcao="telaAlterarUsuario" controlador="ControladorUsuario" retorno="div_central"><i class="fa fa-lg fa-edit"></i></button>
-                                <button class="btn btn-secondary deleteId btn-list" type="button" title="Excluir" id="<?php echo $usuario->getId(); ?>" funcao="excluirUsuario" controlador="ControladorUsuario" retorno="div_central" mensagem="4"><i class="fa fa-lg fa-trash"></i></button>
-                                <button class="btn btn-secondary getId btn-list" type="button" title="Perfil" id="<?php echo $usuario->getId(); ?>" funcao="telaListarAcao" controlador="ControladorAcao" retorno="div_central" ><i class="fa fa-lg fa-lock"></i></button>
+								<button onClick="getId(this)" class="btn btn-secondary btn-list" type="button" title="Alterar" id="<?php echo $usuario->getId(); ?>" funcao="telaAlterarUsuario" controlador="ControladorUsuario" retorno="div_central"><i class="fa fa-lg fa-edit"></i></button>
+                                <button class="btn btn-secondary btn-list" onClick="fncDeleteId(this)" type="button" title="Excluir" id="<?php echo $usuario->getId(); ?>" funcao="excluirUsuario" controlador="ControladorUsuario" retorno="div_central" mensagem="4"><i class="fa fa-lg fa-trash"></i></button>
+                                <button onClick="getId(this)" class="btn btn-secondary btn-list" type="button" title="Perfil" id="<?php echo $usuario->getId(); ?>" funcao="telaListarAcao" controlador="ControladorAcao" retorno="div_central" ><i class="fa fa-lg fa-lock"></i></button>
 							</td> 
 						</tr> 
                     <?php
@@ -189,16 +188,14 @@ class ViewUsuario{
           </div>
         </div>
       </div>
-    <script type="text/javascript">$('#sampleTable').DataTable();</script>
-    <script src="js/lib.js"></script>
+    <script type="text/javascript">$('#sampleTable').DataTable();</script>    
 	<?php 
 	}
 	
 	
 	public function telaAlterarUsuario($objUsuario){
 		?>
-		  <script src="js/popup-upload.js" type="text/javascript"></script>
-	      <script type="text/javascript">
+		  <script type="text/javascript">
 			$(document).ready(function() {
 			    fncInserirArquivo("form_imagem", "progress", "porcentagem", "imagem", "imagemAtual", "./imagens/usuario/", "imagem");
 			});
@@ -206,7 +203,7 @@ class ViewUsuario{
 
 	      <div class="app-title">
 	        <div>
-	          <h1><i class="fa fa-dashboard"></i> Módulos </h1>	         
+	          <h1><i class="fa fa-id-card"></i> Módulos </h1>	         
 	        </div>
 	        <ul class="app-breadcrumb breadcrumb">
 	          <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
@@ -272,27 +269,7 @@ class ViewUsuario{
 					<input type="hidden" name="funcao" id="funcao" value="alterarUsuario"/>
 					<input type="hidden" name="mensagem" id="mensagem" value="2"/>
 					<input type="hidden" name="id" id="id" value="<?php echo $objUsuario[0]->getId()?>"/>
-		            <!--div class="form-group">
-		                <label class="control-label">Imagem Largura Máxima: 640px<br /> 
-						<a href="javascript:fnInserirArquivo('imagem','./imagens/usuario/','640','imagem')">
-							<img name="imagemIcone" src="img/notes-add.gif" border="0" title="Clique para adicionar" />
-						</a>
-						<a href="javascript:fnRemoverArquivo('imagem','./imagens/usuario/','imagem')">
-							<img src="img/notes-reject.gif" border="0" title="Clique para remover" />
-						</a>				
-						</label>
-						<?php 
-							if($objUsuario[0]->getImagem()){
-								$imagem = "./imagens/usuario/thumbnail".$objUsuario[0]->getImagem();
-							}else{
-								$imagem  = "./img/imagemPadrao.jpg";
-							}
-						?>	 
-						<span name="imagemLink" id="<?php echo $imagem;?>" title="Imagem" >
-							<img name="imagemAtual" src="<?php echo $imagem ;?>" border="0" />
-						</span>
-						<input type="hidden" name="imagem" id="imagem" value="<?php echo $objUsuario[0]->getImagem();?>" />
-					</div-->            
+					<input type="hidden" name="imagem" id="imagem" value="" />
 					<div class="form-group">
 		                <label class="control-label">Nome *</label>
 		                <input type="text" id="nome" name="nome" value="<?php echo $objUsuario[0]->getNome() ;?>" class="mgs_alerta form-control" onkeyup="this.value=this.value.toUpperCase();" >
@@ -329,13 +306,12 @@ class ViewUsuario{
 	              </form>
 	            </div>
 	            <div class="tile-footer">
-	              <button class="btn btn-primary formCadastro" type="button"><i class="fa fa-fw fa-lg fa-check-circle"></i>Salvar</button>
-	              &nbsp;&nbsp;&nbsp;<a class="btn btn-secondary buttonCadastro" href="#" funcao="telaListarUsuario" controlador="ControladorUsuario" retorno="div_central" ><i class="fa fa-fw fa-lg fa-times-circle"></i>Voltar</a>
+	              <button class="btn btn-primary " onClick="fncFormCadastro(this)" type="button"><i class="fa fa-fw fa-lg fa-check-circle"></i>Salvar</button>
+	              &nbsp;&nbsp;&nbsp;<a class="btn btn-secondary " onClick="fncButtonCadastro(this)" href="#" funcao="telaListarUsuario" controlador="ControladorUsuario" retorno="div_central" ><i class="fa fa-fw fa-lg fa-times-circle"></i>Voltar</a>
 	            </div>
 	          </div>
 	        </div>
-	      </div>
-	      <script src="js/lib.js"></script>	
+	      </div>	      
 	<?php
 	} 
 	
@@ -345,7 +321,7 @@ class ViewUsuario{
 
 	      <div class="app-title">
 	        <div>
-	          <h1><i class="fa fa-dashboard"></i> Módulos </h1>	         
+	          <h1><i class="fa fa-id-card"></i> Módulos </h1>	         
 	        </div>
 	        <ul class="app-breadcrumb breadcrumb">
 	          <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
@@ -410,13 +386,12 @@ class ViewUsuario{
 	              </form>
 	            </div>
 	            <div class="tile-footer">
-	              <button class="btn btn-primary formCadastro" type="button"><i class="fa fa-fw fa-lg fa-check-circle"></i>Salvar</button>
-	              &nbsp;&nbsp;&nbsp;<a class="btn btn-secondary buttonCadastro" href="#" funcao="telaListarUsuario" controlador="ControladorUsuario" retorno="div_central" ><i class="fa fa-fw fa-lg fa-times-circle"></i>Voltar</a>
+	              <button class="btn btn-primary " onClick="fncFormCadastro(this)" type="button"><i class="fa fa-fw fa-lg fa-check-circle"></i>Salvar</button>
+	              &nbsp;&nbsp;&nbsp;<a class="btn btn-secondary " onClick="fncButtonCadastro(this)" href="#" funcao="telaListarUsuario" controlador="ControladorUsuario" retorno="div_central" ><i class="fa fa-fw fa-lg fa-times-circle"></i>Voltar</a>
 	            </div>
 	          </div>
 	        </div>
-	      </div>
-	      <script src="js/lib.js"></script>
+	      </div>	      
 	<?php
 	} 
 

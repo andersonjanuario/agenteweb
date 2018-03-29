@@ -14,13 +14,13 @@ class ViewClasse{
 		<script type="text/javascript">
 			<?php
 			echo ($post)?"$.growlUI2('".$post."', '&nbsp;');":"";
-			?>			        
+			?>	
    		</script>
 
 
 	      <div class="app-title">
 	        <div>
-	          <h1><i class="fa fa-dashboard"></i> Classes </h1>
+	          <h1><i class="fa fa-list"></i> Classes </h1>
 	          <!--p>A free and modular admin template</p-->
 	        </div>
 	        <ul class="app-breadcrumb breadcrumb">
@@ -43,7 +43,7 @@ class ViewClasse{
 					<input type="hidden" name="mensagem" id="mensagem" value="1"/>              
 	                <div class="form-group">
 	                  <label class="control-label">Nome *</label>
-	                  <input class="form-control mgs_alerta" id="nome" name="nome" type="text" onkeyup="this.value=this.value.toUpperCase();" >
+	                  <input class="form-control mgs_alerta" id="nome" name="nome" type="text" onkeyup="this.value=this.value.capitalize();" >
 	                </div>
 					<div class="form-group">
 						<label class="control-label">Controlador *</label>
@@ -80,13 +80,12 @@ class ViewClasse{
 	              </form>
 	            </div>
 	            <div class="tile-footer">
-	              <button class="btn btn-primary formCadastro" type="button"><i class="fa fa-fw fa-lg fa-check-circle"></i>Salvar</button>
-	              &nbsp;&nbsp;&nbsp;<a class="btn btn-secondary buttonCadastro" href="#" funcao="telaListarClasse" controlador="ControladorClasse" retorno="div_central" ><i class="fa fa-fw fa-lg fa-times-circle"></i>Voltar</a>
+	              <button class="btn btn-primary " onClick="fncFormCadastro(this)" type="button"><i class="fa fa-fw fa-lg fa-check-circle"></i>Salvar</button>
+	              &nbsp;&nbsp;&nbsp;<a class="btn btn-secondary " onClick="fncButtonCadastro(this)" href="#" funcao="telaListarClasse" controlador="ControladorClasse" retorno="div_central" ><i class="fa fa-fw fa-lg fa-times-circle"></i>Voltar</a>
 	            </div>
 	          </div>
 	        </div>
-	      </div>
-	      <script src="js/lib.js"></script>
+	      </div>	      
 		<?php
 	} 
 	
@@ -96,7 +95,7 @@ class ViewClasse{
       <div class="app-title">
         <div>
           <h1><i class="fa fa-th-list"></i> Módulos &nbsp;&nbsp;&nbsp;
-            <a href="#" class="btn btn-primary buttonCadastro" funcao="telaCadastrarClasse" controlador="ControladorClasse" retorno="div_central">Novo</a>
+            <a href="#" class="btn btn-primary " onClick="fncButtonCadastro(this)" funcao="telaCadastrarClasse" controlador="ControladorClasse" retorno="div_central"><i class="fa fa-fw fa-lg fa-plus"></i>Novo</a>
           </h1>
           <!--p>Table to display analytical data effectively</p-->
         </div>
@@ -128,15 +127,15 @@ class ViewClasse{
                         foreach ($objClasse as $classe) {
                     ?>    
 						<tr> 
-							<td class="getId" style="cursor:pointer"  id="<?php echo $classe->getId(); ?>" funcao="telaVisualizarClasse" controlador="ControladorClasse" retorno="div_central"><?php echo str_pad($classe->getId(), 5, "0", STR_PAD_LEFT); ?></td> 
-							<td class="getId" style="cursor:pointer"  id="<?php echo $classe->getId(); ?>" funcao="telaVisualizarClasse" controlador="ControladorClasse" retorno="div_central"><?php echo $classe->getNome(); ?></td> 
-							<td class="getId" style="cursor:pointer"  id="<?php echo $classe->getId(); ?>" funcao="telaVisualizarClasse" controlador="ControladorClasse" retorno="div_central"><?php echo ($classe->getControlador())?$classe->getControlador():"-";?></td> 
-							<td class="getId" style="cursor:pointer"  id="<?php echo $classe->getId(); ?>" funcao="telaVisualizarClasse" controlador="ControladorClasse" retorno="div_central"><?php echo ($classe->getFuncao())?$classe->getFuncao():"-";?></td> 
-							<td class="getId" style="cursor:pointer"  id="<?php echo $classe->getId(); ?>" funcao="telaVisualizarClasse" controlador="ControladorClasse" retorno="div_central"><?php echo ($classe->getSecao())?$classe->getSecao():"-";?></td> 
-                            <td class="getId" style="cursor:pointer"  id="<?php echo $classe->getId(); ?>" funcao="telaVisualizarClasse" controlador="ControladorClasse" retorno="div_central"><?php echo ($classe->getModulo())?$classe->getModulo()->getNome():"-";?></td> 
+							<td onClick="getId(this)" style="cursor:pointer"  id="<?php echo $classe->getId(); ?>" funcao="telaVisualizarClasse" controlador="ControladorClasse" retorno="div_central"><?php echo str_pad($classe->getId(), 5, "0", STR_PAD_LEFT); ?></td> 
+							<td onClick="getId(this)" style="cursor:pointer"  id="<?php echo $classe->getId(); ?>" funcao="telaVisualizarClasse" controlador="ControladorClasse" retorno="div_central"><?php echo $classe->getNome(); ?></td> 
+							<td onClick="getId(this)" style="cursor:pointer"  id="<?php echo $classe->getId(); ?>" funcao="telaVisualizarClasse" controlador="ControladorClasse" retorno="div_central"><?php echo ($classe->getControlador())?$classe->getControlador():"-";?></td> 
+							<td onClick="getId(this)" style="cursor:pointer"  id="<?php echo $classe->getId(); ?>" funcao="telaVisualizarClasse" controlador="ControladorClasse" retorno="div_central"><?php echo ($classe->getFuncao())?$classe->getFuncao():"-";?></td> 
+							<td onClick="getId(this)" style="cursor:pointer"  id="<?php echo $classe->getId(); ?>" funcao="telaVisualizarClasse" controlador="ControladorClasse" retorno="div_central"><?php echo ($classe->getSecao())?$classe->getSecao():"-";?></td> 
+                            <td onClick="getId(this)" style="cursor:pointer"  id="<?php echo $classe->getId(); ?>" funcao="telaVisualizarClasse" controlador="ControladorClasse" retorno="div_central"><?php echo ($classe->getModulo())?$classe->getModulo()->getNome():"-";?></td> 
 							<td style="text-align:center;width:100px">
-								<button class="btn btn-secondary getId btn-list" type="button" title="Alterar" id="<?php echo $classe->getId(); ?>" funcao="telaAlterarClasse" controlador="ControladorClasse" retorno="div_central"><i class="fa fa-lg fa-edit"></i></button>
-								<button class="btn btn-secondary deleteId btn-list" type="button" title="Excluir" id="<?php echo $classe->getId(); ?>" funcao="excluirClasse" controlador="ControladorClasse" retorno="div_central" mensagem="4"><i class="fa fa-lg fa-trash"></i></button>
+								<button onClick="getId(this)" class="btn btn-secondary btn-list" type="button" title="Alterar" id="<?php echo $classe->getId(); ?>" funcao="telaAlterarClasse" controlador="ControladorClasse" retorno="div_central"><i class="fa fa-lg fa-edit"></i></button>
+								<button class="btn btn-secondary btn-list" onClick="fncDeleteId(this)" type="button" title="Excluir" id="<?php echo $classe->getId(); ?>" funcao="excluirClasse" controlador="ControladorClasse" retorno="div_central" mensagem="4"><i class="fa fa-lg fa-trash"></i></button>
 							</td> 
 						</tr>                         
                     <?php
@@ -149,8 +148,7 @@ class ViewClasse{
           </div>
         </div>
       </div>
-    <script type="text/javascript">$('#sampleTable').DataTable();</script>
-    <script src="js/lib.js"></script>
+    <script type="text/javascript">$('#sampleTable').DataTable();</script>    
 	<?php 
 	}
 		
@@ -160,7 +158,7 @@ class ViewClasse{
 
 	      <div class="app-title">
 	        <div>
-	          <h1><i class="fa fa-dashboard"></i> Classes </h1>
+	          <h1><i class="fa fa-list"></i> Classes </h1>
 	          <!--p>A free and modular admin template</p-->
 	        </div>
 	        <ul class="app-breadcrumb breadcrumb">
@@ -184,7 +182,7 @@ class ViewClasse{
 					<input type="hidden" name="id" id="id" value="<?php echo $objClasse[0]->getId();?>"/>	
 					<div class="form-group">
 						<label class="control-label">Nome *</label>
-						<input type="text" id="nome" name="nome" value="<?php echo $objClasse[0]->getNome();?>" class="mgs_alerta form-control" onkeyup="this.value=this.value.toUpperCase();" >
+						<input type="text" id="nome" name="nome" value="<?php echo $objClasse[0]->getNome();?>" class="mgs_alerta form-control"  onkeyup="this.value=this.value.capitalize();">
 					</div>
 					<div class="form-group">
 						<label class="control-label">Controlador *</label>
@@ -223,13 +221,12 @@ class ViewClasse{
 	              </form>
 	            </div>
 	            <div class="tile-footer">
-	              <button class="btn btn-primary formCadastro" type="button"><i class="fa fa-fw fa-lg fa-check-circle"></i>Salvar</button>
-	              &nbsp;&nbsp;&nbsp;<a class="btn btn-secondary buttonCadastro" href="#" funcao="telaListarClasse" controlador="ControladorClasse" retorno="div_central" ><i class="fa fa-fw fa-lg fa-times-circle"></i>Voltar</a>
+	              <button class="btn btn-primary " onClick="fncFormCadastro(this)" type="button"><i class="fa fa-fw fa-lg fa-check-circle"></i>Salvar</button>
+	              &nbsp;&nbsp;&nbsp;<a class="btn btn-secondary " onClick="fncButtonCadastro(this)" href="#" funcao="telaListarClasse" controlador="ControladorClasse" retorno="div_central" ><i class="fa fa-fw fa-lg fa-times-circle"></i>Voltar</a>
 	            </div>
 	          </div>
 	        </div>
-	      </div>
-	      <script src="js/lib.js"></script>			
+	      </div>	      
 		<?php
 	} 
 	
@@ -240,7 +237,7 @@ class ViewClasse{
 
 	      <div class="app-title">
 	        <div>
-	          <h1><i class="fa fa-dashboard"></i> Classes </h1>
+	          <h1><i class="fa fa-list"></i> Classes </h1>
 	          <!--p>A free and modular admin template</p-->
 	        </div>
 	        <ul class="app-breadcrumb breadcrumb">
@@ -298,12 +295,11 @@ class ViewClasse{
 	              </form>
 	            </div>
 	            <div class="tile-footer">
-	              <a class="btn btn-secondary buttonCadastro" href="#" funcao="telaListarClasse" controlador="ControladorClasse" retorno="div_central" ><i class="fa fa-fw fa-lg fa-times-circle"></i>Voltar</a>
+	              <a class="btn btn-secondary " onClick="fncButtonCadastro(this)" href="#" funcao="telaListarClasse" controlador="ControladorClasse" retorno="div_central" ><i class="fa fa-fw fa-lg fa-times-circle"></i>Voltar</a>
 	            </div>
 	          </div>
 	        </div>
-	      </div>
-	      <script src="js/lib.js"></script>
+	      </div>	      
 		<?php
 	} 
 	

@@ -29,7 +29,7 @@ class ViewTemplate {
         </script>
           <div class="app-title">
             <div>
-              <h1><i class="fa fa-dashboard"></i> Template </h1>              
+              <h1><i class="fa fa-file-text-o"></i> Template </h1>              
             </div>
             <ul class="app-breadcrumb breadcrumb">
               <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
@@ -128,23 +128,10 @@ class ViewTemplate {
                     <input type="hidden" name="mensagem" id="mensagem" value="1"/>
                     <input type="hidden" name="arquivo" id="arquivo" value="" />    
                     <input type="hidden" name="imagem" id="imagem" value="" />              
-                    <div class="form-group">
-                      <label class="control-label">Nome *</label>
-                      <input class="form-control mgs_alerta" id="nome" name="nome" type="text" onkeyup="this.value=this.value.toUpperCase();" >
-                    </div>
-
                 <div class="form-group">
-                    <label class="control-label">Nome - Texto *</label>
-                    <input type="text"  onkeyup="this.value = this.value.toUpperCase();" id="nome" name="nome" value="" class="form-control mgs_alerta" >
+                  <label class="control-label">Nome *</label>
+                  <input class="form-control mgs_alerta" id="nome" name="nome" type="text" onkeyup="this.value=this.value.toUpperCase();" >
                 </div>
-
-                <!--div class="form-group">
-                    <label class="control-label">Radio *</label>
-                    <input type="radio" name="sexo" checked="checked" value="M" class="form-control"/>
-                    Masculino
-                    <input type="radio" name="sexo" value="F" class="form-control" />
-                    Feminino                        
-                </div-->
                 <div class="animated-radio-button">
                   <label class="control-label">Radio *</label><br/>
                   <label>
@@ -230,13 +217,12 @@ class ViewTemplate {
                   </form>
                 </div>
                 <div class="tile-footer">
-                  <button class="btn btn-primary formCadastro" type="button"><i class="fa fa-fw fa-lg fa-check-circle"></i>Salvar</button>
-                  &nbsp;&nbsp;&nbsp;<a class="btn btn-secondary buttonCadastro" href="#" funcao="telaListarTemplate" controlador="ControladorTemplate" retorno="div_central" ><i class="fa fa-fw fa-lg fa-times-circle"></i>Voltar</a>
+                  <button class="btn btn-primary " onClick="fncFormCadastro(this)" type="button"><i class="fa fa-fw fa-lg fa-check-circle"></i>Salvar</button>
+                  &nbsp;&nbsp;&nbsp;<a class="btn btn-secondary " onClick="fncButtonCadastro(this)" href="#" funcao="telaListarTemplate" controlador="ControladorTemplate" retorno="div_central" ><i class="fa fa-fw fa-lg fa-times-circle"></i>Voltar</a>
                 </div>
               </div>
             </div>
-          </div>
-          <script src="js/lib.js"></script>
+          </div>          
         <?php
     }
 
@@ -247,11 +233,7 @@ class ViewTemplate {
           <div class="app-title">
             <div>
               <h1><i class="fa fa-th-list"></i> Template &nbsp;&nbsp;&nbsp;
-                <?php
-                    if( $perfil === 'A' ){
-                ?>
-                    <a href="#" class="btn btn-primary buttonCadastro" funcao="telaCadastrarTemplate" controlador="ControladorTemplate" retorno="div_central">Novo</a>
-                <?php } ?>
+                <button class="btn btn-primary " <?php echo ($perfil === 'A')?'onClick="fncButtonCadastro(this)"':'disabled="true"'; ?> funcao="telaCadastrarTemplate" controlador="ControladorTemplate" retorno="div_central"><i class="fa fa-fw fa-lg fa-plus"></i>Novo</button>                
               </h1>              
             </div>
             <ul class="app-breadcrumb breadcrumb side">
@@ -283,10 +265,10 @@ class ViewTemplate {
                         ?>    
                                 <tr> 
                                     <td class="center"><?php echo str_pad($template->getId(), 5, "0", STR_PAD_LEFT); ?></td>
-                                    <td class="getId center"  style="cursor:pointer"  id="<?php echo $template->getId(); ?>" funcao="telaVisualizarTemplate" controlador="ControladorTemplate" retorno="div_central">
+                                    <td class="center" onClick="getId(this)"   style="cursor:pointer"  id="<?php echo $template->getId(); ?>" funcao="telaVisualizarTemplate" controlador="ControladorTemplate" retorno="div_central">
                                         <?php echo limitarTexto($template->getNome(), 27); ?>
                                     </td>
-                                    <!--td class="getId center"  style="cursor:pointer"  id="<?php echo $template->getId(); ?>" funcao="telaVisualizarTemplate" controlador="ControladorTemplate" retorno="div_central">
+                                    <!--td class="center" onClick="getId(this)"  style="cursor:pointer"  id="<?php echo $template->getId(); ?>" funcao="telaVisualizarTemplate" controlador="ControladorTemplate" retorno="div_central">
                                         <?php
                                         if ($template->getTelefoneResidencial()) {
                                             echo limitarTexto($template->getTelefoneResidencial(), 20);
@@ -295,7 +277,7 @@ class ViewTemplate {
                                         }
                                         ?>
                                     </td>
-                                    <td class="getId center"  style="cursor:pointer"  id="<?php echo $template->getId(); ?>" funcao="telaVisualizarTemplate" controlador="ControladorTemplate" retorno="div_central">
+                                    <td class="center" onClick="getId(this)"  style="cursor:pointer"  id="<?php echo $template->getId(); ?>" funcao="telaVisualizarTemplate" controlador="ControladorTemplate" retorno="div_central">
                                         <?php
                                         if ($template->getEmail() != "") {
                                             echo limitarTexto($template->getEmail(), 27);
@@ -304,7 +286,7 @@ class ViewTemplate {
                                         }
                                         ?>
                                     </td>
-                                    <td class="getId center"  style="cursor:pointer"  id="<?php echo $template->getId(); ?>" funcao="telaVisualizarTemplate" controlador="ControladorTemplate" retorno="div_central">
+                                    <td class="center" onClick="getId(this)"  style="cursor:pointer"  id="<?php echo $template->getId(); ?>" funcao="telaVisualizarTemplate" controlador="ControladorTemplate" retorno="div_central">
                                         <?php
                                         if ($template->getLogradouro() != "") {
                                             echo limitarTexto($template->getLogradouro(), 20);
@@ -313,7 +295,7 @@ class ViewTemplate {
                                         }
                                         ?>
                                     </td>
-                                    <td class="getId center"  style="cursor:pointer"  id="<?php echo $template->getId(); ?>" funcao="telaVisualizarTemplate" controlador="ControladorTemplate" retorno="div_central">
+                                    <td class="center" onClick="getId(this)"  style="cursor:pointer"  id="<?php echo $template->getId(); ?>" funcao="telaVisualizarTemplate" controlador="ControladorTemplate" retorno="div_central">
                                         <?php
                                         if ($template->getEstado() != "") {
                                             echo $template->getEstado();
@@ -321,13 +303,20 @@ class ViewTemplate {
                                             echo "-";
                                         }
                                         ?>
-                                    </td-->                       
-                                    <td style="text-align:center;width:100px;">
+                                    </td-->
+                                    <td style="text-align:center;width:100px;">                              
+                                        <button <?php echo ($perfil !== 'C')?'onClick="getId(this)"':'disabled="true"'; ?> class="btn btn-secondary btn-list" type="button" title="Alterar" id="<?php echo $template->getId(); ?>" funcao="telaAlterarTemplate" controlador="ControladorTemplate" retorno="div_central"><i class="fa fa-lg fa-edit"></i></button>
+                                        <button <?php echo ($perfil === 'A')?'onClick="fncDeleteId(this)"':'disabled="true"'; ?> class="btn btn-secondary btn-list" type="button" title="Excluir" id="<?php echo $template->getId(); ?>" funcao="excluirTemplate" controlador="ControladorTemplate" retorno="div_central" mensagem="4"><i class="fa fa-lg fa-trash"></i></button>
+                                    </td> 
+
+
+
+                                    <!--td style="text-align:center;width:100px;">
                                         <?php
-                                            echo ($perfil !== 'C')? '<button class="btn btn-secondary getId btn-list" type="button" title="Alterar" id="'.$template->getId().'" funcao="telaAlterarTemplate" controlador="ControladorTemplate" retorno="div_central"><i class="fa fa-lg fa-edit"></i></button>':'<input type="image" src="images/icn_edit_disable.png" title="Editar" >';
-                                            echo ($perfil === 'A')? '<button class="btn btn-secondary deleteId btn-list" type="button" title="Excluir" id="'.$template->getId().'" funcao="excluirTemplate" controlador="ControladorTemplate" retorno="div_central" mensagem="4"><i class="fa fa-lg fa-trash"></i></button>':'<input type="image" src="images/icn_trash_disable.png" title="Excluir" >'; 
+                                            //echo ($perfil !== 'C')? '<button class="btn btn-secondary btn-list" onClick="getId(this)" type="button" title="Alterar" id="'.$template->getId().'" funcao="telaAlterarTemplate" controlador="ControladorTemplate" retorno="div_central"><i class="fa fa-lg fa-edit"></i></button>':'<input type="image" src="images/icn_edit_disable.png" title="Editar" >';
+                                            //echo ($perfil === 'A')? '<button onClick="fncDeleteId(this)" class="btn btn-secondary btn-list" type="button" title="Excluir" id="'.$template->getId().'" funcao="excluirTemplate" controlador="ControladorTemplate" retorno="div_central" mensagem="4"><i class="fa fa-lg fa-trash"></i></button>':'<input type="image" src="images/icn_trash_disable.png" title="Excluir" >'; 
                                         ?>                                        
-                                    </td > 
+                                    </td --> 
                                 </tr> 
                         <?php
                             }
@@ -338,9 +327,8 @@ class ViewTemplate {
                 </div>
               </div>
             </div>
-          </div>
-        <script type="text/javascript">$('#sampleTable').DataTable();</script>
-        <script src="js/lib.js"></script>
+          </div>        
+          <script type="text/javascript">$('#sampleTable').DataTable();</script>        
         <?php
     }
 
@@ -359,7 +347,7 @@ class ViewTemplate {
 
           <div class="app-title">
             <div>
-              <h1><i class="fa fa-dashboard"></i> Template </h1>              
+              <h1><i class="fa fa-file-text-o"></i> Template </h1>              
             </div>
             <ul class="app-breadcrumb breadcrumb">
               <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
@@ -493,7 +481,7 @@ class ViewTemplate {
                     </div>
                     <div class="form-group">
                         <label class="control-label">Profissão</label>                    
-                        <textarea id="profissao" name="profissao" value="<?php echo $objTemplate[0]->getProfissao(); ?>" class="form-control" ></textarea>
+                        <textarea id="profissao" name="profissao" class="form-control" ><?php echo $objTemplate[0]->getProfissao(); ?></textarea>
                     </div>
                     <div class="form-group">
                         <label class="control-label">Faixa Salarial R$ </label>
@@ -561,13 +549,12 @@ class ViewTemplate {
                   </form>
                 </div>
                 <div class="tile-footer">
-                  <button class="btn btn-primary formCadastro" type="button"><i class="fa fa-fw fa-lg fa-check-circle"></i>Salvar</button>
-                  &nbsp;&nbsp;&nbsp;<a class="btn btn-secondary buttonCadastro" href="#" funcao="telaListarTemplate" controlador="ControladorTemplate" retorno="div_central" ><i class="fa fa-fw fa-lg fa-times-circle"></i>Voltar</a>
+                  <button class="btn btn-primary " onClick="fncFormCadastro(this)" type="button"><i class="fa fa-fw fa-lg fa-check-circle"></i>Salvar</button>
+                  &nbsp;&nbsp;&nbsp;<a class="btn btn-secondary " onClick="fncButtonCadastro(this)" href="#" funcao="telaListarTemplate" controlador="ControladorTemplate" retorno="div_central" ><i class="fa fa-fw fa-lg fa-times-circle"></i>Voltar</a>
                 </div>
               </div>
             </div>
-          </div>
-          <script src="js/lib.js"></script>
+          </div>         
         <?php
     }
 
@@ -575,7 +562,7 @@ class ViewTemplate {
         ?>
           <div class="app-title">
             <div>
-              <h1><i class="fa fa-dashboard"></i> Template </h1>              
+              <h1><i class="fa fa-file-text-o"></i> Template </h1>              
             </div>
             <ul class="app-breadcrumb breadcrumb">
               <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
@@ -708,138 +695,11 @@ class ViewTemplate {
                   </form>
                 </div>
                 <div class="tile-footer">
-                  <a class="btn btn-secondary buttonCadastro" href="#" funcao="telaListarTemplate" controlador="ControladorTemplate" retorno="div_central" ><i class="fa fa-fw fa-lg fa-times-circle"></i>Voltar</a>
+                  <a class="btn btn-secondary " onClick="fncButtonCadastro(this)" href="#" funcao="telaListarTemplate" controlador="ControladorTemplate" retorno="div_central" ><i class="fa fa-fw fa-lg fa-times-circle"></i>Voltar</a>
                 </div>
               </div>
             </div>
           </div>
-          <script src="js/lib.js"></script>
-
-        <!--script src="js/popup-upload.js" type="text/javascript"></script>
-        <script src="js/mascara.js" type="text/javascript"></script>
-        <script src="js/jquery-ui/jquery.ui.datepicker.min.js" type="text/javascript"></script>
-        <script type="text/javascript">
-                        //$(document).ready(function () {
-                        $(".maskMoney").maskMoney();
-                        setDatePicker('data_nascimento');
-                        //});
-        </script>
-        <header><h3 class="tabs_involved">Visualizar Template</h3>
-            <ul class="tabs">
-                <li><a href="#" funcao="telaListarTemplate" controlador="ControladorTemplate" retorno="div_central" class="buttonCadastro" >Voltar</a></li>            
-            </ul>
-        </header>
-        <div class="module_content">
-            <form action="#" method="post" id="formCadastro" class="">
-                <input type="hidden" name="arquivo" id="arquivo" value="<?php echo $objTemplate[0]->getArquivo(); ?>" />    
-                <fieldset>
-                    <label>Imagem Largura Máxima: 640px</label>&nbsp;&nbsp;
-                    <?php
-                    if ($objTemplate[0]->getImagem()) {
-                        $imagem = "./imagens/template/thumbnail" . $objTemplate[0]->getImagem();
-                    } else {
-                        $imagem = "./img/imagemPadrao.jpg";
-                    }
-                    ?>	 
-                    <span name="imagemLink" id="<?php echo $imagem; ?>" title="Imagem" >
-                        <img name="imagemAtual" src="<?php echo $imagem; ?>" border="0" />
-                    </span>
-                </fieldset>  			
-                <fieldset>
-                    <label>Arquivo Tamanho Máximo: 2MB</label>
-                    <span name="arquivoAtual" onClick="fnAbreArquivo('arquivo', './arquivos/template/')" style="<?php echo ($objTemplate[0]->getArquivo()) ? 'cursor: pointer; text-decoration: underline;' : '' ?>">
-                        <?php
-                        if ($objTemplate[0]->getArquivo()) {
-                            echo $objTemplate[0]->getArquivo();
-                        } else {
-                            ?>Adicione um arquivo clicando no <img src="./img/img_upload.png" border="0" style="float:none;margin:0;width: 20px;" /><?php
-                        }
-                        ?>                                                    
-                    </span>
-                </fieldset>            
-                <fieldset>
-                    <label>Nome *</label>
-                    <?php echo $objTemplate[0]->getNome(); ?>
-                </fieldset>
-                <fieldset>
-                    <label>Sexo *</label>
-                    <?php echo retornarSexo($objTemplate[0]->getSexo()); ?>	
-                </fieldset>
-                <fieldset>
-                    <label>Estado Civil</label>
-                    <?php echo recuperarEstadoCivil($objTemplate[0]->getEstadoCivil()); ?>         									
-                </fieldset>
-                <fieldset>
-                    <label>Profissão</label>
-                    <?php echo $objTemplate[0]->getProfissao(); ?>
-                </fieldset>
-                <fieldset>
-                    <label>Faixa Salarial</label>
-                    <?php echo valorMonetario($objTemplate[0]->getFaixaSalarial(), "2"); ?>
-                </fieldset>
-                <fieldset>
-                    <label>Data de Nascimento</label>
-                    <?php echo ($objTemplate[0]->getDataNascimento() != "0000-00-00") ? recuperaData($objTemplate[0]->getDataNascimento()) : ""; ?>
-                </fieldset>
-                <fieldset>
-                    <label>CPF</label>
-                    <?php echo $objTemplate[0]->getCpf(); ?>
-                </fieldset>
-                <fieldset>
-                    <label>Identidade</label>
-                    <?php echo $objTemplate[0]->getIdentidade(); ?>
-                </fieldset>
-                <fieldset>
-                    <label>Logradouro</label>
-                    <?php echo $objTemplate[0]->getLogradouro(); ?>
-                </fieldset>
-                <fieldset>
-                    <label>Número</label>
-                    <?php echo $objTemplate[0]->getNumero(); ?>
-                </fieldset>
-                <fieldset>
-                    <label>Complemento</label>
-                    <?php echo $objTemplate[0]->getComplemento(); ?>
-                </fieldset>
-                <fieldset>
-                    <label>Bairro</label>
-                    <?php echo $objTemplate[0]->getBairro(); ?>
-                </fieldset>
-                <fieldset>
-                    <label>Cidade</label>
-                    <?php echo $objTemplate[0]->getCidade(); ?>
-                </fieldset>
-                <fieldset>
-                    <label>CEP</label>
-                    <?php echo $objTemplate[0]->getCep(); ?>
-                </fieldset>
-                <fieldset>
-                    <label>Estado</label>
-                    <?php echo $objTemplate[0]->getEstado(); ?>
-                </fieldset>
-                <fieldset>
-                    <label>Telefone Residencial</label>
-                    <?php echo $objTemplate[0]->getTelefoneResidencial(); ?>
-                </fieldset>
-                <fieldset>
-                    <label>Telefone Celular</label>
-                    <?php echo $objTemplate[0]->getTelefoneCelular(); ?>
-                </fieldset>
-                <fieldset>
-                    <label>Telefone Comercial</label>
-                    <?php echo $objTemplate[0]->getTelefoneComercial(); ?>
-                </fieldset>
-                <fieldset>
-                    <label>E-mail</label>
-                    <?php echo $objTemplate[0]->getEmail(); ?>
-                </fieldset>
-                <fieldset>
-                    <label>Pais</label>
-                    <?php echo $objTemplate[0]->getPais()->getNome(); ?>                                 
-                </fieldset>			
-                <div class="clear"></div>            
-            </form>
-        </div-->	        
         <?php
     }
 

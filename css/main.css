@@ -14839,7 +14839,7 @@ div.growlUI h1, div.growlUI h2 {color: white; padding: 5px 5px 5px 75px; text-al
 /* Mensagem Alerta  Styles */
 
 /* Mensagem Alerta Styles */
-div.grow2UI { background: url(../img/close48.png) no-repeat 10px 10px }
+div.grow2UI { background: url(../img/close48.png) no-repeat 10px 10px; }
 div.grow2UI h1, div.growlUI h2 {color: white; padding: 5px 5px 5px 75px; text-align: left;font-size: 14px;}
 /* Mensagem Alerta  Styles */
 

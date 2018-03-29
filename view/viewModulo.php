@@ -22,7 +22,7 @@ class ViewModulo {
 
       <div class="app-title">
         <div>
-          <h1><i class="fa fa-dashboard"></i> Módulos </h1>
+          <h1><i class="fa fa-sitemap"></i> Módulos </h1>
           <!--p>A free and modular admin template</p-->
         </div>
         <ul class="app-breadcrumb breadcrumb">
@@ -50,13 +50,12 @@ class ViewModulo {
               </form>
             </div>
             <div class="tile-footer">
-              <button class="btn btn-primary formCadastro" type="button"><i class="fa fa-fw fa-lg fa-check-circle"></i>Salvar</button>
-              &nbsp;&nbsp;&nbsp;<a class="btn btn-secondary buttonCadastro" href="#" funcao="telaListarModulo" controlador="ControladorModulo" retorno="div_central" ><i class="fa fa-fw fa-lg fa-times-circle"></i>Voltar</a>
+              <button class="btn btn-primary " onClick="fncFormCadastro(this)" type="button"><i class="fa fa-fw fa-lg fa-check-circle"></i>Salvar</button>
+              &nbsp;&nbsp;&nbsp;<a class="btn btn-secondary " onClick="fncButtonCadastro(this)" href="#" funcao="telaListarModulo" controlador="ControladorModulo" retorno="div_central" ><i class="fa fa-fw fa-lg fa-times-circle"></i>Voltar</a>
             </div>
           </div>
         </div>
-      </div>
-      <script src="js/lib.js"></script>
+      </div>      
     <?php
     }    
 
@@ -65,7 +64,7 @@ class ViewModulo {
       <div class="app-title">
         <div>
           <h1><i class="fa fa-th-list"></i> Módulos &nbsp;&nbsp;&nbsp;
-            <a href="#" class="btn btn-primary buttonCadastro" funcao="telaCadastrarModulo" controlador="ControladorModulo" retorno="div_central">Novo</a>
+            <a href="#" class="btn btn-primary " onClick="fncButtonCadastro(this)" funcao="telaCadastrarModulo" controlador="ControladorModulo" retorno="div_central"><i class="fa fa-fw fa-lg fa-plus"></i>Novo</a>
           </h1>
           <!--p>Table to display analytical data effectively</p-->
         </div>
@@ -93,11 +92,11 @@ class ViewModulo {
                         foreach ($objModulo as $modulo) {
                     ?>    
                         <tr> 
-                            <td class="getId" style="cursor:pointer"  id="<?php echo $modulo->getId(); ?>" funcao="telaVisualizarModulo" controlador="ControladorModulo" retorno="div_central"><?php echo str_pad($modulo->getId(), 5, "0", STR_PAD_LEFT); ?></td> 
-                            <td class="getId" style="cursor:pointer"  id="<?php echo $modulo->getId(); ?>" funcao="telaVisualizarModulo" controlador="ControladorModulo" retorno="div_central"><?php echo $modulo->getNome(); ?></td> 
+                            <td onClick="getId(this)" style="cursor:pointer"  id="<?php echo $modulo->getId(); ?>" funcao="telaVisualizarModulo" controlador="ControladorModulo" retorno="div_central"><?php echo str_pad($modulo->getId(), 5, "0", STR_PAD_LEFT); ?></td> 
+                            <td onClick="getId(this)"  style="cursor:pointer"  id="<?php echo $modulo->getId(); ?>" funcao="telaVisualizarModulo" controlador="ControladorModulo" retorno="div_central"><?php echo $modulo->getNome(); ?></td> 
                             <td style="text-align:center;width:100px;">                              
-                                <button class="btn btn-secondary getId btn-list" type="button" title="Alterar" id="<?php echo $modulo->getId(); ?>" funcao="telaAlterarModulo" controlador="ControladorModulo" retorno="div_central"><i class="fa fa-lg fa-edit"></i></button>
-                                <button class="btn btn-secondary deleteId btn-list" type="button" title="Excluir" id="<?php echo $modulo->getId(); ?>" funcao="excluirModulo" controlador="ControladorModulo" retorno="div_central" mensagem="4"><i class="fa fa-lg fa-trash"></i></button>
+                                <button onClick="getId(this)" class="btn btn-secondary btn-list" type="button" title="Alterar" id="<?php echo $modulo->getId(); ?>" funcao="telaAlterarModulo" controlador="ControladorModulo" retorno="div_central"><i class="fa fa-lg fa-edit"></i></button>
+                                <button class="btn btn-secondary btn-list" onClick="fncDeleteId(this)" type="button" title="Excluir" id="<?php echo $modulo->getId(); ?>" funcao="excluirModulo" controlador="ControladorModulo" retorno="div_central" mensagem="4"><i class="fa fa-lg fa-trash"></i></button>
                             </td> 
                         </tr> 
                     <?php
@@ -110,8 +109,7 @@ class ViewModulo {
           </div>
         </div>
       </div>
-    <script type="text/javascript">$('#sampleTable').DataTable();</script>
-    <script src="js/lib.js"></script>
+    <script type="text/javascript">$('#sampleTable').DataTable();</script>    
     <?php
     }
 
@@ -119,7 +117,7 @@ class ViewModulo {
         ?>
       <div class="app-title">
         <div>
-          <h1><i class="fa fa-dashboard"></i> Módulos </h1>
+          <h1><i class="fa fa-sitemap"></i> Módulos </h1>
           <!--p>A free and modular admin template</p-->
         </div>
         <ul class="app-breadcrumb breadcrumb">
@@ -148,21 +146,20 @@ class ViewModulo {
               </form>
             </div>
             <div class="tile-footer">
-              <button class="btn btn-primary formCadastro" type="button"><i class="fa fa-fw fa-lg fa-check-circle"></i>Salvar</button>
-              &nbsp;&nbsp;&nbsp;<a class="btn btn-secondary buttonCadastro" href="#" funcao="telaListarModulo" controlador="ControladorModulo" retorno="div_central" ><i class="fa fa-fw fa-lg fa-times-circle"></i>Voltar</a>
+              <button class="btn btn-primary " onClick="fncFormCadastro(this)" type="button"><i class="fa fa-fw fa-lg fa-check-circle"></i>Salvar</button>
+              &nbsp;&nbsp;&nbsp;<a class="btn btn-secondary " onClick="fncButtonCadastro(this)" href="#" funcao="telaListarModulo" controlador="ControladorModulo" retorno="div_central" ><i class="fa fa-fw fa-lg fa-times-circle"></i>Voltar</a>
             </div>
           </div>
         </div>
-      </div>
-      <script src="js/lib.js"></script>        
-        <?php
+      </div>      
+      <?php
     }
 
     public function telaVisualizarModulo($objModulo) {
         ?>
       <div class="app-title">
         <div>
-          <h1><i class="fa fa-dashboard"></i> Módulos </h1>
+          <h1><i class="fa fa-sitemap"></i> Módulos </h1>
           <!--p>A free and modular admin template</p-->
         </div>
         <ul class="app-breadcrumb breadcrumb">
@@ -186,13 +183,12 @@ class ViewModulo {
               </form>
             </div>
             <div class="tile-footer">
-              <a class="btn btn-secondary buttonCadastro" href="#" funcao="telaListarModulo" controlador="ControladorModulo" retorno="div_central" ><i class="fa fa-fw fa-lg fa-times-circle"></i>Voltar</a>
+              <a class="btn btn-secondary " onClick="fncButtonCadastro(this)" href="#" funcao="telaListarModulo" controlador="ControladorModulo" retorno="div_central" ><i class="fa fa-fw fa-lg fa-times-circle"></i>Voltar</a>
             </div>
           </div>
         </div>
       </div>
-      <script src="js/lib.js"></script>            
-        <?php
+      <?php
     }
 
 }

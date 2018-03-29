@@ -31,7 +31,7 @@ class ControladorTemplate {
 			$template->setDataNascimento(desformataData($post["data_nascimento"]));
 			$template->setCpf($post["cpf"]);			
 			$template->setImagem($post["imagem"]);
-                        $template->setArquivo($post["arquivo"]);
+            $template->setArquivo($post["arquivo"]);
 			$template->setLogradouro($post["logradouro"]);
 			$template->setNumero($post["numero"]);
 			$template->setCep($post["cep"]);

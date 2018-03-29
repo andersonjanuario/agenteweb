@@ -103,7 +103,8 @@
 			// $.blockUI.defaults.css = {};
 			css: {
 				padding:	0,
-				margin:		0,
+				//margin:		0,
+				marginTop: '50px',
 				width:		'30%',
 				height: 	'100px',
 				top:		'40%',

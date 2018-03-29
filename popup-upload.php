@@ -186,7 +186,7 @@ if ($opcao == "1") {
                             $erro = true;
                         }
                         if (!$erro) {
-                            echo "<script type='text/javascript'>window.opener.guardarDados(\"00»" . $nome_arquivo . "»" . "\"); window.parent.close();</script>";
+                            echo "<script type='text/javascript'>window.opener.guardarDados(\"00»" . $nome_arquivo . "»" . "\"); </script>";
                             exit();
                         }
                     } else if ($tipoArq == "arquivo") {
@@ -198,7 +198,7 @@ if ($opcao == "1") {
                             $erro = true;
                         }
                         if (!$erro) {
-                            echo "<script type='text/javascript'>window.opener.guardarDados(\"00»" . $nome_arquivo . "»" . "\"); window.parent.close();</script>";
+                            echo "<script type='text/javascript'>window.opener.guardarDados(\"00»" . $nome_arquivo . "»" . "\"); </script>";
                             exit();
                         }
                     }

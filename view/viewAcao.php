@@ -16,8 +16,7 @@ class ViewAcao{
 
       <div class="app-title">
         <div>
-          <h1><i class="fa fa-dashboard"></i> Módulos </h1>
-          <!--p>A free and modular admin template</p-->
+          <h1><i class="fa fa-unlock"></i> Módulos </h1>          
         </div>
         <ul class="app-breadcrumb breadcrumb">
           <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
@@ -115,13 +114,12 @@ class ViewAcao{
               </form>
             </div>
             <div class="tile-footer">
-              <button class="btn btn-primary formCadastro" type="button"><i class="fa fa-fw fa-lg fa-check-circle"></i>Salvar</button>
-              &nbsp;&nbsp;&nbsp;<a class="btn btn-secondary buttonCadastro" href="#" funcao="telaListarUsuario" controlador="ControladorUsuario"  retorno="div_central" ><i class="fa fa-fw fa-lg fa-times-circle"></i>Voltar</a>
+              <button class="btn btn-primary " onClick="fncFormCadastro(this)" type="button"><i class="fa fa-fw fa-lg fa-check-circle"></i>Salvar</button>
+              &nbsp;&nbsp;&nbsp;<a class="btn btn-secondary " onClick="fncButtonCadastro(this)" href="#" funcao="telaListarUsuario" controlador="ControladorUsuario"  retorno="div_central" ><i class="fa fa-fw fa-lg fa-times-circle"></i>Voltar</a>
             </div>
           </div>
         </div>
-      </div>
-      <script src="js/lib.js"></script>
+      </div>      
 	<?php
 	} 
 		

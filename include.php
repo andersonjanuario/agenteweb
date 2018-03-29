@@ -1,7 +1,7 @@
 <?php
 require_once "classe/Autoload.php";
 
-
+//Classes
 require_once "classe/Acao.php";
 require_once "classe/Classe.php";
 require_once "classe/Dados.php";
@@ -12,7 +12,7 @@ require_once "classe/Pais.php";
 require_once "classe/Template.php";
 require_once "classe/Usuario.php";
 
-
+//Controllers
 require_once "controle/controladorAcao.php";
 require_once "controle/controladorClasse.php";
 
@@ -23,7 +23,7 @@ require_once "controle/controladorUsuario.php";
 require_once "controle/controladorModulo.php";
 require_once "controle/controladorTemplate.php";
 
-
+//Dados
 require_once "dao/daoAcao.php";
 require_once "dao/daoClasse.php";
 
@@ -41,6 +41,7 @@ require_once "view/viewUsuario.php";
 require_once "view/viewModulo.php";
 require_once "view/viewTemplate.php";
 
-require_once "lib.php";
+//Utils
+require_once "library.php";
 
 ?>

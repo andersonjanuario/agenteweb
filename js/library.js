@@ -1,27 +1,38 @@
-// JavaScript 
+(function () {
+    "use strict";
 
-$(document).ready(function() {
+    var treeviewMenu = $('.app-menu');
 
-    /*
-     Bloco abaixo é responsavel pela navegação das abas ocutando todas e em seguida
-     exibindo apenas a clicada! 
-     */
-    $('.li_aba').on('click', function() {
-        $('.div_cad').css('display', 'none'); //tornar todos os elementos invisiveis
-        $($(this).attr('rel')).css('display', ''); //tornar visivel apenas o proprio elemento
-
-        $('.li_aba').css('background', '#DFDFDF'); //tornar todas as listar brancas
-        $(this).css('background', '#FFFFFF'); //tornar a lista pai do proprio objeto cinza
-
-        $('body,html').animate({
-            scrollTop: 0 //Ancora para ficar no topo
-        });
+    // Toggle Sidebar
+    $('[data-toggle="sidebar"]').click(function(event) {
+        event.preventDefault();
+        $('.app').toggleClass('sidenav-toggled');
     });
+
+    // Activate sidebar treeview toggle
+    $("[data-toggle='treeview']").click(function(event) {
+        event.preventDefault();
+        if(!$(this).parent().hasClass('is-expanded')) {
+            treeviewMenu.find("[data-toggle='treeview']").parent().removeClass('is-expanded');
+        }
+        $(this).parent().toggleClass('is-expanded');
+    });
+
+    // Set initial active toggle
+    $("[data-toggle='treeview.'].is-expanded").parent().toggleClass('is-expanded');
+
+    //Activate bootstrip tooltips
+    $("[data-toggle='tooltip']").tooltip();
+
+})();
+
+
+// JavaScript 
 
     /**
      * Função reponsavel por cadastros de formulario
-     */
-    $('.formCadastro').on('click', function() {
+     */    
+    function fncFormCadastro(element){    
 
         valido = true;
         $('#formCadastro').each(function() {
@@ -107,19 +118,17 @@ $(document).ready(function() {
                 }
             });
         }
-
-    });
+    };
 
 
     /**
      * 
      * Função responsavel por gerar ação atraves de um bottao ou ate mesmo imagem
      */
-    $('.buttonCadastro').on('click', function() {
-        controlador = $(this).attr('controlador');
-        funcao = $(this).attr('funcao');
-        retorno = $(this).attr('retorno');
-
+    function fncButtonCadastro(element){
+        controlador = $(element).attr('controlador');
+        funcao = $(element).attr('funcao');
+        retorno = $(element).attr('retorno');
 
         $.ajax({
             url: 'controlador.php',
@@ -142,176 +151,26 @@ $(document).ready(function() {
 
             }
         });
-    });
+    };
 
-    /**
-     * 
-     * Função responsavel por gerar ação atraves de um bottao ou ate mesmo imagem
-     */
-    $('.buttonMenu').on('click', function() {
-        controlador = $(this).attr('controlador');
-        funcao = $(this).attr('funcao');
-        retorno = $(this).attr('retorno');
-        secao = $(this).attr('secao');
-
-        $.ajax({
-            url: 'controlador.php',
-            type: 'POST',
-            data: 'retorno=' + retorno + '&controlador=' + controlador + '&funcao=' + funcao,
-            success: function(result) {
-                $('#' + retorno).html(result);
-            },
-            beforeSend: function() {
-                $('#loader').css({
-                    display: "block"
-                });
-            },
-            complete: function() {
-                $('#loader').css({
-                    display: "none"
-                });
-                $('#div_a').remove();
-                $('#' + retorno).css('display', '');
-
-                $('.breadcrumb_menu').css('display', 'none');
-                $('.' + secao).css('display', '');
-
-            }
-        });
-    });
-
-    /**
-     * Função responsavel por gerar ação atraves de um bottao ou ate mesmo imagem
-     * com o diferencial de enviar apenas o id no caso de edição ou exclusao
-     */
-    $('.getId').on('click', function() {
-
-        id = $(this).attr('id');
-        controlador = $(this).attr('controlador');
-        funcao = $(this).attr('funcao');
-        retorno = $(this).attr('retorno');
-        mensagem = $(this).attr('mensagem');
-
-        $.ajax({
-            url: 'controlador.php',
-            type: 'POST',
-            data: 'retorno=' + retorno + '&controlador=' + controlador + '&funcao=' + funcao + '&id=' + id,
-            success: function(result) {
-                $('#' + retorno).html(result);
-            },
-            beforeSend: function() {
-                $('#loader').css({
-                    display: "block"
-                });
-            },
-            complete: function() {
-                $('#loader').css({
-                    display: "none"
-                });
-                $('#div_a').remove();
-                $('#' + retorno).css('display', '');
-                if (mensagem) {
-                    msgSlide(mensagem);
-                }
-            }
-        });
-
-    });
-
-    //Esse metodo é utilizado para o Exemplo
-    $('.getNovo').on('click', function() {
-
-        value = $('.getAlterar').attr('value');
-        if (value != 'nulo') {
-            funcao = $(this).attr('funcao');
-            array = value.split("|");
-            limparCampo(array);
-
-            $('[name=funcao]', '#formCadastro').val(funcao);
-            $('[name=mensagem]', '#formCadastro').val('1');
-            $('[name=btn-cadastro]', '#formCadastro').val('Incluir');
-        }
-
-
-    });
-
-    /**
-     * Esse metodo é utilizado para o Exemplo
-     */
-    $('.getAlterar').on('click', function() {
-
-        value = $(this).attr('value');
-        funcao = $(this).attr('funcao');
-        array = value.split("|");
-
-        limparCampo(array);
-
-        for (var i = 0; i < array.length; i++) {
-            aux = array[i].split(":");
-            obj = $('[name=' + aux[0] + ']', '#formCadastro');
-
-            switch ($(obj).attr('type')) {
-                case "checkbox":
-                    if (aux[1] != "N") {
-                        $('[name=' + aux[0] + ']', '#formCadastro')[0].checked = true;
-                    }
-                    break;
-                case "radio":
-                    if (aux[1] != "") {
-                        for (var t = 0; t < $('[name=' + aux[0] + ']', '#formCadastro').length; t++) {
-                            if ($('[name=' + aux[0] + ']', '#formCadastro')[t].value == aux[1]) {
-                                $('[name=' + aux[0] + ']', '#formCadastro')[t].checked = true;
-                            }
-                        }
-                    }
-                    break;
-                case "hidden":
-                    if (aux[1] != "") {
-                        if ($(obj).attr('upload') == "imagem") {
-                            $('[name=' + aux[0] + ']', '#formCadastro').val(aux[1]);
-                            $('[name=' + aux[0] + 'Link]').attr('id', './imagens/' + $(obj).attr('caminho') + '/thumbnail' + aux[1]);
-                            $('[name=' + aux[0] + 'Atual]').attr('src', './imagens/' + $(obj).attr('caminho') + '/thumbnail' + aux[1]);
-                            $('[name=' + aux[0] + 'Icone]').attr('src', "img/edit-reject.gif");
-                        } else if ($(obj).attr('upload') == "arquivo") {
-                            $('[name=' + aux[0] + ']', '#formCadastro').val(aux[1]);
-                            $('span[name=' + aux[0] + 'Atual]').html('<br />' + aux[1]);
-                            $('[name=' + aux[0] + 'Atual]').attr('src', './arquivos/' + $(obj).attr('caminho') + '/' + aux[1]);
-                            $('[name=' + aux[0] + 'Icone]').attr('src', "img/edit-reject.gif");
-                            $('span[name=' + aux[0] + 'Atual]').css('cursor', 'pointer');
-                            $('span[name=' + aux[0] + 'Atual]').css('text-decoration', 'underline');
-                        } else {
-                            $('[name=' + aux[0] + ']', '#formCadastro').val(aux[1]);
-                        }
-                    }
-                    break;
-                default:
-                    $('[name=' + aux[0] + ']', '#formCadastro').val(aux[1]);
-                    break;
-            }
-        }
-
-        $('[name=funcao]', '#formCadastro').val(funcao);
-        $('[name=mensagem]', '#formCadastro').val('2');
-        $('[name=btn-cadastro]', '#formCadastro').val('Atualizar');
-    });
 
 
     /**
      * Função responsavel por gerar uma tela de confirmação se sim execulta 
      * a ação caso nao apenas fecha a div
      */
-    $('.deleteId').on('click', function() {
+    function fncDeleteId(element){
         $.blockUI({
             message: $('#question'),
             css: {
                 width: '275px'
             }
         });
-        id = $(this).attr('id');
-        controlador = $(this).attr('controlador');
-        funcao = $(this).attr('funcao');
-        retorno = $(this).attr('retorno');
-        mensagem = $(this).attr('mensagem');
+        id = $(element).attr('id');
+        controlador = $(element).attr('controlador');
+        funcao = $(element).attr('funcao');
+        retorno = $(element).attr('retorno');
+        mensagem = $(element).attr('mensagem');
 
         $('#sim').click(function() {
             $('#' + retorno).css('display', '');
@@ -344,158 +203,13 @@ $(document).ready(function() {
             $.unblockUI();
             return false;
         });
-    });
-
-
-    /**
-     * Função responsavel por gerar as mensagem de aleta 
-     * atraves do Slide
-     * 
-     */
-    function msgSlide(msg) {
-        if (msg != "") {
-
-            switch (msg) {
-                case "1":
-                    msg1 = "Item inserido com sucesso!";
-                    tipo = "check";
-                    break;
-                case "2":
-                    msg1 = "Item editado com sucesso!";
-                    tipo = "check";
-                    break;
-                case "3":
-                    msg1 = "É necessário ter inserido pelo menos um item na lista!";
-                    tipo = "close";
-                    break;
-                case "4":
-                    msg1 = "Item excluído com sucesso!";
-                    tipo = "check";
-                    break;
-                case "5":
-                    msg1 = "Acesso não autorizado favor informar o usuário e senha!";
-                    tipo = "close";
-                    break;
-                case "9":
-                    msg1 = "As senhas não coincidem!";
-                    tipo = "close";
-                    break;
-                case "10":
-                    msg1 = "Usuário ou senha invalidos!";
-                    tipo = "close";
-                    break;
-                case "12":
-                    msg1 = "É necessário cadastrar um Cliente antes!";
-                    tipo = "block"
-                    break;
-                case "13":
-                    msg1 = "Arquivo removido com sucesso!";
-                    tipo = "check";
-                    break;
-                case "14":
-                    msg1 = "Os Campos obrigatorios deve ser preenchidos!";
-                    tipo = "close";
-                    break;
-                case "15":
-                    msg1 = "Movimentação de entrada de produto realizado com sucesso!";
-                    tipo = "check";
-                    break;
-                case "16":
-                    msg1 = "Movimentação de saida de produto realizado com sucesso!";
-                    tipo = "check";
-                    break;
-                case "17":
-                    msg1 = "A(s) Data(s) deve ser preenchidas corretamente!";
-                    tipo = "close";
-                    break;
-
-                default:
-                    msg1 = msg;
-                    break;
-            }
-        }
-        if (tipo == "check") {
-            $.growlUI(msg1, '&nbsp;');
-        } else if (tipo = "close") {
-            $.growlUI2(msg1, '&nbsp;');
-        } else if (tipo == "block") {
-            //Responsavel por Gerar o Bloqueio completo da Tela
-            $.blockUI({
-                message: '<h1>Please wait...</h1>',
-                title: null,
-                draggable: true,
-                theme: false,
-                css: {
-                    padding: 0,
-                    margin: 0,
-                    width: '30%',
-                    top: '40%',
-                    left: '35%',
-                    textAlign: 'center',
-                    color: '#000',
-                    border: '3px solid #aaa',
-                    backgroundColor: '#fff',
-                    cursor: 'wait'
-                },
-                themedCSS: {
-                    width: '30%',
-                    top: '40%',
-                    left: '35%'
-                },
-                overlayCSS: {
-                    backgroundColor: '#000',
-                    opacity: 0.6,
-                    cursor: 'wait'
-                },
-                cursorReset: 'default',
-                growlCSS: {
-                    width: '350px',
-                    top: '10px',
-                    left: '',
-                    right: '10px',
-                    border: 'none',
-                    padding: '5px',
-                    opacity: 0.6,
-                    cursor: null,
-                    color: '#fff',
-                    backgroundColor: '#000',
-                    '-webkit-border-radius': '10px',
-                    '-moz-border-radius': '10px'
-                },
-                iframeSrc: /^https/i.test(window.location.href || '') ? 'javascript:false' : 'about:blank',
-                forceIframe: false,
-                baseZ: 1000,
-                centerX: true, // <-- only effects element blocking (page block controlled via css above)
-                centerY: true,
-                allowBodyStretch: true,
-                bindEvents: true,
-                constrainTabKey: true,
-                fadeIn: 200,
-                fadeOut: 400,
-                timeout: 0,
-                showOverlay: true,
-                focusInput: true,
-                onBlock: null,
-                onUnblock: null,
-                quirksmodeOffsetHack: 4,
-                blockMsgClass: 'blockMsg',
-                ignoreIfBlocked: false,
-                onOverlayClick: $.unblockUI
-            });
-        }
-        //$('#msgSlide').html('<span>'+msg1+'</span>');
-        //$('#msgSlide').slideDown('slow', function() {
-        //	setTimeout("$('#msgSlide').slideUp('slow')",3000);
-        //});
-
-    }
-
+    };
 
 
     /**
      * Função reponsavel validar o login
      */
-    $('.formLogin').on('click', function() {
+    function fncFormLogin(element){
 
         if ($('#login').val() != "" && $('#senha').val() != "") {
 
@@ -533,29 +247,69 @@ $(document).ready(function() {
                 $('#msgSlide').html('<span>Usuário ou senha invalidos!</span>');
                 $('#msgSlide').slideDown('slow', function() {
                     setTimeout("$('#msgSlide').slideUp('slow')", 3000);
-                });
-                //msgSlide(mensagem);
+                });            
             });
         }
+    };
 
-    });
+
 
 
     /**
-     * Função responsavel por recarregar a tela de listar
+     * 
+     * Função responsavel por gerar ação atraves de um bottao ou ate mesmo imagem
      */
-    $('.getRecarregar').on('click', function() {
-
-        limite = $(this).attr('limite');
-        controlador = $(this).attr('controlador');
-        funcao = $(this).attr('funcao');
-        retorno = $(this).attr('retorno');
-        mensagem = $(this).attr('mensagem');
+    function fncButtonMenu(element){
+        controlador = $(element).attr('controlador');
+        funcao = $(element).attr('funcao');
+        retorno = $(element).attr('retorno');
+        secao = $(element).attr('secao');
 
         $.ajax({
             url: 'controlador.php',
             type: 'POST',
-            data: 'retorno=' + retorno + '&controlador=' + controlador + '&funcao=' + funcao + '&limite=' + limite,
+            data: 'retorno=' + retorno + '&controlador=' + controlador + '&funcao=' + funcao,
+            success: function(result) {
+                $('#' + retorno).html(result);
+            },
+            beforeSend: function() {
+                $('#loader').css({
+                    display: "block"
+                });
+            },
+            complete: function() {
+                $('#loader').css({
+                    display: "none"
+                });
+                $('#div_a').remove();
+                $('#' + retorno).css('display', '');
+
+                $('.breadcrumb_menu').css('display', 'none');
+                $('.' + secao).css('display', '');
+
+            }
+        });
+    };
+
+
+
+
+    /**
+     * Função responsavel por gerar ação atraves de um bottao ou ate mesmo imagem
+     * com o diferencial de enviar apenas o id no caso de edição ou exclusao
+     */
+    function getId(element) {
+
+        id = $(element).attr('id');
+        controlador = $(element).attr('controlador');
+        funcao = $(element).attr('funcao');
+        retorno = $(element).attr('retorno');
+        mensagem = $(element).attr('mensagem');
+
+        $.ajax({
+            url: 'controlador.php',
+            type: 'POST',
+            data: 'retorno=' + retorno + '&controlador=' + controlador + '&funcao=' + funcao + '&id=' + id,
             success: function(result) {
                 $('#' + retorno).html(result);
             },
@@ -576,11 +330,152 @@ $(document).ready(function() {
             }
         });
 
-    });
+    };
 
 
 
-}); //FIM do documento do ready
+
+
+
+/**
+ * Função responsavel por gerar as mensagem de aleta 
+ * atraves do Slide
+ * 
+ */
+function msgSlide(msg) {
+    if (msg != "") {
+
+        switch (msg) {
+            case "1":
+                msg1 = "Item inserido com sucesso!";
+                tipo = "check";
+                break;
+            case "2":
+                msg1 = "Item editado com sucesso!";
+                tipo = "check";
+                break;
+            case "3":
+                msg1 = "É necessário ter inserido pelo menos um item na lista!";
+                tipo = "close";
+                break;
+            case "4":
+                msg1 = "Item excluído com sucesso!";
+                tipo = "check";
+                break;
+            case "5":
+                msg1 = "Acesso não autorizado favor informar o usuário e senha!";
+                tipo = "close";
+                break;
+            case "9":
+                msg1 = "As senhas não coincidem!";
+                tipo = "close";
+                break;
+            case "10":
+                msg1 = "Usuário ou senha invalidos!";
+                tipo = "close";
+                break;
+            case "12":
+                msg1 = "É necessário cadastrar um Cliente antes!";
+                tipo = "block"
+                break;
+            case "13":
+                msg1 = "Arquivo removido com sucesso!";
+                tipo = "check";
+                break;
+            case "14":
+                msg1 = "Os Campos obrigatorios deve ser preenchidos!";
+                tipo = "close";
+                break;
+            case "15":
+                msg1 = "Movimentação de entrada de produto realizado com sucesso!";
+                tipo = "check";
+                break;
+            case "16":
+                msg1 = "Movimentação de saida de produto realizado com sucesso!";
+                tipo = "check";
+                break;
+            case "17":
+                msg1 = "A(s) Data(s) deve ser preenchidas corretamente!";
+                tipo = "close";
+                break;
+
+            default:
+                msg1 = msg;
+                break;
+        }
+    }
+    if (tipo == "check") {
+        $.growlUI(msg1, '&nbsp;');
+    } else if (tipo = "close") {
+        $.growlUI2(msg1, '&nbsp;');
+    } else if (tipo == "block") {
+        //Responsavel por Gerar o Bloqueio completo da Tela
+        $.blockUI({
+            message: '<h1>Please wait...</h1>',
+            title: null,
+            draggable: true,
+            theme: false,
+            css: {
+                padding: 0,
+                margin: 0,
+                width: '30%',
+                top: '40%',
+                left: '35%',
+                textAlign: 'center',
+                color: '#000',
+                border: '3px solid #aaa',
+                backgroundColor: '#fff',
+                cursor: 'wait'
+            },
+            themedCSS: {
+                width: '30%',
+                top: '40%',
+                left: '35%'
+            },
+            overlayCSS: {
+                backgroundColor: '#000',
+                opacity: 0.6,
+                cursor: 'wait'
+            },
+            cursorReset: 'default',
+            growlCSS: {
+                width: '350px',
+                top: '10px',
+                left: '',
+                right: '10px',
+                border: 'none',
+                padding: '5px',
+                opacity: 0.6,
+                cursor: null,
+                color: '#fff',
+                backgroundColor: '#000',
+                '-webkit-border-radius': '10px',
+                '-moz-border-radius': '10px'
+            },
+            iframeSrc: /^https/i.test(window.location.href || '') ? 'javascript:false' : 'about:blank',
+            forceIframe: false,
+            baseZ: 1000,
+            centerX: true, // <-- only effects element blocking (page block controlled via css above)
+            centerY: true,
+            allowBodyStretch: true,
+            bindEvents: true,
+            constrainTabKey: true,
+            fadeIn: 200,
+            fadeOut: 400,
+            timeout: 0,
+            showOverlay: true,
+            focusInput: true,
+            onBlock: null,
+            onUnblock: null,
+            quirksmodeOffsetHack: 4,
+            blockMsgClass: 'blockMsg',
+            ignoreIfBlocked: false,
+            onOverlayClick: $.unblockUI
+        });
+    }
+}
+
+
 
 /**
  * Função reponsavel Ativar ação de enter no sistema
@@ -602,9 +497,9 @@ $(document).ready(function() {
 function setDatePicker(containerElement) {
     var datePicker = $('#' + containerElement);
     datePicker.datepicker({
-        showOn: "button",
-        buttonImage: "img/calendar.gif",
-        buttonImageOnly: true
+        //showOn: "button",
+        //buttonImage: "img/calendar.gif",
+        //buttonImageOnly: true
     });
 }
 
@@ -782,4 +677,38 @@ function limparCampo(array) {
  */
 function vaiSubmit() {
     $('#enviar').click();
+}
+
+function uploadFile(element) {
+    var item = {
+        imagemName :undefined,
+        imagemFile: undefined
+    }
+    var file = element.files;
+    item.imagemName = file[0].name;
+    item.imagemFile = file[0];
+    var reader = new FileReader();
+    reader.onload = function (loadEvent) {
+        item.imagem = loadEvent.target.result;
+        alert(item.imagem);
+    };
+    reader.readAsDataURL(file[0]);
+
+}
+
+function fecharBarraLateral(){
+    //if(detectarMobile() === true){
+    //    $('.app').addClass('sidenav-toggled');
+    //}
+}
+
+
+function detectarMobile() {
+  var check = false; //wrapper no check
+  (function(a){if(/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows ce|xda|xiino/i.test(a)||/1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i.test(a.substr(0,4)))check = true})(navigator.userAgent||navigator.vendor||window.opera);
+  return check;
+}
+
+String.prototype.capitalize = function() {
+    return this.charAt(0).toUpperCase() + this.slice(1).toLowerCase();
 }

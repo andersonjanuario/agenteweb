@@ -95,6 +95,7 @@ class DaoUsuario extends Dados{
 					id_perfil = '".$usuario->getPerfil()."',
 					status = '".$usuario->getStatus()."' 
 					WHERE id =".$usuario->getId()."";
+			//debug($sql);		
 			$retorno = mysqli_query($conexao,$sql) or die ('Erro na execução do update relacional!');
 			$this->FecharBanco($conexao);                        
 			return $retorno;

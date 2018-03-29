@@ -126,7 +126,7 @@ class DaoTemplate extends Dados {
 											data_nascimento = '" . $template->getDataNascimento() . "',
 											cpf = '" . $template->getCpf() . "',											
 											imagem = '" . $template->getImagem() . "',
-                                                                                        arquivo = '" . $template->getArquivo() . "',
+                                            arquivo = '" . $template->getArquivo() . "',
 											logradouro = '" . $template->getLogradouro() . "',
 											numero = '" . $template->getNumero() . "',											
 											cep = '" . $template->getCep() . "',
@@ -137,7 +137,7 @@ class DaoTemplate extends Dados {
 											id_pais = '" . $template->getPais() . "',
 											status = '1' WHERE id = " . $template->getId() . "";
 
-
+            //debug($sql);
             $retorno = mysqli_query($conexao,$sql) or die('Erro na execução do update!');
             $this->FecharBanco($conexao);
             return $retorno;

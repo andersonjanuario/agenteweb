@@ -25,17 +25,12 @@ if($_GET["campos"] === "1"){
                         <button class="btn btn-primary" type="button"><i class="fa fa-fw fa-lg fa-check-circle"></i>Criar</button>
                     </h3>
                     <div class="tile-body">
-                        <form class="row">
+                        <form class="row" id="form-install">
                             <div class="form-group col-md-6">
                                 <label class="control-label">Nome da Sessão</label>
                                 <input class="form-control" type="text" name="sessao" id="sessao" onkeyup="this.value=this.value.toLowerCase();">
                             </div>
-                            <div class="form-group col-md-2">
-                                <label class="control-label">Total de Campos</label>
-                                <button class="btn btn-primary" type="button" onClick="addCampos();"><i class="fa fa-fw fa-lg fa-check-circle"></i>Adicionar Campos</button>
-                            </div>
                             <div  class="row col-md-12">
-
 
                                 <div class="form-group col-md-2">
                                     <label class="control-label">Nome do Campo</label>
@@ -46,37 +41,43 @@ if($_GET["campos"] === "1"){
                                     <select id="tipo" name="tipo" class="mgs_alerta form-control">
                                         <option value="text">text</option>
                                         <option value="number">number</option>
-                                        <option value="selec">number</option>
+                                        <option value="selec">textarea</option>
+										<option value="selec">imagem</option>
+										<option value="selec">arquivo</option>
+										<option value="selec">data</option>
+										<option value="selec">radio-button</option>
+										<option value="selec">check-box</option>
                                     </select>
                                 </div>
                                 <div class="animated-radio-button col-md-2">
                                     <label class="control-label">Exibirar na Grid?</label>
                                     <br/>
                                     <label>
-                                        <input type="radio" name="grid" id="grid" checked="checked" value="1"><span class="label-text">Sim</span>&nbsp;&nbsp;
-                                        <input type="radio" name="grid" id="grid" value="0"><span class="label-text">Não</span>
+                                        <input type="radio" name="grid" checked="checked" value="1"><span class="label-text">Sim</span>&nbsp;&nbsp;                                        
+                                    </label><br/>
+									<label>
+                                        <input type="radio" name="grid" value="0"><span class="label-text">Não</span>
                                     </label>
                                 </div>
                                 <div class="animated-radio-button col-md-2">
                                     <label class="control-label">Obrigatório</label>
                                     <br/>
                                     <label>
-                                        <input type="radio" name="obrigatorio" id="obrigatorio" checked="checked" value="1"><span class="label-text">Sim</span>&nbsp;&nbsp;
-                                        <input type="radio" name="obrigatorio" id="obrigatorio" value="0"><span class="label-text">Não</span>
+                                        <input type="radio" name="obrigatorio" checked="checked" value="1"><span class="label-text">Sim</span>&nbsp;&nbsp;
+                                        
+                                    </label><br/>
+									<label>
+                                        <input type="radio" name="obrigatorio" value="0"><span class="label-text">Não</span>
                                     </label>
                                 </div>
                                 <div class="form-group col-md-2">
                                     <label class="control-label">Tamanho Campo</label>
                                     <input class="form-control" type="text" id="tamanho" name="tamanho" onkeyup="this.value=this.value.toLowerCase();">
                                 </div>
-                                <!--div class="form-group col-md-2">
-                                    <label class="control-label">&nbsp;&nbsp;&nbsp;</label>
-                                    <br/>
-                                    <button class="btn btn-primary" type="button" onClick="removerCampo(" campo-99 ");">
-                                        <i class="fa fa-fw fa-lg fa-check-circle"></i>Remover
-                                    </button>
-                                </div-->
-
+								<div class="form-group col-md-2">
+									<label class="control-label">&nbsp; &nbsp;</label><br/>
+									<button class="btn btn-primary" type="button" onClick="addCampos();"><i class="fa fa-fw fa-lg fa-check-circle"></i>Adicionar Campos</button>
+								</div>
                             </div>
                         </form>
                     </div>
@@ -136,6 +137,16 @@ if($_GET["campos"] === "1"){
 
                 var html = '<tr id="linha-'+totalCampos+'"><td>'+objeto.campo+'</td><td>'+objeto.tipo+'</td><td>'+objeto.grid+'</td><td>'+objeto.obrigatorio+'</td><td>'+objeto.tamanho+'</td><td><button class="btn btn-primary" type="button" onClick="removerCampo('+totalCampos+');"><i class="fa fa-fw fa-lg fa-check-circle"></i>Remover</button></td></tr>';
                 $("#formCampos").append(html);
+				
+				$("#form-install").each(function(){
+					$('[name=campo]',this).val('');
+					$('[name=tipo]',this).val('text');
+					$('[name=tamanho]',this).val('');
+					$('[name=grid]',this)[0].checked = true;
+					$('[name=obrigatorio]',this)[0].checked = true;
+					
+					
+				});
             }
         </script>
     </body>

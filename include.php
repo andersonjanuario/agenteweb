@@ -41,6 +41,12 @@ require_once "view/viewUsuario.php";
 require_once "view/viewModulo.php";
 require_once "view/viewTemplate.php";
 
+//Exemplo de Novos Modulos
+require_once "controle/controladorCasa.php";
+require_once "dao/daoCasa.php";
+require_once "view/viewCasa.php";
+require_once "classe/Casa.php";
+
 //Utils
 require_once "library.php";
 

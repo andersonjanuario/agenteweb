@@ -28,7 +28,7 @@ if($_GET["op"] === "1"){
 					descricao VARCHAR(500) NULL,
 					status INT(1) NULL DEFAULT '1'
 					)";
-			$retorno = mysqli_query($conexao,$sql) or die ('Erro na execução!');
+			//$retorno = mysqli_query($conexao,$sql) or die ('Erro na execução de criar tabela!');
 			
 			
 			$sql = "INSERT INTO `tb_agenteweb_classe` ( `id`, 
@@ -48,7 +48,7 @@ if($_GET["op"] === "1"){
 														'".$sessao."', 
 														(SELECT id FROM tb_agenteweb_modulo WHERE nome = 'SITE'), 
 														'1')";
-			$retorno = mysqli_query($conexao,$sql) or die ('Erro na execução!');
+			//$retorno = mysqli_query($conexao,$sql) or die ('Erro na execução erro na execução de update class!');
 			
 			mysqli_close($conexao);
 			return $retorno;
@@ -244,7 +244,7 @@ if($_GET["op"] === "1"){
                                         </div>
                                         <div class=\"form-group\">
                                             <label class=\"control-label\">Descrição</label>                    
-                                            <textarea id=\"descricao\" name=\"descricao\" class=\"form-control\" ><?php echo \$obj".$sessao."[0]->getProfissao(); ?></textarea>
+                                            <textarea id=\"descricao\" name=\"descricao\" class=\"form-control\" ><?php echo \$obj".$sessao."[0]->getDescricao(); ?></textarea>
                                         </div>
                                       </form>
                                     </div>
@@ -285,7 +285,7 @@ if($_GET["op"] === "1"){
                                         </div>
                                         <div class=\"form-group\">
                                             <label class=\"control-label\">Descrição</label>                    
-                                            <textarea id=\"descricao\" name=\"descricao\" disabled=\"true\"  value=\"<?php echo \$obj".$sessao."[0]->getProfissao(); ?>\" class=\"form-control\" ></textarea>
+											<textarea id=\"descricao\" name=\"descricao\" disabled=\"true\" class=\"form-control\" ><?php echo \$obj".$sessao."[0]->getDescricao(); ?></textarea>                                            
                                         </div>
                                       </form>
                                     </div>
@@ -393,8 +393,8 @@ if($_GET["op"] === "1"){
                         public function incluir".$sessao."(\$post){
                             try {
                                 \$template = new ".$sessao."();
-								\$template->setNome(\$post[\'nome\']);
-								\$template->setDescricao(\$post[\'descricao\']);								
+								\$template->setNome(\$post['nome']);
+								\$template->setDescricao(\$post['descricao']);								
                                 \$modulo".$sessao." = new Dao".$sessao."();
                                 
                                 if(\$modulo".$sessao."->incluir".$sessao."(\$template)){
@@ -408,9 +408,9 @@ if($_GET["op"] === "1"){
                         public function alterar".$sessao."(\$post){
                             try {
                                 \$template = new ".$sessao."();
-                                \$template->setId(\$post[\'id\']);
-								\$template->setNome(\$post[\'nome\']);
-								\$template->setDescricao(\$post[\'descricao\']);
+                                \$template->setId(\$post['id']);
+								\$template->setNome(\$post['nome']);
+								\$template->setDescricao(\$post['descricao']);
 
                                 
                                 \$modulo".$sessao." = new Dao".$sessao."();
@@ -460,7 +460,7 @@ if($_GET["op"] === "1"){
                         public function telaAlterar".$sessao."(\$post = null){
                             try {
                                 \$view".$sessao." = new View".$sessao."();
-                                return \$view".$sessao."->telaAlterar".$sessao."(\$this->listar".$sessao."(\$post[\'id\']));
+                                return \$view".$sessao."->telaAlterar".$sessao."(\$this->listar".$sessao."(\$post['id']));
                                 \$view".$sessao."->__destruct();
                             } catch (Exception \$e) {
                                 return \$e;
@@ -471,7 +471,7 @@ if($_GET["op"] === "1"){
                         public function telaVisualizar".$sessao."(\$post = null){
                             try {
                                 \$view".$sessao." = new View".$sessao."();
-                                return \$view".$sessao."->telaVisualizar".$sessao."(\$this->listar".$sessao."(\$post[\'id\']));
+                                return \$view".$sessao."->telaVisualizar".$sessao."(\$this->listar".$sessao."(\$post['id']));
                                 \$view".$sessao."->__destruct();
                             } catch (Exception \$e) {
                                 return \$e;
@@ -512,7 +512,7 @@ if($_GET["op"] === "1"){
                                                  nome,
                                                  descricao,
 												 status		
-                                                 FROM tb_agenteweb_template
+                                                 FROM tb_agenteweb_".strtolower($sessao)."
                                         WHERE status = '1'\";
                                 \$sql .= (\$id != null) ? \" AND id = \" . \$id : \"\";
                                 \$query = mysqli_query(\$conexao,\$sql) or die('Erro na execução do listar!');
@@ -521,6 +521,8 @@ if($_GET["op"] === "1"){
                                     \$template = new ".$sessao."();
 
                                     \$template->setId(\$objeto".$sessao."->id);
+									\$template->setNome(\$objeto".$sessao."->nome);
+									\$template->setDescricao(\$objeto".$sessao."->descricao);
 
                                     \$retorno[] = \$template;
                                 }
@@ -535,15 +537,15 @@ if($_GET["op"] === "1"){
                             try {
                                 \$conexao = \$this->conectarBanco();
                                 
-                                \$sql = \"INSERT INTO tb_agenteweb_template (  id,
-																			   nome,
-																			   descricao,
-																			   status	
-                                                                            )VALUES(
-                                                                            NULL,
-																			'\" . \$template->getNome() . \"', 
-                                                                            '\" . \$template->getSexo() . \"',
-																			'1')\";
+                                \$sql = \"INSERT INTO tb_agenteweb_".strtolower($sessao)." (  id,
+																							  nome,
+																							  descricao,
+																							  status	
+																							)VALUES(
+																							NULL,
+																							'\" . \$template->getNome() . \"', 
+																							'\" . \$template->getDescricao() . \"',
+																							'1')\";
 
                                 \$retorno = mysqli_query(\$conexao,\$sql) or die('Erro na execução do insert!');
                                 \$this->FecharBanco(\$conexao);
@@ -557,7 +559,8 @@ if($_GET["op"] === "1"){
                             try {
 
                                 \$conexao = \$this->conectarBanco();
-                                \$sql = \"UPDATE tb_agenteweb_template SET nome = '\" . \$template->getNome() . \"',
+                                \$sql = \"UPDATE tb_agenteweb_".strtolower($sessao)." 
+								                                       SET nome = '\" . \$template->getNome() . \"',
 																		   descricao = '\" . \$template->getDescricao() . \"',
                                                                            status = '1' 
                                                                            WHERE id = \" . \$template->getId() . \"\";
@@ -575,7 +578,7 @@ if($_GET["op"] === "1"){
                             try {
                                 \$conexao = \$this->conectarBanco();
 
-                                \$sql = \"UPDATE tb_agenteweb_template SET status = '0' WHERE id = \" . \$id . \"\";            
+                                \$sql = \"UPDATE tb_agenteweb_".strtolower($sessao)." SET status = '0' WHERE id = \" . \$id . \"\";            
                                 \$retorno = mysqli_query(\$conexao,\$sql) or die('Erro na execução do delet!');
 
                                 \$this->FecharBanco(\$conexao);

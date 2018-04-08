@@ -47,6 +47,13 @@ require_once "dao/daoCasa.php";
 require_once "view/viewCasa.php";
 require_once "classe/Casa.php";
 
+require_once "controle/controladorOla.php";
+require_once "dao/daoOla.php";
+require_once "view/viewOla.php";
+require_once "classe/Ola.php";
+
+
+
 //Utils
 require_once "library.php";
 

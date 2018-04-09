@@ -2,13 +2,54 @@
 
 class Dao{
 	
+	public function atributos($campos){
+		$template = "";
+		for($i=0;$i< count($campos);$i++){	
+		$template .= "
+													".strtolower($campos[$i]->campo).",
+		";
+		}
+		return $template;
+	}
+
+	public function updatesParameter($sessao,$campos){
+		$template = "";
+		for($i=0;$i< count($campos);$i++){	
+		$template .= "
+																		       ".strtolower($campos[$i]->campo)." = '\" . \$".strtolower($sessao)."->get".ucfirst(strtolower($campos[$i]->campo))."() . \"',
+		";
+		}
+		return $template;
+	}
+	
+	public function insertParameter($sessao,$campos){
+		$template = "";
+		for($i=0;$i< count($campos);$i++){	
+		$template .= "
+																								'\" . \$".strtolower($sessao)."->get".ucfirst(strtolower($campos[$i]->campo))."() . \"', 
+		";
+		}
+		return $template;
+	}
+	
+	public function selectParameter($sessao,$campos){
+		$template = "";
+		for($i=0;$i< count($campos);$i++){	
+		$template .= "
+										\$".strtolower($sessao)."->set".ucfirst(strtolower($campos[$i]->campo))."(\$objeto".$sessao."->".strtolower($campos[$i]->campo).");
+		";
+		}
+		return $template;
+	}
+	
+	
 	
 		
-	public function create($sessao){
+	public function create($sessao,$campos){
 		echo "iniciando dao\n";
 		$dao = fopen("../dao/dao".$sessao.".php", "w") or die("Unable to open file!");	
-		fwrite($dao, "
-						<?php
+		
+		$template = "	<?php
 
 						class Dao".$sessao." extends Dados {
 
@@ -22,13 +63,16 @@ class Dao{
 								
 							}
 
+		";
+			
+		$template .= "
+		
 							public function listar".$sessao."(\$id = null) {
 								try {
 									\$retorno = array();
 									\$conexao = \$this->conectarBanco();
 									\$sql = \"SELECT id,
-													 nome,
-													 descricao,
+													 ".$this->atributos($campos)."
 													 status		
 													 FROM tb_agenteweb_".strtolower($sessao)."
 											WHERE status = '1'\";
@@ -36,33 +80,33 @@ class Dao{
 									\$query = mysqli_query(\$conexao,\$sql) or die('Erro na execução do listar!');
 									while (\$objeto".$sessao." = mysqli_fetch_object(\$query)) {
 
-										\$template = new ".$sessao."();
+										\$".strtolower($sessao)." = new ".$sessao."();
 
-										\$template->setId(\$objeto".$sessao."->id);
-										\$template->setNome(\$objeto".$sessao."->nome);
-										\$template->setDescricao(\$objeto".$sessao."->descricao);
+										\$".strtolower($sessao)."->setId(\$objeto".$sessao."->id);
+										".$this->selectParameter($sessao,$campos)."
 
-										\$retorno[] = \$template;
+										\$retorno[] = \$".strtolower($sessao).";
 									}
 									\$this->FecharBanco(\$conexao);
 									return \$retorno;
 								} catch (Exception \$e) {
 									return \$e;
 								}
-							}
-
-							public function incluir".$sessao."(\$template) {
+							}		
+		
+		";	
+		$template .= "
+		
+							public function incluir".$sessao."(\$".strtolower($sessao).") {
 								try {
 									\$conexao = \$this->conectarBanco();
 									
 									\$sql = \"INSERT INTO tb_agenteweb_".strtolower($sessao)." (  id,
-																								  nome,
-																								  descricao,
+																								  ".$this->atributos($campos)."
 																								  status	
 																								)VALUES(
 																								NULL,
-																								'\" . \$template->getNome() . \"', 
-																								'\" . \$template->getDescricao() . \"',
+																								".$this->insertParameter($sessao,$campos)."
 																								'1')\";
 
 									\$retorno = mysqli_query(\$conexao,\$sql) or die('Erro na execução do insert!');
@@ -71,17 +115,19 @@ class Dao{
 								} catch (Exception \$e) {
 									return \$e;
 								}
-							}
-
-							public function alterar".$sessao."(\$template) {
+							}		
+		
+		";
+        $template .= "
+		
+							public function alterar".$sessao."(\$".strtolower($sessao).") {
 								try {
 
 									\$conexao = \$this->conectarBanco();
-									\$sql = \"UPDATE tb_agenteweb_".strtolower($sessao)." 
-																		   SET nome = '\" . \$template->getNome() . \"',
-																			   descricao = '\" . \$template->getDescricao() . \"',
+									\$sql = \"UPDATE tb_agenteweb_".strtolower($sessao)." SET
+																		       ".$this->updatesParameter($sessao,$campos)."
 																			   status = '1' 
-																			   WHERE id = \" . \$template->getId() . \"\";
+																			   WHERE id = \" . \$".strtolower($sessao)."->getId() . \"\";
 
 									
 									\$retorno = mysqli_query(\$conexao,\$sql) or die('Erro na execução do update!');
@@ -90,8 +136,10 @@ class Dao{
 								} catch (Exception \$e) {
 									return \$e;
 								}
-							}
-
+							}		
+		
+		";			
+		$template .= "
 							public function excluir".$sessao."(\$id) {
 								try {
 									\$conexao = \$this->conectarBanco();
@@ -108,8 +156,10 @@ class Dao{
 
 						}
 
-						?>
-			");
+					?>		
+		";			
+		
+		fwrite($dao,$template);
 		fclose($dao);
 		echo "termino dao\n";			
 		

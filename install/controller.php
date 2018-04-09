@@ -2,7 +2,17 @@
 
 class Controller{
 	
-	public function create($sessao){
+	public function atributos($sessao,$campos){
+		$template = "";
+		for($i=0;$i< count($campos);$i++){	
+			$template .= "
+									\$".strtolower($sessao)."->set".ucfirst(strtolower($campos[$i]->campo))."(\$post['".$campos[$i]->campo."']);			
+			";
+		}
+		return $template;
+	}
+	
+	public function create($sessao,$campos){
 		echo "iniciando controller\n";
 		$controle = fopen("../controle/controlador".$sessao.".php", "w") or die("Unable to open file!");
 		
@@ -34,32 +44,29 @@ class Controller{
 
 							public function incluir".$sessao."(\$post){
 								try {
-									\$template = new ".$sessao."();
-									\$template->setNome(\$post['nome']);
-									\$template->setDescricao(\$post['descricao']);								
+									\$".strtolower($sessao)." = new ".$sessao."();
+									".$this->atributos($sessao,$campos)."
 									\$modulo".$sessao." = new Dao".$sessao."();
 									
-									if(\$modulo".$sessao."->incluir".$sessao."(\$template)){
+									if(\$modulo".$sessao."->incluir".$sessao."(\$".strtolower($sessao).")){
 										return \$this->telaCadastrar".$sessao."();  
 									}       
 									\$modulo".$sessao."->__destruct();
 								} catch (Exception \$e) {
 								}
 							}		
-		"
+		";
 		
 		$template .=  "
 		
 							public function alterar".$sessao."(\$post){
 								try {
-									\$template = new ".$sessao."();
-									\$template->setId(\$post['id']);
-									\$template->setNome(\$post['nome']);
-									\$template->setDescricao(\$post['descricao']);
-
+									\$".strtolower($sessao)." = new ".$sessao."();
+									\$".strtolower($sessao)."->setId(\$post['id']);
+									".$this->atributos($sessao,$campos)."
 									
 									\$modulo".$sessao." = new Dao".$sessao."();
-									if(\$modulo".$sessao."->alterar".$sessao."(\$template)){
+									if(\$modulo".$sessao."->alterar".$sessao."(\$".strtolower($sessao).")){
 										return \$this->telaListar".$sessao."();
 									}
 									\$modulo".$sessao."->__destruct();

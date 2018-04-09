@@ -16,7 +16,8 @@ class Classe{
 								private \$status;
         ";
 		for($i=0;$i< count($campos);$i++){	
-			$template .= "      private \$".strtolower($campos[$i]->campo)."; 
+			$template .= "      
+								private \$".strtolower($campos[$i]->campo)."; 
 			";
 		}
 		$template .= "

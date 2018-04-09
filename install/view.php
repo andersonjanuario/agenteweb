@@ -2,25 +2,8 @@
 
 class View{
 	
-	public function create($sessao){
-
-		echo "iniciando view \\n";
-		$view = fopen("../view/view".$sessao.".php", "w") or die("Unable to open file!");
-		fwrite($view, "
-						<?php
-
-						class View".$sessao." {
-
-							//construtor
-							public function __construct() {
-								
-							}
-
-							//destruidor
-							public function __destruct() {
-								
-							}
-
+	public function telaCadastrar($sessao,$campos){
+		$script = "
 							public function telaCadastrar".$sessao."(\$post) {
 								?>
 
@@ -70,8 +53,13 @@ class View{
 									</div>
 								  </div>          
 								<?php
-							}
-
+							}		
+		";
+		return $script;
+	}
+	
+	public function telaListar($sessao,$campos){
+		$script = "
 							public function telaListar".$sessao."(\$obj".$sessao.") {
 								\$controladorAcao = new ControladorAcao();
 								\$perfil = \$controladorAcao->retornaPerfilClasseAcao(\$_SESSION[\"login\"],'telaListar".$sessao."');
@@ -104,25 +92,25 @@ class View{
 											<tbody>
 											   <?php 
 												if (\$obj".$sessao.") {
-													foreach (\$obj".$sessao." as \$template) {
+													foreach (\$obj".$sessao." as ".strtolower($sessao).") {
 												?>    
 														<tr> 
-															<td class=\"center\"><?php echo str_pad(\$template->getId(), 5, \"0\", STR_PAD_LEFT); ?></td>
-															<td class=\"center\" onClick=\"getId(this)\"   style=\"cursor:pointer\"  id=\"<?php echo \$template->getId(); ?>\" funcao=\"telaVisualizar".$sessao."\" controlador=\"Controlador".$sessao."\" retorno=\"div_central\">
-																<?php echo limitarTexto(\$template->getNome(), 27); ?>
+															<td class=\"center\"><?php echo str_pad(\$".strtolower($sessao)."->getId(), 5, \"0\", STR_PAD_LEFT); ?></td>
+															<td class=\"center\" onClick=\"getId(this)\"   style=\"cursor:pointer\"  id=\"<?php echo \$".strtolower($sessao)."->getId(); ?>\" funcao=\"telaVisualizar".$sessao."\" controlador=\"Controlador".$sessao."\" retorno=\"div_central\">
+																<?php echo limitarTexto(\$".strtolower($sessao)."->getNome(), 27); ?>
 															</td>
-															<td class=\"center\" onClick=\"getId(this)\"  style=\"cursor:pointer\"  id=\"<?php echo \$template->getId(); ?>\" funcao=\"telaVisualizar".$sessao."\" controlador=\"Controlador".$sessao."\" retorno=\"div_central\">
+															<td class=\"center\" onClick=\"getId(this)\"  style=\"cursor:pointer\"  id=\"<?php echo \$".strtolower($sessao)."->getId(); ?>\" funcao=\"telaVisualizar".$sessao."\" controlador=\"Controlador".$sessao."\" retorno=\"div_central\">
 																<?php
-																if (\$template->getDescricao()) {
-																	echo limitarTexto(\$template->getDescricao(), 20);
+																if (\$".strtolower($sessao)."->getDescricao()) {
+																	echo limitarTexto(\$".strtolower($sessao)."->getDescricao(), 20);
 																} else {
 																	echo \"-\";
 																}
 																?>
 															</td>
 															<td style=\"text-align:center;width:100px;\">                              
-																<button <?php echo (\$perfil !== 'C')?'onClick=\"getId(this)\"':'disabled=\"true\"'; ?> class=\"btn btn-secondary btn-list\" type=\"button\" title=\"Alterar\" id=\"<?php echo \$template->getId(); ?>\" funcao=\"telaAlterar".$sessao."\" controlador=\"Controlador".$sessao."\" retorno=\"div_central\"><i class=\"fa fa-lg fa-edit\"></i></button>
-																<button <?php echo (\$perfil === 'A')?'onClick=\"fncDeleteId(this)\"':'disabled=\"true\"'; ?> class=\"btn btn-secondary btn-list\" type=\"button\" title=\"Excluir\" id=\"<?php echo \$template->getId(); ?>\" funcao=\"excluir".$sessao."\" controlador=\"Controlador".$sessao."\" retorno=\"div_central\" mensagem=\"4\"><i class=\"fa fa-lg fa-trash\"></i></button>
+																<button <?php echo (\$perfil !== 'C')?'onClick=\"getId(this)\"':'disabled=\"true\"'; ?> class=\"btn btn-secondary btn-list\" type=\"button\" title=\"Alterar\" id=\"<?php echo \$".strtolower($sessao)."->getId(); ?>\" funcao=\"telaAlterar".$sessao."\" controlador=\"Controlador".$sessao."\" retorno=\"div_central\"><i class=\"fa fa-lg fa-edit\"></i></button>
+																<button <?php echo (\$perfil === 'A')?'onClick=\"fncDeleteId(this)\"':'disabled=\"true\"'; ?> class=\"btn btn-secondary btn-list\" type=\"button\" title=\"Excluir\" id=\"<?php echo \$".strtolower($sessao)."->getId(); ?>\" funcao=\"excluir".$sessao."\" controlador=\"Controlador".$sessao."\" retorno=\"div_central\" mensagem=\"4\"><i class=\"fa fa-lg fa-trash\"></i></button>
 															</td> 
 														</tr> 
 												<?php
@@ -137,8 +125,13 @@ class View{
 								  </div>        
 								  <script type=\"text/javascript\">\$('#sampleTable').DataTable();</script>        
 								<?php
-							}
+							}		
+		";
+		return $script;
+	}
 
+	public function telaAlterar($sessao,$campos){
+		$script = "
 							public function telaAlterar".$sessao."(\$obj".$sessao.") {
 								?>
 								<script type=\"text/javascript\">
@@ -146,8 +139,8 @@ class View{
 									setDatePicker('data_nascimento');
 
 									\$(document).ready(function() {
-										fncInserirArquivo(\"form_arquivo\", \"progress_arquivo\", \"porcentagem_arquivo\", \"arquivo\", \"arquivoAtual\", \"./arquivos/template/\", \"arquivo\");
-										fncInserirArquivo(\"form_imagem\", \"progress\", \"porcentagem\", \"imagem\", \"imagemAtual\", \"./imagens/template/\", \"imagem\");
+										fncInserirArquivo(\"form_arquivo\", \"progress_arquivo\", \"porcentagem_arquivo\", \"arquivo\", \"arquivoAtual\", \"./arquivos/".strtolower($sessao)."/\", \"arquivo\");
+										fncInserirArquivo(\"form_imagem\", \"progress\", \"porcentagem\", \"imagem\", \"imagemAtual\", \"./imagens/".strtolower($sessao)."/\", \"imagem\");
 									});
 								</script>
 
@@ -194,8 +187,13 @@ class View{
 									</div>
 								  </div>         
 								<?php
-							}
+							}		
+		";
+		return $script;
+	}
 
+	public function telaVisualizar($sessao,$campos){
+		$script = "
 							public function telaVisualizar".$sessao."(\$obj".$sessao.") {
 								?>
 								  <div class=\"app-title\">
@@ -234,12 +232,41 @@ class View{
 									</div>
 								  </div>
 								<?php
+							}		
+		";
+		return $script;
+	}	
+	
+	
+	public function create($sessao,$campos){
+
+		echo "iniciando view \\n";
+		$view = fopen("../view/view".$sessao.".php", "w") or die("Unable to open file!");
+		fwrite($view, "
+						<?php
+
+						class View".$sessao." {
+
+							//construtor
+							public function __construct() {
+								
 							}
 
+							//destruidor
+							public function __destruct() {
+								
+							}
+
+							".$this->telaCadastrar($sessao,$campos)."	
+
+							".$this->telaListar($sessao,$campos)."	
+
+							".$this->telaAlterar($sessao,$campos)."	
+
+							".$this->telaVisualizar($sessao,$campos)."	
+
 						}
-						?>
-
-
+						?>						
 			");
 		fclose($view);
 		echo "termino view\n";

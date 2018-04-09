@@ -102,8 +102,8 @@ require_once "view.php";
 		//criarTabela($sessao,$campos);
 		$classe->create($sessao,$campos);
 		$controller->create($sessao,$campos);
-		$dao->create($sessao);
-		$view->create($sessao);
+		$dao->create($sessao,$campos);
+		$view->create($sessao,$campos);
 		echo "<script type='text/javascript'>alert('Classes Criadas!');</script>";
 	}else{
 		echo "<script type='text/javascript'>alert('Parametros Invalidos!');</script>";

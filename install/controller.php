@@ -5,15 +5,18 @@ class Controller{
 	public function atributos($sessao,$campos){
 		$template = "";
 		for($i=0;$i< count($campos);$i++){	
-			$template .= "
-									\$".strtolower($sessao)."->set".ucfirst(strtolower($campos[$i]->campo))."(\$post['".$campos[$i]->campo."']);			
-			";
+			if($campos[$i]->tipo === "data"){
+				$template .= "
+									\$".strtolower($sessao)."->set".ucfirst(strtolower($campos[$i]->campo))."(desformataData(\$post['".$campos[$i]->campo."']));";
+			}else{
+				$template .= "
+									\$".strtolower($sessao)."->set".ucfirst(strtolower($campos[$i]->campo))."(\$post['".$campos[$i]->campo."']);";
+			}
 		}
 		return $template;
 	}
 	
 	public function create($sessao,$campos){
-		echo "iniciando controller\n";
 		$controle = fopen("../controle/controlador".$sessao.".php", "w") or die("Unable to open file!");
 		
 		$template =  "
@@ -136,8 +139,6 @@ class Controller{
 		
 		fwrite($controle,$template);
 		fclose($controle);
-		echo "termino controller\n";		
-		
 		
 	}
 	

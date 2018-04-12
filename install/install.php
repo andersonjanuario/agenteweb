@@ -60,7 +60,7 @@ require_once "view.php";
 			$sql .= " status INT(1) NULL DEFAULT '1'
 					)";				
 				
-			$retorno = mysqli_query($conexao,$sql) or die ('Erro na execução de criar tabela!');
+			//$retorno = mysqli_query($conexao,$sql) or die ('Erro na execução de criar tabela!');
 			
 			
 			$sql = "INSERT INTO `tb_agenteweb_classe` ( `id`, 
@@ -80,7 +80,7 @@ require_once "view.php";
 														'".$sessao."', 
 														(SELECT id FROM tb_agenteweb_modulo WHERE nome = 'SITE'), 
 														'1')";
-			$retorno = mysqli_query($conexao,$sql) or die ('Erro na execução erro na execução de update class!');
+			//$retorno = mysqli_query($conexao,$sql) or die ('Erro na execução erro na execução de update class!');
 			
 			mysqli_close($conexao);
 			return $retorno;
@@ -99,7 +99,7 @@ require_once "view.php";
 	$dao = new Dao();
 	$view = new View();
 	if($data != null && $data->sessao != null && $data->sessao != "" && $data->campos != null && count($data->campos) > 0 ){
-		//criarTabela($sessao,$campos);
+		criarTabela($sessao,$campos);
 		$classe->create($sessao,$campos);
 		$controller->create($sessao,$campos);
 		$dao->create($sessao,$campos);

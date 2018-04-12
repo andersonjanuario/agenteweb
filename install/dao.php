@@ -46,7 +46,6 @@ class Dao{
 	
 		
 	public function create($sessao,$campos){
-		echo "iniciando dao\n";
 		$dao = fopen("../dao/dao".$sessao.".php", "w") or die("Unable to open file!");	
 		
 		$template = "	<?php
@@ -161,7 +160,7 @@ class Dao{
 		
 		fwrite($dao,$template);
 		fclose($dao);
-		echo "termino dao\n";			
+		
 		
 	}
 	

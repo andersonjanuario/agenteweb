@@ -3,8 +3,7 @@
 class Classe{
 	
 		
-	public function create($sessao,$campos){
-		echo "iniciando classe \n";
+	public function create($sessao,$campos){		
 		$classe = fopen("../classe/".$sessao.".php", "w") or die("Unable to open file!");
 		
 		$template = "
@@ -65,9 +64,7 @@ class Classe{
 		
 		
 		fwrite($classe,$template);
-		fclose($classe);
-		echo "termino classe\n";
-				
+		fclose($classe);				
 	}
 	
 }

@@ -8,7 +8,10 @@ class Controller{
 			if($campos[$i]->tipo === "data"){
 				$template .= "
 									\$".strtolower($sessao)."->set".ucfirst(strtolower($campos[$i]->campo))."(desformataData(\$post['".$campos[$i]->campo."']));";
-			}else{
+			}else if($campos[$i]->tipo === "monetario"){
+				$template .= "
+									\$".strtolower($sessao)."->set".ucfirst(strtolower($campos[$i]->campo))."(valorMonetario(\$post['".$campos[$i]->campo."']));";
+			}else{									
 				$template .= "
 									\$".strtolower($sessao)."->set".ucfirst(strtolower($campos[$i]->campo))."(\$post['".$campos[$i]->campo."']);";
 			}

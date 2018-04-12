@@ -136,6 +136,10 @@ class View{
 												  <input class=\"form-control".$mgsAlerta."\" id=\"".strtolower($campos[$i]->campo)."\" name=\"".strtolower($campos[$i]->campo)."\" type=\"number\" onkeypress=\"return mascara(event, this, '#');\" maxlength=\"6\" >";			
 
 					break;
+					case "monetario":"
+												  <input type=\"text\" id=\"".strtolower($campos[$i]->campo)."\" name=\"".strtolower($campos[$i]->campo)."\" class=\"maskMoney form-control\"  >";
+					
+					break;
 					case "textarea":
 						$script .= "
 												  <textarea class=\"form-control".$mgsAlerta."\" id=\"".strtolower($campos[$i]->campo)."\" name=\"".strtolower($campos[$i]->campo)."\" rows=\"4\" ></textarea>";				
@@ -482,6 +486,10 @@ class View{
 												  <input class=\"data form-control".$mgsAlerta."\" id=\"".strtolower($campos[$i]->campo)."\" name=\"".strtolower($campos[$i]->campo)."\" onkeypress=\"return mascara(event, this, '##/##/####');\" maxlength=\"10\" type=\"text\" value=\"<?php echo (\$obj".$sessao."[0]->get".ucfirst(strtolower($campos[$i]->campo))."() != \"0000-00-00\") ? recuperaData(\$obj".$sessao."[0]->get".ucfirst(strtolower($campos[$i]->campo))."()) : \"\"; ?>\" >";
 
 					break;
+					case "monetario":"
+												  <input type=\"text\" id=\"".strtolower($campos[$i]->campo)."\" name=\"".strtolower($campos[$i]->campo)."\"  value=\"<?php echo \$obj".$sessao."[0]->get".ucfirst(strtolower($campos[$i]->campo))."(); ?>\" class=\"maskMoney form-control\"  >";
+					
+					break;					
 					case "radio-button":
 						$script .= "
 												<?php
@@ -582,16 +590,77 @@ class View{
 		";
 		return $script;
 	}
+		
+	public function imagemVisualizar($sessao,$campos){
+		$script = "";
+		for($i=0;$i< count($campos);$i++){
+			if($campos[$i]->tipo === 'imagem'){
+				$simbolo = ($campos[$i]->obrigatorio === '1')?'*':'';
+				$mgsAlerta = ($campos[$i]->obrigatorio === '1')?' mgs_alerta':'';
+				
+				$script .= "
+											<div class=\"form-group\">
+												<label class=\"control-label\">Imagem Largura Máxima: 640px</label>&nbsp;&nbsp;
+												<?php //echo \$obj".$sessao."[0]->get".ucfirst(strtolower($campos[$i]->campo))."();
+												if (\$obj".$sessao."[0]->get".ucfirst(strtolower($campos[$i]->campo))."()) {
+													\$imagem = \"./imagens/".strtolower($sessao)."/thumbnail\" . \$obj".$sessao."[0]->get".ucfirst(strtolower($campos[$i]->campo))."();
+												} else {
+													\$imagem = \"./img/imagemPadrao.jpg\";
+												}
+												?>   
+												<span name=\"imagemLink\" id=\"<?php echo \$imagem; ?>\" title=\"Imagem\" >
+													<img name=\"imagemAtual\" src=\"<?php echo \$imagem; ?>\" border=\"0\" />
+												</span>
+											</div>  
+											";
+			}
+		}
+		return $script;		
+	}	
 	
+	public function arquivoVisualizar($sessao,$campos){
+		$script = "";
+		for($i=0;$i< count($campos);$i++){
+			if($campos[$i]->tipo === 'arquivo'){
+				$script .= "
+											<div class=\"form-group\">
+												<label class=\"control-label\">Arquivo Tamanho Máximo: 2MB</label>
+												<span name=\"arquivoAtual\" onClick=\"fnAbreArquivo('arquivo', './arquivos/".strtolower($sessao)."/')\" style=\"<?php echo (\$obj".$sessao."[0]->get".ucfirst(strtolower($campos[$i]->campo))."()) ? 'cursor: pointer; text-decoration: underline;' : '' ?>\">
+													<?php
+													if (\$obj".$sessao."[0]->get".ucfirst(strtolower($campos[$i]->campo))."()) {
+														echo \$obj".$sessao."[0]->get".ucfirst(strtolower($campos[$i]->campo))."();
+													} else {
+														?>Adicione um arquivo clicando no <img src=\"./img/img_upload.png\" border=\"0\" style=\"float:none;margin:0;width: 20px;\" /><?php
+													}
+													?>                                                    
+												</span>
+											</div>   
+				";
+			}
+		}
+		return $script;		
+	}		
+		
 	public function camposVisualizar($sessao,$campos){
 		$script = "";
 		for($i=0;$i< count($campos);$i++){
-			$script .= "
-											<div class=\"form-group\">
-											  <label class=\"control-label\">".ucfirst(strtolower($campos[$i]->campo))." *</label>
-											  <input type=\"text\" disabled=\"true\" onkeyup=\"this.value = this.value.toUpperCase();\" id=\"".strtolower($campos[$i]->campo)."\" name=\"".strtolower($campos[$i]->campo)."\" value=\"<?php echo \$obj".$sessao."[0]->get".ucfirst(strtolower($campos[$i]->campo))."(); ?>\" class=\"form-control mgs_alerta\" >
-											</div>				
-			";			
+			if($campos[$i]->tipo !== "imagem" && $campos[$i]->tipo !== "arquivo"){
+				$script .= "
+												<div class=\"form-group\">
+												  <label class=\"control-label\">".ucfirst(strtolower($campos[$i]->campo))." *</label>";			
+				if($campos[$i]->tipo === "data"){
+					$script .= "
+												  <input class=\"data form-control\" disabled=\"true\" id=\"".strtolower($campos[$i]->campo)."\" name=\"".strtolower($campos[$i]->campo)."\" onkeypress=\"return mascara(event, this, '##/##/####');\" maxlength=\"10\" type=\"text\" value=\"<?php echo (\$obj".$sessao."[0]->get".ucfirst(strtolower($campos[$i]->campo))."() != \"0000-00-00\") ? recuperaData(\$obj".$sessao."[0]->get".ucfirst(strtolower($campos[$i]->campo))."()) : \"\"; ?>\" >";
+				}else if($campos[$i]->tipo === "textarea"){
+					$script .= "
+												  <textarea disabled=\"true\" class=\"form-control\" id=\"".strtolower($campos[$i]->campo)."\" name=\"".strtolower($campos[$i]->campo)."\" rows=\"4\" ><?php echo \$obj".$sessao."[0]->get".ucfirst(strtolower($campos[$i]->campo))."(); ?></textarea>";
+				}else{
+					$script .= "
+												  <input type=\"text\" disabled=\"true\" id=\"".strtolower($campos[$i]->campo)."\" name=\"".strtolower($campos[$i]->campo)."\" value=\"<?php echo \$obj".$sessao."[0]->get".ucfirst(strtolower($campos[$i]->campo))."(); ?>\" class=\"form-control\" >";
+				}
+				$script .= "
+												</div>";						
+			}
 		}
 		return $script;
 	}	
@@ -617,7 +686,8 @@ class View{
 									  <div class=\"tile\">
 										<h3 class=\"tile-title\">Formulário</h3>
 										<div class=\"tile-body\">
-
+									    ".$this->imagemVisualizar($sessao,$campos)."	
+									    ".$this->arquivoVisualizar($sessao,$campos)."	
 										<form action=\"#\" method=\"post\" id=\"formCadastro\" class=\"\">
 											".$this->camposVisualizar($sessao,$campos)."
 										  </form>

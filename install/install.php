@@ -10,9 +10,7 @@ require_once "view.php";
 		die();
 	}
 	
-	function criarTabela($sessao,$campos){
-		try {
-			
+	function conectarBanco(){
 			$local = "localhost";
 			$usuario = "root";
 			$senha  = "";
@@ -22,6 +20,20 @@ require_once "view.php";
 			mysqli_set_charset($conexao,"utf8");
 
 			mysqli_select_db($conexao,$banco) or die ("Nao foi possivel selecionar o banco de dados");
+			return $conexao;		
+	}
+	
+	function fecharBanco($conexao){
+		mysqli_close($conexao);
+	}	
+	
+	function criarTabela($sessao,$campos){
+		try {
+			
+			$conexao = conectarBanco();
+			
+			$sql = "DROP TABLE IF EXISTS `agenteweb`.`tb_agenteweb_".$sessao."`";
+			mysqli_query($conexao,$sql) or die ('Erro na execução exclusão da tabela!');
 			
 			$sql = "CREATE TABLE tb_agenteweb_".$sessao." 
 					(
@@ -59,37 +71,54 @@ require_once "view.php";
 			}
 			$sql .= " status INT(1) NULL DEFAULT '1'
 					)";				
-				
-			//$retorno = mysqli_query($conexao,$sql) or die ('Erro na execução de criar tabela!');
+			
+			mysqli_query($conexao,$sql) or die ('Erro na execução de criar tabela!');
+			fecharBanco($conexao);
 			
 			
-			$sql = "INSERT INTO `tb_agenteweb_classe` ( `id`, 
-														`nome`, 
-														`id_perfil`, 
-														`controlador`, 
-														`funcao`, 
-														`secao`, 
-														`id_modulo`, 
-														`status`
-														) VALUES (
-														NULL, 
-														'".$sessao."', 
-														'2', 
-														'Controlador".$sessao."', 
-														'telaListar".$sessao."', 
-														'".$sessao."', 
-														(SELECT id FROM tb_agenteweb_modulo WHERE nome = 'SITE'), 
-														'1')";
-			//$retorno = mysqli_query($conexao,$sql) or die ('Erro na execução erro na execução de update class!');
+
 			
 			mysqli_close($conexao);
-			return $retorno;
 		} catch (Exception $e) {
 			return $e;
 		}
 	}	
 
-    
+    function montarClasse($sessao){
+		$conexao = conectarBanco();
+		
+		$sql = "SELECT `id`,`nome` FROM `tb_agenteweb_classe` WHERE LOWER(`nome`) = '".strtolower($sessao)."'";
+		$query = mysqli_query($conexao,$sql) or die ('Erro na verificação da classe!');
+		while($obj = mysqli_fetch_object($query)){
+			$sql = "DELETE FROM `tb_agenteweb_acao_usuario` WHERE `tb_agenteweb_acao_usuario`.`id_classe` = " . $obj->id . "";
+			mysqli_query($conexao,$sql) or die ('Erro na exclusão da classe usuario!');
+			$sql = "DELETE FROM tb_agenteweb_classe WHERE `id` = " . $obj->id . "";			
+			mysqli_query($conexao,$sql) or die ('Erro na exclusão da classe!');
+		}		
+		
+		$sql = "INSERT INTO `tb_agenteweb_classe` ( `id`, 
+													`nome`, 
+													`id_perfil`, 
+													`controlador`, 
+													`funcao`, 
+													`secao`, 
+													`id_modulo`, 
+													`status`
+													) VALUES (
+													NULL, 
+													'".$sessao."', 
+													'2', 
+													'Controlador".$sessao."', 
+													'telaListar".$sessao."', 
+													'".$sessao."', 
+													(SELECT id FROM tb_agenteweb_modulo WHERE nome = 'SITE'), 
+													'1')";
+		
+		mysqli_query($conexao,$sql) or die ('Erro na execução erro na execução de update classe!');		
+		fecharBanco($conexao);
+	}
+	
+	
     $data = json_decode(file_get_contents("php://input"));
     $sessao = $data->sessao;
 	$campos = $data->campos;
@@ -100,6 +129,7 @@ require_once "view.php";
 	$view = new View();
 	if($data != null && $data->sessao != null && $data->sessao != "" && $data->campos != null && count($data->campos) > 0 ){
 		criarTabela($sessao,$campos);
+		montarClasse($sessao);
 		$classe->create($sessao,$campos);
 		$controller->create($sessao,$campos);
 		$dao->create($sessao,$campos);

@@ -10,17 +10,50 @@ require_once "view.php";
 		die();
 	}
 	
-	function conectarBanco(){
-			$local = "localhost";
-			$usuario = "root";
-			$senha  = "";
-			$banco = "agenteweb";
-			
-			$conexao = mysqli_connect($local,$usuario,$senha) or die( "nao foi possivel conectar" );
-			mysqli_set_charset($conexao,"utf8");
+	function updateInclude($sessao,$origem){
+		$fp = fopen($origem, "r");
+		$script = '';
+		while ( $current_line = fgets($fp) ) {
+			if($current_line === '?>'){
+				$script .= "require_once \"controle/controlador".$sessao.".php\";";
+				$script .= "\n";
+				$script .= "require_once \"dao/dao".$sessao.".php\";";
+				$script .= "\n";
+				$script .= "require_once \"view/view".$sessao.".php\";";
+				$script .= "\n";
+				$script .= "require_once \"classe/".$sessao.".php\";";
+				$script .= "\n";
+				$script .= "\n";		
+			}
+				$script .= $current_line;	    
+		}
+		fclose($fp);
+		
+		$myfile = fopen($origem, "w") or die("Unable to open file!");
+		fwrite($myfile, $script);
+		fclose($myfile);
 
-			mysqli_select_db($conexao,$banco) or die ("Nao foi possivel selecionar o banco de dados");
-			return $conexao;		
+		if (!file_exists('../arquivos/'.strtolower($sessao))) {
+			mkdir('../arquivos/'.strtolower($sessao), 0777, true);
+		}
+		if (!file_exists('../imagens/'.strtolower($sessao))) {
+			mkdir('../imagens/'.strtolower($sessao), 0777, true);
+		}
+		
+		
+	}
+	
+	function conectarBanco(){
+		$local = "localhost";
+		$usuario = "root";
+		$senha  = "";
+		$banco = "agenteweb";
+		
+		$conexao = mysqli_connect($local,$usuario,$senha) or die( "nao foi possivel conectar" );
+		mysqli_set_charset($conexao,"utf8");
+
+		mysqli_select_db($conexao,$banco) or die ("Nao foi possivel selecionar o banco de dados");
+		return $conexao;		
 	}
 	
 	function fecharBanco($conexao){
@@ -130,6 +163,7 @@ require_once "view.php";
 	if($data != null && $data->sessao != null && $data->sessao != "" && $data->campos != null && count($data->campos) > 0 ){
 		criarTabela($sessao,$campos);
 		montarClasse($sessao);
+		updateInclude($sessao,"../include.php");
 		$classe->create($sessao,$campos);
 		$controller->create($sessao,$campos);
 		$dao->create($sessao,$campos);

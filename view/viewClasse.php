@@ -37,10 +37,10 @@ class ViewClasse{
 	            <h3 class="tile-title">Formulário</h3>
 	            <div class="tile-body">
 	              <form action="#" method="post" id="formCadastro" class="">
-					<input type="hidden" name="retorno" id="retorno" value="div_central"/>
-					<input type="hidden" name="controlador" id="controlador" value="ControladorClasse"/>
-					<input type="hidden" name="funcao" id="funcao" value="incluirClasse"/>
-					<input type="hidden" name="mensagem" id="mensagem" value="1"/>              
+					<input type="hidden" name="r3" id="r3" value="div_central"/>
+					<input type="hidden" name="c2" id="c2" value="ControladorClasse"/>
+					<input type="hidden" name="f1" id="f1" value="incluirClasse"/>
+					<input type="hidden" name="m4" id="m4" value="1"/>              
 	                <div class="form-group">
 	                  <label class="control-label">Nome *</label>
 	                  <input class="form-control mgs_alerta" id="nome" name="nome" type="text" onkeyup="this.value=this.value.capitalize();" >
@@ -81,7 +81,7 @@ class ViewClasse{
 	            </div>
 	            <div class="tile-footer">
 	              <button class="btn btn-primary " onClick="fncFormCadastro(this)" type="button"><i class="fa fa-fw fa-lg fa-check-circle"></i>Salvar</button>
-	              &nbsp;&nbsp;&nbsp;<a class="btn btn-secondary " onClick="fncButtonCadastro(this)" href="#" funcao="telaListarClasse" controlador="ControladorClasse" retorno="div_central" ><i class="fa fa-fw fa-lg fa-times-circle"></i>Voltar</a>
+	              &nbsp;&nbsp;&nbsp;<a class="btn btn-secondary " onClick="fncButtonCadastro(this)" href="#" f1="telaListarClasse" c2="ControladorClasse" r3="div_central" ><i class="fa fa-fw fa-lg fa-times-circle"></i>Voltar</a>
 	            </div>
 	          </div>
 	        </div>
@@ -95,7 +95,7 @@ class ViewClasse{
       <div class="app-title">
         <div>
           <h1><i class="fa fa-th-list"></i> Módulos &nbsp;&nbsp;&nbsp;
-            <a href="#" class="btn btn-primary " onClick="fncButtonCadastro(this)" funcao="telaCadastrarClasse" controlador="ControladorClasse" retorno="div_central"><i class="fa fa-fw fa-lg fa-plus"></i>Novo</a>
+            <a href="#" class="btn btn-primary " onClick="fncButtonCadastro(this)" f1="telaCadastrarClasse" c2="ControladorClasse" r3="div_central"><i class="fa fa-fw fa-lg fa-plus"></i>Novo</a>
           </h1>
           <!--p>Table to display analytical data effectively</p-->
         </div>
@@ -127,15 +127,15 @@ class ViewClasse{
                         foreach ($objClasse as $classe) {
                     ?>    
 						<tr> 
-							<td onClick="getId(this)" style="cursor:pointer"  id="<?php echo $classe->getId(); ?>" funcao="telaVisualizarClasse" controlador="ControladorClasse" retorno="div_central"><?php echo str_pad($classe->getId(), 5, "0", STR_PAD_LEFT); ?></td> 
-							<td onClick="getId(this)" style="cursor:pointer"  id="<?php echo $classe->getId(); ?>" funcao="telaVisualizarClasse" controlador="ControladorClasse" retorno="div_central"><?php echo $classe->getNome(); ?></td> 
-							<td onClick="getId(this)" style="cursor:pointer"  id="<?php echo $classe->getId(); ?>" funcao="telaVisualizarClasse" controlador="ControladorClasse" retorno="div_central"><?php echo ($classe->getControlador())?$classe->getControlador():"-";?></td> 
-							<td onClick="getId(this)" style="cursor:pointer"  id="<?php echo $classe->getId(); ?>" funcao="telaVisualizarClasse" controlador="ControladorClasse" retorno="div_central"><?php echo ($classe->getFuncao())?$classe->getFuncao():"-";?></td> 
-							<td onClick="getId(this)" style="cursor:pointer"  id="<?php echo $classe->getId(); ?>" funcao="telaVisualizarClasse" controlador="ControladorClasse" retorno="div_central"><?php echo ($classe->getSecao())?$classe->getSecao():"-";?></td> 
-                            <td onClick="getId(this)" style="cursor:pointer"  id="<?php echo $classe->getId(); ?>" funcao="telaVisualizarClasse" controlador="ControladorClasse" retorno="div_central"><?php echo ($classe->getModulo())?$classe->getModulo()->getNome():"-";?></td> 
+							<td onClick="getId(this)" style="cursor:pointer"  id="<?php echo $classe->getId(); ?>" f1="telaVisualizarClasse" c2="ControladorClasse" r3="div_central"><?php echo str_pad($classe->getId(), 5, "0", STR_PAD_LEFT); ?></td> 
+							<td onClick="getId(this)" style="cursor:pointer"  id="<?php echo $classe->getId(); ?>" f1="telaVisualizarClasse" c2="ControladorClasse" r3="div_central"><?php echo $classe->getNome(); ?></td> 
+							<td onClick="getId(this)" style="cursor:pointer"  id="<?php echo $classe->getId(); ?>" f1="telaVisualizarClasse" c2="ControladorClasse" r3="div_central"><?php echo ($classe->getControlador())?$classe->getControlador():"-";?></td> 
+							<td onClick="getId(this)" style="cursor:pointer"  id="<?php echo $classe->getId(); ?>" f1="telaVisualizarClasse" c2="ControladorClasse" r3="div_central"><?php echo ($classe->getFuncao())?$classe->getFuncao():"-";?></td> 
+							<td onClick="getId(this)" style="cursor:pointer"  id="<?php echo $classe->getId(); ?>" f1="telaVisualizarClasse" c2="ControladorClasse" r3="div_central"><?php echo ($classe->getSecao())?$classe->getSecao():"-";?></td> 
+                            <td onClick="getId(this)" style="cursor:pointer"  id="<?php echo $classe->getId(); ?>" f1="telaVisualizarClasse" c2="ControladorClasse" r3="div_central"><?php echo ($classe->getModulo())?$classe->getModulo()->getNome():"-";?></td> 
 							<td style="text-align:center;width:100px">
-								<button onClick="getId(this)" class="btn btn-secondary btn-list" type="button" title="Alterar" id="<?php echo $classe->getId(); ?>" funcao="telaAlterarClasse" controlador="ControladorClasse" retorno="div_central"><i class="fa fa-lg fa-edit"></i></button>
-								<button class="btn btn-secondary btn-list" onClick="fncDeleteId(this)" type="button" title="Excluir" id="<?php echo $classe->getId(); ?>" funcao="excluirClasse" controlador="ControladorClasse" retorno="div_central" mensagem="4"><i class="fa fa-lg fa-trash"></i></button>
+								<button onClick="getId(this)" class="btn btn-secondary btn-list" type="button" title="Alterar" id="<?php echo $classe->getId(); ?>" f1="telaAlterarClasse" c2="ControladorClasse" r3="div_central"><i class="fa fa-lg fa-edit"></i></button>
+								<button class="btn btn-secondary btn-list" onClick="fncDeleteId(this)" type="button" title="Excluir" id="<?php echo $classe->getId(); ?>" f1="excluirClasse" c2="ControladorClasse" r3="div_central" m4="4"><i class="fa fa-lg fa-trash"></i></button>
 							</td> 
 						</tr>                         
                     <?php
@@ -175,10 +175,10 @@ class ViewClasse{
 	            <h3 class="tile-title">Formulário</h3>
 	            <div class="tile-body">
 	              <form action="#" method="post" id="formCadastro" class="">
-					<input type="hidden" name="retorno" id="retorno" value="div_central"/>
-					<input type="hidden" name="controlador" id="controlador" value="ControladorClasse"/>
-					<input type="hidden" name="funcao" id="funcao" value="alterarClasse"/>
-					<input type="hidden" name="mensagem" id="mensagem" value="1"/>
+					<input type="hidden" name="r3" id="r3" value="div_central"/>
+					<input type="hidden" name="c2" id="c2" value="ControladorClasse"/>
+					<input type="hidden" name="f1" id="f1" value="alterarClasse"/>
+					<input type="hidden" name="m4" id="m4" value="1"/>
 					<input type="hidden" name="id" id="id" value="<?php echo $objClasse[0]->getId();?>"/>	
 					<div class="form-group">
 						<label class="control-label">Nome *</label>
@@ -222,7 +222,7 @@ class ViewClasse{
 	            </div>
 	            <div class="tile-footer">
 	              <button class="btn btn-primary " onClick="fncFormCadastro(this)" type="button"><i class="fa fa-fw fa-lg fa-check-circle"></i>Salvar</button>
-	              &nbsp;&nbsp;&nbsp;<a class="btn btn-secondary " onClick="fncButtonCadastro(this)" href="#" funcao="telaListarClasse" controlador="ControladorClasse" retorno="div_central" ><i class="fa fa-fw fa-lg fa-times-circle"></i>Voltar</a>
+	              &nbsp;&nbsp;&nbsp;<a class="btn btn-secondary " onClick="fncButtonCadastro(this)" href="#" f1="telaListarClasse" c2="ControladorClasse" r3="div_central" ><i class="fa fa-fw fa-lg fa-times-circle"></i>Voltar</a>
 	            </div>
 	          </div>
 	        </div>
@@ -295,7 +295,7 @@ class ViewClasse{
 	              </form>
 	            </div>
 	            <div class="tile-footer">
-	              <a class="btn btn-secondary " onClick="fncButtonCadastro(this)" href="#" funcao="telaListarClasse" controlador="ControladorClasse" retorno="div_central" ><i class="fa fa-fw fa-lg fa-times-circle"></i>Voltar</a>
+	              <a class="btn btn-secondary " onClick="fncButtonCadastro(this)" href="#" f1="telaListarClasse" c2="ControladorClasse" r3="div_central" ><i class="fa fa-fw fa-lg fa-times-circle"></i>Voltar</a>
 	            </div>
 	          </div>
 	        </div>

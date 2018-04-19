@@ -32,10 +32,10 @@ class ViewAcao{
             <h3 class="tile-title">Formulário</h3>
             <div class="tile-body">
               <form action="#" method="post" id="formCadastro" class="">
-                <input type="hidden" name="retorno" id="retorno" value="div_central"/>
-                <input type="hidden" name="controlador" id="controlador" value="ControladorAcao"/>
-                <input type="hidden" name="funcao" id="funcao" value="incluirClasseAcao"/>
-                <input type="hidden" name="mensagem" id="mensagem" value="1"/>              
+                <input type="hidden" name="r3" id="r3" value="div_central"/>
+                <input type="hidden" name="c2" id="c2" value="ControladorAcao"/>
+                <input type="hidden" name="f1" id="f1" value="incluirClasseAcao"/>
+                <input type="hidden" name="m4" id="m4" value="1"/>              
                 <div class="form-group">
                     *&nbsp;A = Lista&nbsp;/&nbsp;Vizualiza&nbsp;/&nbsp;Altera&nbsp;/&nbsp;Inclui&nbsp;/&nbsp;Exclui.<br />
                     *&nbsp;B = Lista&nbsp;/&nbsp;Vizualiza&nbsp;/&nbsp;Altera.<br />
@@ -115,7 +115,7 @@ class ViewAcao{
             </div>
             <div class="tile-footer">
               <button class="btn btn-primary " onClick="fncFormCadastro(this)" type="button"><i class="fa fa-fw fa-lg fa-check-circle"></i>Salvar</button>
-              &nbsp;&nbsp;&nbsp;<a class="btn btn-secondary " onClick="fncButtonCadastro(this)" href="#" funcao="telaListarUsuario" controlador="ControladorUsuario"  retorno="div_central" ><i class="fa fa-fw fa-lg fa-times-circle"></i>Voltar</a>
+              &nbsp;&nbsp;&nbsp;<a class="btn btn-secondary " onClick="fncButtonCadastro(this)" href="#" f1="telaListarUsuario" c2="ControladorUsuario"  r3="div_central" ><i class="fa fa-fw fa-lg fa-times-circle"></i>Voltar</a>
             </div>
           </div>
         </div>

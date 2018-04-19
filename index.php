@@ -22,10 +22,10 @@
       </div>
       <div class="login-box">
         <form action="#" method="post" name="formLogin" id="formLogin" class="login-form">
-          <input type="hidden" name="retorno" id="retorno" value="msgSlide"/>
-          <input type="hidden" name="controlador" id="controlador" value="ControladorLogin"/>
-          <input type="hidden" name="funcao" id="funcao" value="validarLogin"/>
-          <input type="hidden" name="mensagem" id="mensagem" value="10"/>          
+          <input type="hidden" name="r3" id="r3" value="msgSlide"/>
+          <input type="hidden" name="c2" id="c2" value="ControladorLogin"/>
+          <input type="hidden" name="f1" id="f1" value="validarLogin"/>
+          <input type="hidden" name="m4" id="m4" value="10"/>          
           <h3 class="login-head"><i class="fa fa-lg fa-fw fa-user"></i>Login</h3>
           <div class="form-group">
             <label class="control-label">Usuário:</label>

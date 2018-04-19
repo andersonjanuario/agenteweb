@@ -12,7 +12,7 @@ class View{
 				$script .= "
 											<script type=\"text/javascript\">											
 												\$(document).ready(function() {
-													fncInserirArquivo('form_imagem_".strtolower($campos[$i]->campo)."', 'progress_".strtolower($campos[$i]->campo)."', 'porcentagem_".strtolower($campos[$i]->campo)."', '".strtolower($campos[$i]->campo)."', 'imagemAtual', './imagens/".strtolower($sessao)."/', 'imagem');
+													fncInserirArquivo('form_imagem_".strtolower($campos[$i]->campo)."', 'progress_".strtolower($campos[$i]->campo)."', 'porcentagem_".strtolower($campos[$i]->campo)."', '".strtolower($campos[$i]->campo)."', 'imagemAtual_".strtolower($campos[$i]->campo)."', './imagens/".strtolower($sessao)."/', 'imagem');
 												});
 											</script>
 											";
@@ -31,17 +31,17 @@ class View{
 																	<input name=\"largura\" type=\"hidden\" value=\"640\">
 																	<input name=\"opcao\" type=\"hidden\" value=\"1\">
 																	<input name=\"tipoArq\" type=\"hidden\" value=\"imagem\">
-																	<input type=\"file\" name=\"file\" class=\"upload-file\" onchange=\"javascript: fncSubmitArquivo('enviar', this);\" >
-																	<input type=\"submit\" id=\"enviar\" style=\"display:none;\">   
+																	<input type=\"file\" name=\"file\" class=\"upload-file\" onchange=\"javascript: fncSubmitArquivo('enviar_".strtolower($campos[$i]->campo)."', this);\" >
+																	<input type=\"submit\" id=\"enviar_".strtolower($campos[$i]->campo)."\" style=\"display:none;\">   
 																	<img src=\"./img/img_upload.png\" class=\"upload-button\" />
 																</form> 
 															</span>
 														</td>
 														<td style=\"width: 20%\">
-															<img onclick=\"fncRemoverArquivo('imagem', './imagens/".strtolower($sessao)."', 'imagem', 'imagemAtual', './img/imagemPadrao.jpg');\" src=\"./img/remove.png\" border=\"0\" title=\"Clique para remover\" style=\"cursor:pointer;margin-bottom:7px;\" class=\"upload-button\" />
+															<img onclick=\"fncRemoverArquivo('imagem', './imagens/".strtolower($sessao)."', 'imagem', 'imagemAtual_".strtolower($campos[$i]->campo)."', './img/imagemPadrao.jpg');\" src=\"./img/remove.png\" border=\"0\" title=\"Clique para remover\" style=\"cursor:pointer;margin-bottom:7px;\" class=\"upload-button\" />
 														</td>
 														<td style=\"width: 60%\">
-															<img id=\"imagemAtual\" name=\"imagemAtual\" src=\"./img/imagemPadrao.jpg\" border=\"0\" style=\"\" />
+															<img id=\"imagemAtual_".strtolower($campos[$i]->campo)."\" name=\"imagemAtual_".strtolower($campos[$i]->campo)."\" src=\"./img/imagemPadrao.jpg\" border=\"0\" style=\"\" />
 														</td>
 													</tr>
 													<tr>
@@ -58,7 +58,7 @@ class View{
 		return $script;		
 	}
 	
-	public function arquivoCadastros($campos){
+	public function arquivoCadastros($sessao,$campos){
 		$script = "";
 		for($i=0;$i< count($campos);$i++){
 			if($campos[$i]->tipo === 'arquivo'){
@@ -68,7 +68,7 @@ class View{
 				$script .= "
 											<script type=\"text/javascript\">											
 												\$(document).ready(function() {
-													fncInserirArquivo('form_arquivo_".strtolower($campos[$i]->campo)."', 'progress_arquivo_".strtolower($campos[$i]->campo)."', 'porcentagem_arquivo_".strtolower($campos[$i]->campo)."', '".strtolower($campos[$i]->campo)."', 'arquivoAtual', './arquivos/".strtolower($sessao)."/', 'arquivo');
+													fncInserirArquivo('form_arquivo_".strtolower($campos[$i]->campo)."', 'progress_arquivo_".strtolower($campos[$i]->campo)."', 'porcentagem_arquivo_".strtolower($campos[$i]->campo)."', '".strtolower($campos[$i]->campo)."', 'arquivoAtual_".strtolower($campos[$i]->campo)."', './arquivos/".strtolower($sessao)."/', 'arquivo');
 												});
 											</script>";
 				$script .= "				<div class=\"form-group\">";
@@ -86,17 +86,17 @@ class View{
 																	<input name=\"largura\" type=\"hidden\" value=\"640\">
 																	<input name=\"opcao\" type=\"hidden\" value=\"1\">
 																	<input name=\"tipoArq\" type=\"hidden\" value=\"arquivo\">
-																	<input type=\"file\" name=\"file\" class=\"upload-file\" onchange=\"javascript: fncSubmitArquivo('enviar_arquivo', this);\" >
-																	<input type=\"submit\" id=\"enviar_arquivo\" style=\"display:none;\">   
+																	<input type=\"file\" name=\"file\" class=\"upload-file\" onchange=\"javascript: fncSubmitArquivo('enviar_arquivo_".strtolower($campos[$i]->campo)."', this);\" >
+																	<input type=\"submit\" id=\"enviar_arquivo_".strtolower($campos[$i]->campo)."\" style=\"display:none;\">   
 																	<img src=\"./img/img_upload.png\" class=\"upload-button\" />
 																</form> 
 															</span>
 														</td>
 														<td style=\"width: 20%\">
-															<img onclick=\"fncRemoverArquivo('".strtolower($campos[$i]->campo)."', './arquivos/".strtolower($sessao)."/', 'arquivo', 'arquivoAtual', '');\" src=\"./img/remove.png\" border=\"0\" title=\"Clique para remover\" style=\"cursor:pointer;margin-bottom:7px;\" class=\"upload-button\" />
+															<img onclick=\"fncRemoverArquivo('".strtolower($campos[$i]->campo)."', './arquivos/".strtolower($sessao)."/', 'arquivo', 'arquivoAtual_".strtolower($campos[$i]->campo)."', '');\" src=\"./img/remove.png\" border=\"0\" title=\"Clique para remover\" style=\"cursor:pointer;margin-bottom:7px;\" class=\"upload-button\" />
 														</td>
 														<td style=\"width: 60%\">
-															<span name=\"arquivoAtual\" id=\"arquivoAtual\" onClick=\"fnAbreArquivo('".strtolower($campos[$i]->campo)."', './arquivos/".strtolower($campos[$i]->campo)."/')\"   ><br />Adicione um arquivo clicando no <img src=\"./img/img_upload.png\" border=\"0\" style=\"float:none;margin:0;width: 20px;\" /></span>
+															<span name=\"arquivoAtual_".strtolower($campos[$i]->campo)."\" id=\"arquivoAtual_".strtolower($campos[$i]->campo)."\" onClick=\"fnAbreArquivo('".strtolower($campos[$i]->campo)."', './arquivos/".strtolower($campos[$i]->campo)."/')\"   ><br />Adicione um arquivo clicando no <img src=\"./img/img_upload.png\" border=\"0\" style=\"float:none;margin:0;width: 20px;\" /></span>
 														</td>
 													</tr>
 													<tr>
@@ -210,12 +210,12 @@ class View{
 										<h3 class=\"tile-title\">Formulário</h3>
 										<div class=\"tile-body\">
 									  ".$this->imagemCadastros($sessao,$campos)."	
-									  ".$this->arquivoCadastros($campos)."							 
+									  ".$this->arquivoCadastros($sessao,$campos)."							 
 										<form action=\"#\" method=\"post\" id=\"formCadastro\" class=\"\">
-											<input type=\"hidden\" name=\"retorno\" id=\"retorno\" value=\"div_central\"/>
-											<input type=\"hidden\" name=\"controlador\" id=\"controlador\" value=\"Controlador".$sessao."\"/>
-											<input type=\"hidden\" name=\"funcao\" id=\"funcao\" value=\"incluir".$sessao."\"/>
-											<input type=\"hidden\" name=\"mensagem\" id=\"mensagem\" value=\"1\"/>
+											<input type=\"hidden\" name=\"r3\" id=\"r3\" value=\"div_central\"/>
+											<input type=\"hidden\" name=\"c2\" id=\"c2\" value=\"Controlador".$sessao."\"/>
+											<input type=\"hidden\" name=\"f1\" id=\"f1\" value=\"incluir".$sessao."\"/>
+											<input type=\"hidden\" name=\"m4\" id=\"m4\" value=\"1\"/>
 											".$this->camposCadastros($campos)."
 											<!--div class=\"form-group\">
 												<label class=\"control-label\">Descrição</label>
@@ -225,7 +225,7 @@ class View{
 										</div>
 										<div class=\"tile-footer\">
 										  <button class=\"btn btn-primary \" onClick=\"fncFormCadastro(this)\" type=\"button\"><i class=\"fa fa-fw fa-lg fa-check-circle\"></i>Salvar</button>
-										  &nbsp;&nbsp;&nbsp;<a class=\"btn btn-secondary \" onClick=\"fncButtonCadastro(this)\" href=\"#\" funcao=\"telaListar".$sessao."\" controlador=\"Controlador".$sessao."\" retorno=\"div_central\" ><i class=\"fa fa-fw fa-lg fa-times-circle\"></i>Voltar</a>
+										  &nbsp;&nbsp;&nbsp;<a class=\"btn btn-secondary \" onClick=\"fncButtonCadastro(this)\" href=\"#\" f1=\"telaListar".$sessao."\" c2=\"Controlador".$sessao."\" r3=\"div_central\" ><i class=\"fa fa-fw fa-lg fa-times-circle\"></i>Voltar</a>
 										</div>
 									  </div>
 									</div>
@@ -252,7 +252,7 @@ class View{
 		for($i=0;$i< count($campos);$i++){	
 			if($campos[$i]->grid === "1"){	
 				$script .= "
-															<td class=\"center\" onClick=\"getId(this)\"  style=\"cursor:pointer\"  id=\"<?php echo \$".strtolower($sessao)."->getId(); ?>\" funcao=\"telaVisualizar".$sessao."\" controlador=\"Controlador".$sessao."\" retorno=\"div_central\">
+															<td class=\"center\" onClick=\"getId(this)\"  style=\"cursor:pointer\"  id=\"<?php echo \$".strtolower($sessao)."->getId(); ?>\" f1=\"telaVisualizar".$sessao."\" c2=\"Controlador".$sessao."\" r3=\"div_central\">
 																<?php
 																if (\$".strtolower($sessao)."->get".ucfirst(strtolower($campos[$i]->campo))."()) {
 																	echo limitarTexto(\$".strtolower($sessao)."->get".ucfirst(strtolower($campos[$i]->campo))."(), 20);
@@ -276,7 +276,7 @@ class View{
 								  <div class=\"app-title\">
 									<div>
 									  <h1><i class=\"fa fa-th-list\"></i> ".$sessao." &nbsp;&nbsp;&nbsp;
-										<button class=\"btn btn-primary \" <?php echo (\$perfil === 'A')?'onClick=\"fncButtonCadastro(this)\"':'disabled=\"true\"'; ?> funcao=\"telaCadastrar".$sessao."\" controlador=\"Controlador".$sessao."\" retorno=\"div_central\"><i class=\"fa fa-fw fa-lg fa-plus\"></i>Novo</button>                
+										<button class=\"btn btn-primary \" <?php echo (\$perfil === 'A')?'onClick=\"fncButtonCadastro(this)\"':'disabled=\"true\"'; ?> f1=\"telaCadastrar".$sessao."\" c2=\"Controlador".$sessao."\" r3=\"div_central\"><i class=\"fa fa-fw fa-lg fa-plus\"></i>Novo</button>                
 									  </h1>              
 									</div>
 									<ul class=\"app-breadcrumb breadcrumb side\">
@@ -306,8 +306,8 @@ class View{
 															<td class=\"center\"><?php echo str_pad(\$".strtolower($sessao)."->getId(), 5, \"0\", STR_PAD_LEFT); ?></td>
 															".$this->colunasListar($sessao,$campos)."
 															<td style=\"text-align:center;width:100px;\">                              
-																<button <?php echo (\$perfil !== 'C')?'onClick=\"getId(this)\"':'disabled=\"true\"'; ?> class=\"btn btn-secondary btn-list\" type=\"button\" title=\"Alterar\" id=\"<?php echo \$".strtolower($sessao)."->getId(); ?>\" funcao=\"telaAlterar".$sessao."\" controlador=\"Controlador".$sessao."\" retorno=\"div_central\"><i class=\"fa fa-lg fa-edit\"></i></button>
-																<button <?php echo (\$perfil === 'A')?'onClick=\"fncDeleteId(this)\"':'disabled=\"true\"'; ?> class=\"btn btn-secondary btn-list\" type=\"button\" title=\"Excluir\" id=\"<?php echo \$".strtolower($sessao)."->getId(); ?>\" funcao=\"excluir".$sessao."\" controlador=\"Controlador".$sessao."\" retorno=\"div_central\" mensagem=\"4\"><i class=\"fa fa-lg fa-trash\"></i></button>
+																<button <?php echo (\$perfil !== 'C')?'onClick=\"getId(this)\"':'disabled=\"true\"'; ?> class=\"btn btn-secondary btn-list\" type=\"button\" title=\"Alterar\" id=\"<?php echo \$".strtolower($sessao)."->getId(); ?>\" f1=\"telaAlterar".$sessao."\" c2=\"Controlador".$sessao."\" r3=\"div_central\"><i class=\"fa fa-lg fa-edit\"></i></button>
+																<button <?php echo (\$perfil === 'A')?'onClick=\"fncDeleteId(this)\"':'disabled=\"true\"'; ?> class=\"btn btn-secondary btn-list\" type=\"button\" title=\"Excluir\" id=\"<?php echo \$".strtolower($sessao)."->getId(); ?>\" f1=\"excluir".$sessao."\" c2=\"Controlador".$sessao."\" r3=\"div_central\" m4=\"4\"><i class=\"fa fa-lg fa-trash\"></i></button>
 															</td> 
 														</tr> 
 												<?php
@@ -337,7 +337,7 @@ class View{
 				$script .= "
 											<script type=\"text/javascript\">											
 												\$(document).ready(function() {
-													fncInserirArquivo('form_imagem_".strtolower($campos[$i]->campo)."', 'progress_".strtolower($campos[$i]->campo)."', 'porcentagem_".strtolower($campos[$i]->campo)."', '".strtolower($campos[$i]->campo)."', 'imagemAtual', './imagens/".strtolower($sessao)."/', 'imagem');
+													fncInserirArquivo('form_imagem_".strtolower($campos[$i]->campo)."', 'progress_".strtolower($campos[$i]->campo)."', 'porcentagem_".strtolower($campos[$i]->campo)."', '".strtolower($campos[$i]->campo)."', 'imagemAtual_".strtolower($campos[$i]->campo)."', './imagens/".strtolower($sessao)."/', 'imagem');
 												});
 											</script>
 											<?php
@@ -363,17 +363,17 @@ class View{
 																	<input name=\"largura\" type=\"hidden\" value=\"640\">
 																	<input name=\"opcao\" type=\"hidden\" value=\"1\">
 																	<input name=\"tipoArq\" type=\"hidden\" value=\"imagem\">
-																	<input type=\"file\" name=\"file\" class=\"upload-file\" onchange=\"javascript: fncSubmitArquivo('enviar', this);\" >
-																	<input type=\"submit\" id=\"enviar\" style=\"display:none;\">   
+																	<input type=\"file\" name=\"file\" class=\"upload-file\" onchange=\"javascript: fncSubmitArquivo('enviar_".strtolower($campos[$i]->campo)."', this);\" >
+																	<input type=\"submit\" id=\"enviar_".strtolower($campos[$i]->campo)."\" style=\"display:none;\">   
 																	<img src=\"./img/img_upload.png\" class=\"upload-button\" />
 																</form> 
 															</span>
 														</td>
 														<td style=\"width: 20%\">
-															<img onclick=\"fncRemoverArquivo('imagem', './imagens/".strtolower($sessao)."', 'imagem', 'imagemAtual', './img/imagemPadrao.jpg');\" src=\"./img/remove.png\" border=\"0\" title=\"Clique para remover\" style=\"cursor:pointer;margin-bottom:7px;\" class=\"upload-button\" />
+															<img onclick=\"fncRemoverArquivo('imagem', './imagens/".strtolower($sessao)."', 'imagem', 'imagemAtual_".strtolower($campos[$i]->campo)."', './img/imagemPadrao.jpg');\" src=\"./img/remove.png\" border=\"0\" title=\"Clique para remover\" style=\"cursor:pointer;margin-bottom:7px;\" class=\"upload-button\" />
 														</td>
 														<td style=\"width: 60%\">
-															<img id=\"imagemAtual\" name=\"imagemAtual\" src=\"<?php echo \$imagem; ?>\" border=\"0\" style=\"\" />
+															<img id=\"imagemAtual_".strtolower($campos[$i]->campo)."\" name=\"imagemAtual_".strtolower($campos[$i]->campo)."\" src=\"<?php echo \$imagem; ?>\" border=\"0\" style=\"\" />
 														</td>
 													</tr>
 													<tr>
@@ -400,7 +400,7 @@ class View{
 				$script .= "
 											<script type=\"text/javascript\">											
 												\$(document).ready(function() {
-													fncInserirArquivo('form_arquivo_".strtolower($campos[$i]->campo)."', 'progress_".strtolower($campos[$i]->campo)."', 'porcentagem_".strtolower($campos[$i]->campo)."', '".strtolower($campos[$i]->campo)."', 'arquivoAtual', './imagens/".strtolower($sessao)."/', 'arquivo');
+													fncInserirArquivo('form_arquivo_".strtolower($campos[$i]->campo)."', 'progress_".strtolower($campos[$i]->campo)."', 'porcentagem_".strtolower($campos[$i]->campo)."', '".strtolower($campos[$i]->campo)."', 'arquivoAtual_".strtolower($campos[$i]->campo)."', './imagens/".strtolower($sessao)."/', 'arquivo');
 												});
 											</script>											";
 				$script .= "				<div class=\"form-group\">";
@@ -418,17 +418,17 @@ class View{
 																	<input name=\"largura\" type=\"hidden\" value=\"640\">
 																	<input name=\"opcao\" type=\"hidden\" value=\"1\">
 																	<input name=\"tipoArq\" type=\"hidden\" value=\"arquivo\">
-																	<input type=\"file\" name=\"file\" class=\"upload-file\" onchange=\"javascript: fncSubmitArquivo('enviar_arquivo', this);\" >
-																	<input type=\"submit\" id=\"enviar_arquivo\" style=\"display:none;\">   
+																	<input type=\"file\" name=\"file\" class=\"upload-file\" onchange=\"javascript: fncSubmitArquivo('enviar_arquivo_".strtolower($campos[$i]->campo)."', this);\" >
+																	<input type=\"submit\" id=\"enviar_arquivo_".strtolower($campos[$i]->campo)."\" style=\"display:none;\">   
 																	<img src=\"./img/img_upload.png\" class=\"upload-button\" />
 																</form> 
 															</span>
 														</td>
 														<td style=\"width: 20%\">
-															<img onclick=\"fncRemoverArquivo('".strtolower($campos[$i]->campo)."', './arquivos/".strtolower($sessao)."/', 'arquivo', 'arquivoAtual', '');\" src=\"./img/remove.png\" border=\"0\" title=\"Clique para remover\" style=\"cursor:pointer;margin-bottom:7px;\" class=\"upload-button\" />
+															<img onclick=\"fncRemoverArquivo('".strtolower($campos[$i]->campo)."', './arquivos/".strtolower($sessao)."/', 'arquivo', 'arquivoAtual_".strtolower($campos[$i]->campo)."', '');\" src=\"./img/remove.png\" border=\"0\" title=\"Clique para remover\" style=\"cursor:pointer;margin-bottom:7px;\" class=\"upload-button\" />
 														</td>
 														<td style=\"width: 60%\">
-															<span name=\"arquivoAtual\" id=\"arquivoAtual\" onClick=\"fnAbreArquivo('".strtolower($campos[$i]->campo)."', './arquivos/".strtolower($sessao)."/')\" style=\"<?php echo (\$obj".$sessao."[0]->get".ucfirst(strtolower($campos[$i]->campo))."()) ? 'cursor: pointer; text-decoration: underline;' : '' ?>\" >
+															<span name=\"arquivoAtual_".strtolower($campos[$i]->campo)."\" id=\"arquivoAtual_".strtolower($campos[$i]->campo)."\" onClick=\"fnAbreArquivo('".strtolower($campos[$i]->campo)."', './arquivos/".strtolower($sessao)."/')\" style=\"<?php echo (\$obj".$sessao."[0]->get".ucfirst(strtolower($campos[$i]->campo))."()) ? 'cursor: pointer; text-decoration: underline;' : '' ?>\" >
 																<?php
 																if (\$obj".$sessao."[0]->get".ucfirst(strtolower($campos[$i]->campo))."()) {
 																	echo \$obj".$sessao."[0]->get".ucfirst(strtolower($campos[$i]->campo))."();
@@ -544,8 +544,8 @@ class View{
 									setDatePicker('data_nascimento');
 
 									\$(document).ready(function() {
-										fncInserirArquivo(\"form_arquivo\", \"progress_arquivo\", \"porcentagem_arquivo\", \"arquivo\", \"arquivoAtual\", \"./arquivos/".strtolower($sessao)."/\", \"arquivo\");
-										fncInserirArquivo(\"form_imagem\", \"progress\", \"porcentagem\", \"imagem\", \"imagemAtual\", \"./imagens/".strtolower($sessao)."/\", \"imagem\");
+										fncInserirArquivo(\"form_arquivo\", \"progress_arquivo\", \"porcentagem_arquivo\", \"arquivo\", \"arquivoAtual_".strtolower($campos[$i]->campo)."\", \"./arquivos/".strtolower($sessao)."/\", \"arquivo\");
+										fncInserirArquivo(\"form_imagem\", \"progress\", \"porcentagem\", \"imagem\", \"imagemAtual_".strtolower($campos[$i]->campo)."\", \"./imagens/".strtolower($sessao)."/\", \"imagem\");
 									});
 								</script>
 
@@ -570,17 +570,17 @@ class View{
 									    ".$this->imagemAlterar($sessao,$campos)."	
 									    ".$this->arquivoAlterar($sessao,$campos)."	
 										<form action=\"#\" method=\"post\" id=\"formCadastro\" class=\"\">
-											<input type=\"hidden\" name=\"retorno\" id=\"retorno\" value=\"div_central\"/>
-											<input type=\"hidden\" name=\"controlador\" id=\"controlador\" value=\"Controlador".$sessao."\"/>
-											<input type=\"hidden\" name=\"funcao\" id=\"funcao\" value=\"alterar".$sessao."\"/>
-											<input type=\"hidden\" name=\"mensagem\" id=\"mensagem\" value=\"2\"/>
+											<input type=\"hidden\" name=\"r3\" id=\"r3\" value=\"div_central\"/>
+											<input type=\"hidden\" name=\"c2\" id=\"c2\" value=\"Controlador".$sessao."\"/>
+											<input type=\"hidden\" name=\"f1\" id=\"f1\" value=\"alterar".$sessao."\"/>
+											<input type=\"hidden\" name=\"m4\" id=\"m4\" value=\"2\"/>
 											<input type=\"hidden\" name=\"id\" id=\"id\" value=\"<?php echo \$obj".$sessao."[0]->getId(); ?>\"/>
 											".$this->camposAlterar($sessao,$campos)."
 										  </form>
 										</div>
 										<div class=\"tile-footer\">
 										  <button class=\"btn btn-primary \" onClick=\"fncFormCadastro(this)\" type=\"button\"><i class=\"fa fa-fw fa-lg fa-check-circle\"></i>Salvar</button>
-										  &nbsp;&nbsp;&nbsp;<a class=\"btn btn-secondary \" onClick=\"fncButtonCadastro(this)\" href=\"#\" funcao=\"telaListar".$sessao."\" controlador=\"Controlador".$sessao."\" retorno=\"div_central\" ><i class=\"fa fa-fw fa-lg fa-times-circle\"></i>Voltar</a>
+										  &nbsp;&nbsp;&nbsp;<a class=\"btn btn-secondary \" onClick=\"fncButtonCadastro(this)\" href=\"#\" f1=\"telaListar".$sessao."\" c2=\"Controlador".$sessao."\" r3=\"div_central\" ><i class=\"fa fa-fw fa-lg fa-times-circle\"></i>Voltar</a>
 										</div>
 									  </div>
 									</div>
@@ -609,7 +609,7 @@ class View{
 												}
 												?>   
 												<span name=\"imagemLink\" id=\"<?php echo \$imagem; ?>\" title=\"Imagem\" >
-													<img name=\"imagemAtual\" src=\"<?php echo \$imagem; ?>\" border=\"0\" />
+													<img name=\"imagemAtual_".strtolower($campos[$i]->campo)."\" src=\"<?php echo \$imagem; ?>\" border=\"0\" />
 												</span>
 											</div>  
 											";
@@ -625,7 +625,7 @@ class View{
 				$script .= "
 											<div class=\"form-group\">
 												<label class=\"control-label\">Arquivo Tamanho Máximo: 2MB</label>
-												<span name=\"arquivoAtual\" onClick=\"fnAbreArquivo('arquivo', './arquivos/".strtolower($sessao)."/')\" style=\"<?php echo (\$obj".$sessao."[0]->get".ucfirst(strtolower($campos[$i]->campo))."()) ? 'cursor: pointer; text-decoration: underline;' : '' ?>\">
+												<span name=\"arquivoAtual_".strtolower($campos[$i]->campo)."\" onClick=\"fnAbreArquivo('arquivo', './arquivos/".strtolower($sessao)."/')\" style=\"<?php echo (\$obj".$sessao."[0]->get".ucfirst(strtolower($campos[$i]->campo))."()) ? 'cursor: pointer; text-decoration: underline;' : '' ?>\">
 													<?php
 													if (\$obj".$sessao."[0]->get".ucfirst(strtolower($campos[$i]->campo))."()) {
 														echo \$obj".$sessao."[0]->get".ucfirst(strtolower($campos[$i]->campo))."();
@@ -693,7 +693,7 @@ class View{
 										  </form>
 										</div>
 										<div class=\"tile-footer\">
-										  <a class=\"btn btn-secondary \" onClick=\"fncButtonCadastro(this)\" href=\"#\" funcao=\"telaListar".$sessao."\" controlador=\"Controlador".$sessao."\" retorno=\"div_central\" ><i class=\"fa fa-fw fa-lg fa-times-circle\"></i>Voltar</a>
+										  <a class=\"btn btn-secondary \" onClick=\"fncButtonCadastro(this)\" href=\"#\" f1=\"telaListar".$sessao."\" c2=\"Controlador".$sessao."\" r3=\"div_central\" ><i class=\"fa fa-fw fa-lg fa-times-circle\"></i>Voltar</a>
 										</div>
 									  </div>
 									</div>

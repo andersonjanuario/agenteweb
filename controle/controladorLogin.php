@@ -36,7 +36,7 @@ class ControladorLogin {
 			}else{
 				return "<script>javascript:
 					        $('#formLogin').each(function() {
-					            mensagem = $(this).children('#mensagem').val();
+					            mensagem = $(this).children('#m4').val();
 					            $('#msgSlide').html('<span>Usuário ou senha invalidos!</span>');
 					            $('#msgSlide').slideDown('slow', function() {
 					                setTimeout(\"$('#msgSlide').slideUp('slow')\", 3000);

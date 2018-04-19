@@ -77,27 +77,11 @@ class ViewUsuario{
 	                </div>
 
 	              <form action="#" method="post" id="formCadastro" class="">
-		            <input type="hidden" name="retorno" id="retorno" value="div_central"/>
-		            <input type="hidden" name="controlador" id="controlador" value="ControladorUsuario"/>
-		            <input type="hidden" name="funcao" id="funcao" value="incluirUsuario"/>
-		            <input type="hidden" name="mensagem" id="mensagem" value="1"/> 
+		            <input type="hidden" name="r3" id="r3" value="div_central"/>
+		            <input type="hidden" name="c2" id="c2" value="ControladorUsuario"/>
+		            <input type="hidden" name="f1" id="f1" value="incluirUsuario"/>
+		            <input type="hidden" name="m4" id="m4" value="1"/> 
 		            <input type="hidden" name="imagem" id="imagem" value="" />             
-
-		            <!--div class="form-group">
-		                <label>Imagem Largura Máxima: 640px<br /> 
-						<a href="javascript:fnInserirArquivo('imagem','./imagens/usuario/','640','imagem')">
-							<img name="imagemIcone" src="img/notes-add.gif" border="0" title="Clique para adicionar" />
-						</a>
-						<a href="javascript:fnRemoverArquivo('imagem','./imagens/usuario/','imagem')">
-							<img src="img/notes-reject.gif" border="0" title="Clique para remover" />
-						</a>				
-						</label>
-						<span name="imagemLink" id="./img/imagemPadrao.jpg" title="Imagem">
-							<img name="imagemAtual" src="./img/imagemPadrao.jpg" border="0" />
-						</span>
-						<input type="hidden" name="imagem" id="imagem" />
-					</div-->
-
 	                <div class="form-group">
 	                  <label class="control-label">Nome *</label>
 	                  <input class="form-control mgs_alerta" id="nome" name="nome" type="text" onkeyup="this.value=this.value.toUpperCase();" >
@@ -126,7 +110,7 @@ class ViewUsuario{
 	            </div>
 	            <div class="tile-footer">
 	              <button class="btn btn-primary " onClick="fncFormCadastro(this)" type="button"><i class="fa fa-fw fa-lg fa-check-circle"></i>Salvar</button>
-	              &nbsp;&nbsp;&nbsp;<a class="btn btn-secondary " onClick="fncButtonCadastro(this)" href="#" funcao="telaListarUsuario" controlador="ControladorUsuario" retorno="div_central" ><i class="fa fa-fw fa-lg fa-times-circle"></i>Voltar</a>
+	              &nbsp;&nbsp;&nbsp;<a class="btn btn-secondary " onClick="fncButtonCadastro(this)" href="#" f1="telaListarUsuario" c2="ControladorUsuario" r3="div_central" ><i class="fa fa-fw fa-lg fa-times-circle"></i>Voltar</a>
 	            </div>
 	          </div>
 	        </div>
@@ -140,7 +124,7 @@ class ViewUsuario{
       <div class="app-title">
         <div>
           <h1><i class="fa fa-th-list"></i> Módulos &nbsp;&nbsp;&nbsp;
-            <a href="#" class="btn btn-primary " onClick="fncButtonCadastro(this)" funcao="telaCadastrarUsuario" controlador="ControladorUsuario" retorno="div_central"><i class="fa fa-fw fa-lg fa-plus"></i>Novo</a>
+            <a href="#" class="btn btn-primary " onClick="fncButtonCadastro(this)" f1="telaCadastrarUsuario" c2="ControladorUsuario" r3="div_central"><i class="fa fa-fw fa-lg fa-plus"></i>Novo</a>
           </h1>
           <!--p>Table to display analytical data effectively</p-->
         </div>
@@ -169,13 +153,13 @@ class ViewUsuario{
                         foreach ($objUsuario as $usuario) {
                     ?>    
 						<tr> 
-							<td onClick="getId(this)" style="cursor:pointer"  id="<?php echo $usuario->getId(); ?>" funcao="telaVisualizarUsuario" controlador="ControladorUsuario" retorno="div_central"><?php echo str_pad($usuario->getId(), 5, "0", STR_PAD_LEFT); ?></td> 
-							<td onClick="getId(this)" style="cursor:pointer"  id="<?php echo $usuario->getId(); ?>" funcao="telaVisualizarUsuario" controlador="ControladorUsuario" retorno="div_central"><?php echo $usuario->getNome(); ?></td> 
-							<td onClick="getId(this)" style="cursor:pointer"  id="<?php echo $usuario->getId(); ?>" funcao="telaVisualizarUsuario" controlador="ControladorUsuario" retorno="div_central"><?php echo $usuario->getLogin();?></td> 
+							<td onClick="getId(this)" style="cursor:pointer"  id="<?php echo $usuario->getId(); ?>" f1="telaVisualizarUsuario" c2="ControladorUsuario" r3="div_central"><?php echo str_pad($usuario->getId(), 5, "0", STR_PAD_LEFT); ?></td> 
+							<td onClick="getId(this)" style="cursor:pointer"  id="<?php echo $usuario->getId(); ?>" f1="telaVisualizarUsuario" c2="ControladorUsuario" r3="div_central"><?php echo $usuario->getNome(); ?></td> 
+							<td onClick="getId(this)" style="cursor:pointer"  id="<?php echo $usuario->getId(); ?>" f1="telaVisualizarUsuario" c2="ControladorUsuario" r3="div_central"><?php echo $usuario->getLogin();?></td> 
 							<td style="text-align:center;width:140px;">
-								<button onClick="getId(this)" class="btn btn-secondary btn-list" type="button" title="Alterar" id="<?php echo $usuario->getId(); ?>" funcao="telaAlterarUsuario" controlador="ControladorUsuario" retorno="div_central"><i class="fa fa-lg fa-edit"></i></button>
-                                <button class="btn btn-secondary btn-list" onClick="fncDeleteId(this)" type="button" title="Excluir" id="<?php echo $usuario->getId(); ?>" funcao="excluirUsuario" controlador="ControladorUsuario" retorno="div_central" mensagem="4"><i class="fa fa-lg fa-trash"></i></button>
-                                <button onClick="getId(this)" class="btn btn-secondary btn-list" type="button" title="Perfil" id="<?php echo $usuario->getId(); ?>" funcao="telaListarAcao" controlador="ControladorAcao" retorno="div_central" ><i class="fa fa-lg fa-lock"></i></button>
+								<button onClick="getId(this)" class="btn btn-secondary btn-list" type="button" title="Alterar" id="<?php echo $usuario->getId(); ?>" f1="telaAlterarUsuario" c2="ControladorUsuario" r3="div_central"><i class="fa fa-lg fa-edit"></i></button>
+                                <button class="btn btn-secondary btn-list" onClick="fncDeleteId(this)" type="button" title="Excluir" id="<?php echo $usuario->getId(); ?>" f1="excluirUsuario" c2="ControladorUsuario" r3="div_central" m4="4"><i class="fa fa-lg fa-trash"></i></button>
+                                <button onClick="getId(this)" class="btn btn-secondary btn-list" type="button" title="Perfil" id="<?php echo $usuario->getId(); ?>" f1="telaListarAcao" c2="ControladorAcao" r3="div_central" ><i class="fa fa-lg fa-lock"></i></button>
 							</td> 
 						</tr> 
                     <?php
@@ -264,12 +248,12 @@ class ViewUsuario{
                 </div> 
 
 	              <form action="#" method="post" id="formCadastro" class="">
-					<input type="hidden" name="retorno" id="retorno" value="div_central"/>
-					<input type="hidden" name="controlador" id="controlador" value="ControladorUsuario"/>
-					<input type="hidden" name="funcao" id="funcao" value="alterarUsuario"/>
-					<input type="hidden" name="mensagem" id="mensagem" value="2"/>
+					<input type="hidden" name="r3" id="r3" value="div_central"/>
+					<input type="hidden" name="c2" id="c2" value="ControladorUsuario"/>
+					<input type="hidden" name="f1" id="f1" value="alterarUsuario"/>
+					<input type="hidden" name="m4" id="m4" value="2"/>
 					<input type="hidden" name="id" id="id" value="<?php echo $objUsuario[0]->getId()?>"/>
-					<input type="hidden" name="imagem" id="imagem" value="" />
+					<input type="hidden" name="imagem" id="imagem" value="<?php echo $objUsuario[0]->getImagem(); ?>" />
 					<div class="form-group">
 		                <label class="control-label">Nome *</label>
 		                <input type="text" id="nome" name="nome" value="<?php echo $objUsuario[0]->getNome() ;?>" class="mgs_alerta form-control" onkeyup="this.value=this.value.toUpperCase();" >
@@ -307,7 +291,7 @@ class ViewUsuario{
 	            </div>
 	            <div class="tile-footer">
 	              <button class="btn btn-primary " onClick="fncFormCadastro(this)" type="button"><i class="fa fa-fw fa-lg fa-check-circle"></i>Salvar</button>
-	              &nbsp;&nbsp;&nbsp;<a class="btn btn-secondary " onClick="fncButtonCadastro(this)" href="#" funcao="telaListarUsuario" controlador="ControladorUsuario" retorno="div_central" ><i class="fa fa-fw fa-lg fa-times-circle"></i>Voltar</a>
+	              &nbsp;&nbsp;&nbsp;<a class="btn btn-secondary " onClick="fncButtonCadastro(this)" href="#" f1="telaListarUsuario" c2="ControladorUsuario" r3="div_central" ><i class="fa fa-fw fa-lg fa-times-circle"></i>Voltar</a>
 	            </div>
 	          </div>
 	        </div>
@@ -387,7 +371,7 @@ class ViewUsuario{
 	            </div>
 	            <div class="tile-footer">
 	              <button class="btn btn-primary " onClick="fncFormCadastro(this)" type="button"><i class="fa fa-fw fa-lg fa-check-circle"></i>Salvar</button>
-	              &nbsp;&nbsp;&nbsp;<a class="btn btn-secondary " onClick="fncButtonCadastro(this)" href="#" funcao="telaListarUsuario" controlador="ControladorUsuario" retorno="div_central" ><i class="fa fa-fw fa-lg fa-times-circle"></i>Voltar</a>
+	              &nbsp;&nbsp;&nbsp;<a class="btn btn-secondary " onClick="fncButtonCadastro(this)" href="#" f1="telaListarUsuario" c2="ControladorUsuario" r3="div_central" ><i class="fa fa-fw fa-lg fa-times-circle"></i>Voltar</a>
 	            </div>
 	          </div>
 	        </div>

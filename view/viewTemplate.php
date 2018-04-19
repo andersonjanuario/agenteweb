@@ -122,10 +122,10 @@ class ViewTemplate {
 
 
                 <form action="#" method="post" id="formCadastro" class="">
-                    <input type="hidden" name="retorno" id="retorno" value="div_central"/>
-                    <input type="hidden" name="controlador" id="controlador" value="ControladorTemplate"/>
-                    <input type="hidden" name="funcao" id="funcao" value="incluirTemplate"/>
-                    <input type="hidden" name="mensagem" id="mensagem" value="1"/>
+                    <input type="hidden" name="r3" id="r3" value="div_central"/>
+                    <input type="hidden" name="c2" id="c2" value="ControladorTemplate"/>
+                    <input type="hidden" name="f1" id="f1" value="incluirTemplate"/>
+                    <input type="hidden" name="m4" id="m4" value="1"/>
                     <input type="hidden" name="arquivo" id="arquivo" value="" />    
                     <input type="hidden" name="imagem" id="imagem" value="" />              
                 <div class="form-group">
@@ -218,7 +218,7 @@ class ViewTemplate {
                 </div>
                 <div class="tile-footer">
                   <button class="btn btn-primary " onClick="fncFormCadastro(this)" type="button"><i class="fa fa-fw fa-lg fa-check-circle"></i>Salvar</button>
-                  &nbsp;&nbsp;&nbsp;<a class="btn btn-secondary " onClick="fncButtonCadastro(this)" href="#" funcao="telaListarTemplate" controlador="ControladorTemplate" retorno="div_central" ><i class="fa fa-fw fa-lg fa-times-circle"></i>Voltar</a>
+                  &nbsp;&nbsp;&nbsp;<a class="btn btn-secondary " onClick="fncButtonCadastro(this)" href="#" f1="telaListarTemplate" c2="ControladorTemplate" r3="div_central" ><i class="fa fa-fw fa-lg fa-times-circle"></i>Voltar</a>
                 </div>
               </div>
             </div>
@@ -233,7 +233,7 @@ class ViewTemplate {
           <div class="app-title">
             <div>
               <h1><i class="fa fa-th-list"></i> Template &nbsp;&nbsp;&nbsp;
-                <button class="btn btn-primary " <?php echo ($perfil === 'A')?'onClick="fncButtonCadastro(this)"':'disabled="true"'; ?> funcao="telaCadastrarTemplate" controlador="ControladorTemplate" retorno="div_central"><i class="fa fa-fw fa-lg fa-plus"></i>Novo</button>                
+                <button class="btn btn-primary " <?php echo ($perfil === 'A')?'onClick="fncButtonCadastro(this)"':'disabled="true"'; ?> f1="telaCadastrarTemplate" c2="ControladorTemplate" r3="div_central"><i class="fa fa-fw fa-lg fa-plus"></i>Novo</button>                
               </h1>              
             </div>
             <ul class="app-breadcrumb breadcrumb side">
@@ -265,10 +265,10 @@ class ViewTemplate {
                         ?>    
                                 <tr> 
                                     <td class="center"><?php echo str_pad($template->getId(), 5, "0", STR_PAD_LEFT); ?></td>
-                                    <td class="center" onClick="getId(this)"   style="cursor:pointer"  id="<?php echo $template->getId(); ?>" funcao="telaVisualizarTemplate" controlador="ControladorTemplate" retorno="div_central">
+                                    <td class="center" onClick="getId(this)"   style="cursor:pointer"  id="<?php echo $template->getId(); ?>" f1="telaVisualizarTemplate" c2="ControladorTemplate" r3="div_central">
                                         <?php echo limitarTexto($template->getNome(), 27); ?>
                                     </td>
-                                    <!--td class="center" onClick="getId(this)"  style="cursor:pointer"  id="<?php echo $template->getId(); ?>" funcao="telaVisualizarTemplate" controlador="ControladorTemplate" retorno="div_central">
+                                    <!--td class="center" onClick="getId(this)"  style="cursor:pointer"  id="<?php echo $template->getId(); ?>" f1="telaVisualizarTemplate" c2="ControladorTemplate" r3="div_central">
                                         <?php
                                         if ($template->getTelefoneResidencial()) {
                                             echo limitarTexto($template->getTelefoneResidencial(), 20);
@@ -277,7 +277,7 @@ class ViewTemplate {
                                         }
                                         ?>
                                     </td>
-                                    <td class="center" onClick="getId(this)"  style="cursor:pointer"  id="<?php echo $template->getId(); ?>" funcao="telaVisualizarTemplate" controlador="ControladorTemplate" retorno="div_central">
+                                    <td class="center" onClick="getId(this)"  style="cursor:pointer"  id="<?php echo $template->getId(); ?>" f1="telaVisualizarTemplate" c2="ControladorTemplate" r3="div_central">
                                         <?php
                                         if ($template->getEmail() != "") {
                                             echo limitarTexto($template->getEmail(), 27);
@@ -286,7 +286,7 @@ class ViewTemplate {
                                         }
                                         ?>
                                     </td>
-                                    <td class="center" onClick="getId(this)"  style="cursor:pointer"  id="<?php echo $template->getId(); ?>" funcao="telaVisualizarTemplate" controlador="ControladorTemplate" retorno="div_central">
+                                    <td class="center" onClick="getId(this)"  style="cursor:pointer"  id="<?php echo $template->getId(); ?>" f1="telaVisualizarTemplate" c2="ControladorTemplate" r3="div_central">
                                         <?php
                                         if ($template->getLogradouro() != "") {
                                             echo limitarTexto($template->getLogradouro(), 20);
@@ -295,7 +295,7 @@ class ViewTemplate {
                                         }
                                         ?>
                                     </td>
-                                    <td class="center" onClick="getId(this)"  style="cursor:pointer"  id="<?php echo $template->getId(); ?>" funcao="telaVisualizarTemplate" controlador="ControladorTemplate" retorno="div_central">
+                                    <td class="center" onClick="getId(this)"  style="cursor:pointer"  id="<?php echo $template->getId(); ?>" f1="telaVisualizarTemplate" c2="ControladorTemplate" r3="div_central">
                                         <?php
                                         if ($template->getEstado() != "") {
                                             echo $template->getEstado();
@@ -305,16 +305,16 @@ class ViewTemplate {
                                         ?>
                                     </td-->
                                     <td style="text-align:center;width:100px;">                              
-                                        <button <?php echo ($perfil !== 'C')?'onClick="getId(this)"':'disabled="true"'; ?> class="btn btn-secondary btn-list" type="button" title="Alterar" id="<?php echo $template->getId(); ?>" funcao="telaAlterarTemplate" controlador="ControladorTemplate" retorno="div_central"><i class="fa fa-lg fa-edit"></i></button>
-                                        <button <?php echo ($perfil === 'A')?'onClick="fncDeleteId(this)"':'disabled="true"'; ?> class="btn btn-secondary btn-list" type="button" title="Excluir" id="<?php echo $template->getId(); ?>" funcao="excluirTemplate" controlador="ControladorTemplate" retorno="div_central" mensagem="4"><i class="fa fa-lg fa-trash"></i></button>
+                                        <button <?php echo ($perfil !== 'C')?'onClick="getId(this)"':'disabled="true"'; ?> class="btn btn-secondary btn-list" type="button" title="Alterar" id="<?php echo $template->getId(); ?>" f1="telaAlterarTemplate" c2="ControladorTemplate" r3="div_central"><i class="fa fa-lg fa-edit"></i></button>
+                                        <button <?php echo ($perfil === 'A')?'onClick="fncDeleteId(this)"':'disabled="true"'; ?> class="btn btn-secondary btn-list" type="button" title="Excluir" id="<?php echo $template->getId(); ?>" f1="excluirTemplate" c2="ControladorTemplate" r3="div_central" m4="4"><i class="fa fa-lg fa-trash"></i></button>
                                     </td> 
 
 
 
                                     <!--td style="text-align:center;width:100px;">
                                         <?php
-                                            //echo ($perfil !== 'C')? '<button class="btn btn-secondary btn-list" onClick="getId(this)" type="button" title="Alterar" id="'.$template->getId().'" funcao="telaAlterarTemplate" controlador="ControladorTemplate" retorno="div_central"><i class="fa fa-lg fa-edit"></i></button>':'<input type="image" src="images/icn_edit_disable.png" title="Editar" >';
-                                            //echo ($perfil === 'A')? '<button onClick="fncDeleteId(this)" class="btn btn-secondary btn-list" type="button" title="Excluir" id="'.$template->getId().'" funcao="excluirTemplate" controlador="ControladorTemplate" retorno="div_central" mensagem="4"><i class="fa fa-lg fa-trash"></i></button>':'<input type="image" src="images/icn_trash_disable.png" title="Excluir" >'; 
+                                            //echo ($perfil !== 'C')? '<button class="btn btn-secondary btn-list" onClick="getId(this)" type="button" title="Alterar" id="'.$template->getId().'" f1="telaAlterarTemplate" c2="ControladorTemplate" r3="div_central"><i class="fa fa-lg fa-edit"></i></button>':'<input type="image" src="images/icn_edit_disable.png" title="Editar" >';
+                                            //echo ($perfil === 'A')? '<button onClick="fncDeleteId(this)" class="btn btn-secondary btn-list" type="button" title="Excluir" id="'.$template->getId().'" f1="excluirTemplate" c2="ControladorTemplate" r3="div_central" m4="4"><i class="fa fa-lg fa-trash"></i></button>':'<input type="image" src="images/icn_trash_disable.png" title="Excluir" >'; 
                                         ?>                                        
                                     </td --> 
                                 </tr> 
@@ -452,10 +452,10 @@ class ViewTemplate {
                 </div>   
 
                 <form action="#" method="post" id="formCadastro" class="">
-                    <input type="hidden" name="retorno" id="retorno" value="div_central"/>
-                    <input type="hidden" name="controlador" id="controlador" value="ControladorTemplate"/>
-                    <input type="hidden" name="funcao" id="funcao" value="alterarTemplate"/>
-                    <input type="hidden" name="mensagem" id="mensagem" value="2"/>
+                    <input type="hidden" name="r3" id="r3" value="div_central"/>
+                    <input type="hidden" name="c2" id="c2" value="ControladorTemplate"/>
+                    <input type="hidden" name="f1" id="f1" value="alterarTemplate"/>
+                    <input type="hidden" name="m4" id="m4" value="2"/>
                     <input type="hidden" name="id" id="id" value="<?php echo $objTemplate[0]->getId(); ?>"/>
                     <input type="hidden" name="imagem" id="imagem" value="<?php echo $objTemplate[0]->getImagem(); ?>" />
                     <input type="hidden" name="arquivo" id="arquivo" value="<?php echo $objTemplate[0]->getArquivo(); ?>">   
@@ -550,7 +550,7 @@ class ViewTemplate {
                 </div>
                 <div class="tile-footer">
                   <button class="btn btn-primary " onClick="fncFormCadastro(this)" type="button"><i class="fa fa-fw fa-lg fa-check-circle"></i>Salvar</button>
-                  &nbsp;&nbsp;&nbsp;<a class="btn btn-secondary " onClick="fncButtonCadastro(this)" href="#" funcao="telaListarTemplate" controlador="ControladorTemplate" retorno="div_central" ><i class="fa fa-fw fa-lg fa-times-circle"></i>Voltar</a>
+                  &nbsp;&nbsp;&nbsp;<a class="btn btn-secondary " onClick="fncButtonCadastro(this)" href="#" f1="telaListarTemplate" c2="ControladorTemplate" r3="div_central" ><i class="fa fa-fw fa-lg fa-times-circle"></i>Voltar</a>
                 </div>
               </div>
             </div>
@@ -695,7 +695,7 @@ class ViewTemplate {
                   </form>
                 </div>
                 <div class="tile-footer">
-                  <a class="btn btn-secondary " onClick="fncButtonCadastro(this)" href="#" funcao="telaListarTemplate" controlador="ControladorTemplate" retorno="div_central" ><i class="fa fa-fw fa-lg fa-times-circle"></i>Voltar</a>
+                  <a class="btn btn-secondary " onClick="fncButtonCadastro(this)" href="#" f1="telaListarTemplate" c2="ControladorTemplate" r3="div_central" ><i class="fa fa-fw fa-lg fa-times-circle"></i>Voltar</a>
                 </div>
               </div>
             </div>

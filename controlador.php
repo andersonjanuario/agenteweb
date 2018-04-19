@@ -9,14 +9,13 @@ class controlador{
 	public $controlador;
 	
 	public function __construct() {		
-		$funcao = $_POST["funcao"];
-		$controlador = $_POST["controlador"];
-
+		$funcao = $_POST["f1"];
+		$controlador = $_POST["c2"];
 		
-		unset($_POST["funcao"]);
-		unset($_POST["controlador"]);
-		unset($_POST["retorno"]);
-		unset($_POST["mensagem"]);
+		unset($_POST["f1"]);
+		unset($_POST["c2"]);
+		unset($_POST["r3"]);
+		unset($_POST["m4"]);
 		
 		$this->chamarControle($_POST,$funcao,$controlador);		
 	} 

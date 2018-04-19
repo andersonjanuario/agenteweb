@@ -22,7 +22,7 @@
                       foreach ($modulo->getClasse() as $classe){
                           if($classe->getPerfil() == "2" ){
                           ?>
-                            <li funcao="<?php echo $classe->getFuncao();?>" controlador="<?php echo $classe->getControlador();?>" retorno="div_central" secao="<?php echo $classe->getSecao();?>" onClick="fncButtonMenu(this)" >
+                            <li f1="<?php echo $classe->getFuncao();?>" c2="<?php echo $classe->getControlador();?>" r3="div_central" secao="<?php echo $classe->getSecao();?>" onClick="fncButtonMenu(this)" >
                               <a class="treeview-item" href="#" onclick="fecharBarraLateral();"><i class="icon fa fa-circle-o"></i> <?php echo $classe->getNome();?></a>
                             </li>
                           <?php
@@ -39,9 +39,9 @@
             ?>
                 <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-edit"></i><span class="app-menu__label">CADASTROS</span><i class="treeview-indicator fa fa-angle-right"></i></a>
                   <ul class="treeview-menu">
-                    <li funcao="telaListarUsuario" controlador="ControladorUsuario" retorno="div_central" secao="usuario" onClick="fncButtonMenu(this)"><a class="treeview-item" href="#" onclick="fecharBarraLateral();"><i class="icon fa fa-circle-o"></i> Usuários</a></li>
-                    <li funcao="telaListarClasse" controlador="ControladorClasse" retorno="div_central" secao="classe" onClick="fncButtonMenu(this)"><a class="treeview-item" href="#" onclick="fecharBarraLateral();"><i class="icon fa fa-circle-o"></i> Classes</a></li>
-                    <li funcao="telaListarModulo" controlador="ControladorModulo" retorno="div_central" secao="modulo" onClick="fncButtonMenu(this)"><a class="treeview-item" href="#" onclick="fecharBarraLateral();"><i class="icon fa fa-circle-o"></i> Módulos</a></li>                    
+                    <li f1="telaListarUsuario" c2="ControladorUsuario" r3="div_central" secao="usuario" onClick="fncButtonMenu(this)"><a class="treeview-item" href="#" onclick="fecharBarraLateral();"><i class="icon fa fa-circle-o"></i> Usuários</a></li>
+                    <li f1="telaListarClasse" c2="ControladorClasse" r3="div_central" secao="classe" onClick="fncButtonMenu(this)"><a class="treeview-item" href="#" onclick="fecharBarraLateral();"><i class="icon fa fa-circle-o"></i> Classes</a></li>
+                    <li f1="telaListarModulo" c2="ControladorModulo" r3="div_central" secao="modulo" onClick="fncButtonMenu(this)"><a class="treeview-item" href="#" onclick="fecharBarraLateral();"><i class="icon fa fa-circle-o"></i> Módulos</a></li>                    
                   </ul>
                 </li>                
             <?php

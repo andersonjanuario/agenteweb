@@ -70,15 +70,10 @@ function fncRemoverArquivo(inputFile, caminhoArquivo, tipoArquivo, arquivoExibic
     }
 
     $.ajax({
-        url: 'popup-upload.php',
+        url: 'post-imagem.php',
         type: 'GET',
         data: 'opcao=2&pastaArquivo=' + caminhoArquivo + '&arquivo=' + arquivo
     });
-}
-
-function fncAbreArquivoPagina(arquivo,local){
-        if (arquivo === "") return;
-        window.location = 'download_doc.php?d='+local+'&f='+arquivo;
 }
 
 function fnAbreArquivo(campo, local) {
@@ -86,25 +81,4 @@ function fnAbreArquivo(campo, local) {
     if (arquivo === "")
         return;
     window.location = 'download_doc.php?d=' + local + '&f=' + arquivo;
-}
-
-function fncRemoverArquivoAuto(inputFile, caminhoArquivo, tipoArquivo, arquivoExibicao, imagemDefault) {
-
-    arquivo = $('#' + inputFile).val();
-
-    $('#' + inputFile).val("");
-    if (tipoArquivo === "imagem") {
-        $('#' + arquivoExibicao).attr('src', imagemDefault);
-       
-    } else if (tipoArquivo === "arquivo") {
-        $('#' + arquivoExibicao).html("<br />Adicione um arquivo clicando no <img src='./img/img_upload.png' border='0' style='float:none;margin:0;width: 20px;' /> ao lado.");
-        $('#' + arquivoExibicao).css('cursor', 'default');
-        $('#' + arquivoExibicao).css('text-decoration', 'none');        
-    }
-
-    $.ajax({
-        url: 'popup-upload.php',
-        type: 'GET',
-        data: 'opcao=2&pastaArquivo=' + caminhoArquivo + '&arquivo=' + arquivo
-    });
 }

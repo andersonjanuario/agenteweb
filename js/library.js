@@ -37,8 +37,8 @@
         valido = true;
         $('#formCadastro').each(function() {
             campos = $(this).serialize();
-            retorno = $('[name=retorno]', this).val();
-            mensagem = $('[name=mensagem]', this).val();
+            retorno = $('[name=r3]', this).val();
+            mensagem = $('[name=m4]', this).val();
 
         });
         //Bloco localiza todos os campos da classo mensagem Aleta e exibe o span correpondente
@@ -126,14 +126,14 @@
      * Função responsavel por gerar ação atraves de um bottao ou ate mesmo imagem
      */
     function fncButtonCadastro(element){
-        controlador = $(element).attr('controlador');
-        funcao = $(element).attr('funcao');
-        retorno = $(element).attr('retorno');
+        controlador = $(element).attr('c2');
+        funcao = $(element).attr('f1');
+        retorno = $(element).attr('r3');
 
         $.ajax({
             url: 'controlador.php',
             type: 'POST',
-            data: 'retorno=' + retorno + '&controlador=' + controlador + '&funcao=' + funcao,
+            data: 'r3=' + retorno + '&c2=' + controlador + '&f1=' + funcao,
             success: function(result) {
                 $('#' + retorno).html(result);
             },
@@ -167,10 +167,10 @@
             }
         });
         id = $(element).attr('id');
-        controlador = $(element).attr('controlador');
-        funcao = $(element).attr('funcao');
-        retorno = $(element).attr('retorno');
-        mensagem = $(element).attr('mensagem');
+        controlador = $(element).attr('c2');
+        funcao = $(element).attr('f1');
+        retorno = $(element).attr('r3');
+        mensagem = $(element).attr('m4');
 
         $('#sim').click(function() {
             $('#' + retorno).css('display', '');
@@ -178,7 +178,7 @@
             $.ajax({
                 url: 'controlador.php',
                 type: 'POST',
-                data: 'retorno=' + retorno + '&controlador=' + controlador + '&funcao=' + funcao + '&id=' + id,
+                data: 'r3=' + retorno + '&c2=' + controlador + '&f1=' + funcao + '&id=' + id,
                 success: function(result) {
                     $('#' + retorno).html(result);
                 },
@@ -215,8 +215,8 @@
 
             $('#formLogin').each(function() {
                 campos = $(this).serialize();
-                retorno = $(this).children('#retorno').val();
-                mensagem = $(this).children('#mensagem').val();
+                retorno = $(this).children('#r3').val();
+                mensagem = $(this).children('#m4').val();
             });
 
             //Caso todos os campos obrigatorios tenham sido preenchido a ação sera execultada
@@ -243,7 +243,7 @@
 
         } else {
             $('#formLogin').each(function() {
-                mensagem = $(this).children('#mensagem').val();
+                mensagem = $(this).children('#m4').val();
                 $('#msgSlide').html('<span>Usuário ou senha invalidos!</span>');
                 $('#msgSlide').slideDown('slow', function() {
                     setTimeout("$('#msgSlide').slideUp('slow')", 3000);
@@ -260,15 +260,15 @@
      * Função responsavel por gerar ação atraves de um bottao ou ate mesmo imagem
      */
     function fncButtonMenu(element){
-        controlador = $(element).attr('controlador');
-        funcao = $(element).attr('funcao');
-        retorno = $(element).attr('retorno');
+        controlador = $(element).attr('c2');
+        funcao = $(element).attr('f1');
+        retorno = $(element).attr('r3');
         secao = $(element).attr('secao');
 
         $.ajax({
             url: 'controlador.php',
             type: 'POST',
-            data: 'retorno=' + retorno + '&controlador=' + controlador + '&funcao=' + funcao,
+            data: 'r3=' + retorno + '&c2=' + controlador + '&f1=' + funcao,
             success: function(result) {
                 $('#' + retorno).html(result);
             },
@@ -301,15 +301,15 @@
     function getId(element) {
 
         id = $(element).attr('id');
-        controlador = $(element).attr('controlador');
-        funcao = $(element).attr('funcao');
-        retorno = $(element).attr('retorno');
-        mensagem = $(element).attr('mensagem');
+        controlador = $(element).attr('c2');
+        funcao = $(element).attr('f1');
+        retorno = $(element).attr('r3');
+        mensagem = $(element).attr('m4');
 
         $.ajax({
             url: 'controlador.php',
             type: 'POST',
-            data: 'retorno=' + retorno + '&controlador=' + controlador + '&funcao=' + funcao + '&id=' + id,
+            data: 'r3=' + retorno + '&c2=' + controlador + '&f1=' + funcao + '&id=' + id,
             success: function(result) {
                 $('#' + retorno).html(result);
             },

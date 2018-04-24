@@ -2,187 +2,6 @@
 
 class View{
 	
-	public function imagemCadastros($sessao,$campos){
-		$script = "";
-		for($i=0;$i< count($campos);$i++){
-			if($campos[$i]->tipo === 'imagem'){
-				$simbolo = ($campos[$i]->obrigatorio === '1')?'*':'';
-				$mgsAlerta = ($campos[$i]->obrigatorio === '1')?' mgs_alerta':'';
-				
-				$script .= "
-											<script type=\"text/javascript\">											
-												\$(document).ready(function() {
-													fncInserirArquivo('form_imagem_".strtolower($campos[$i]->campo)."', 'progress_".strtolower($campos[$i]->campo)."', 'porcentagem_".strtolower($campos[$i]->campo)."', '".strtolower($campos[$i]->campo)."', 'imagemAtual_".strtolower($campos[$i]->campo)."', './imagens/".strtolower($sessao)."/', 'imagem');
-												});
-											</script>
-											";
-				$script .= "				<div class=\"form-group\">";
-				$script .= "					<table border=\"0\" style=\"width: 100%\">
-													<tr>
-														<td colspan=\"3\">
-															<label>Imagem Largura Máxima: 640px</label>&nbsp;&nbsp; 
-														</td>
-													</tr>
-													<tr style=\"height: 110px;\">
-														<td style=\"width: 20%;text-align: right;\">
-															<span id=\"span-teste\" class=\"upload-wrapper\" >  
-																<form action=\"./post-imagem.php\" method=\"post\" id=\"form_imagem_".strtolower($campos[$i]->campo)."\">
-																	<input name=\"pastaArquivo\" type=\"hidden\" value=\"./imagens/".strtolower($sessao)."/\">
-																	<input name=\"largura\" type=\"hidden\" value=\"640\">
-																	<input name=\"opcao\" type=\"hidden\" value=\"1\">
-																	<input name=\"tipoArq\" type=\"hidden\" value=\"imagem\">
-																	<input type=\"file\" name=\"file\" class=\"upload-file\" onchange=\"javascript: fncSubmitArquivo('enviar_".strtolower($campos[$i]->campo)."', this);\" >
-																	<input type=\"submit\" id=\"enviar_".strtolower($campos[$i]->campo)."\" style=\"display:none;\">   
-																	<img src=\"./img/img_upload.png\" class=\"upload-button\" />
-																</form> 
-															</span>
-														</td>
-														<td style=\"width: 20%\">
-															<img onclick=\"fncRemoverArquivo('imagem', './imagens/".strtolower($sessao)."', 'imagem', 'imagemAtual_".strtolower($campos[$i]->campo)."', './img/imagemPadrao.jpg');\" src=\"./img/remove.png\" border=\"0\" title=\"Clique para remover\" style=\"cursor:pointer;margin-bottom:7px;\" class=\"upload-button\" />
-														</td>
-														<td style=\"width: 60%\">
-															<img id=\"imagemAtual_".strtolower($campos[$i]->campo)."\" name=\"imagemAtual_".strtolower($campos[$i]->campo)."\" src=\"./img/imagemPadrao.jpg\" border=\"0\" style=\"\" />
-														</td>
-													</tr>
-													<tr>
-														<td  colspan=\"3\">
-															<progress id=\"progress_".strtolower($campos[$i]->campo)."\" value=\"0\" max=\"100\" style=\"display:none;\"></progress>
-															<span id=\"porcentagem_".strtolower($campos[$i]->campo)."\" style=\"display:none;float: right;\">0%</span>
-														</td>
-													</tr>
-												</table>			
-				";
-				$script .= "				</div>";
-			}
-		}
-		return $script;		
-	}
-	
-	public function arquivoCadastros($sessao,$campos){
-		$script = "";
-		for($i=0;$i< count($campos);$i++){
-			if($campos[$i]->tipo === 'arquivo'){
-				$simbolo = ($campos[$i]->obrigatorio === '1')?'*':'';
-				$mgsAlerta = ($campos[$i]->obrigatorio === '1')?' mgs_alerta':'';
-				
-				$script .= "
-											<script type=\"text/javascript\">											
-												\$(document).ready(function() {
-													fncInserirArquivo('form_arquivo_".strtolower($campos[$i]->campo)."', 'progress_arquivo_".strtolower($campos[$i]->campo)."', 'porcentagem_arquivo_".strtolower($campos[$i]->campo)."', '".strtolower($campos[$i]->campo)."', 'arquivoAtual_".strtolower($campos[$i]->campo)."', './arquivos/".strtolower($sessao)."/', 'arquivo');
-												});
-											</script>";
-				$script .= "				<div class=\"form-group\">";
-				$script .= "					<table border=\"0\" style=\"width: 100%\">
-													<tr>
-														<td colspan=\"3\">
-															<label>Tamanho Máxima: 2 Megas.</label>&nbsp;&nbsp; 
-														</td>
-													</tr>
-													<tr style=\"height: 110px;\">
-														<td style=\"width: 20%;text-align: right;\">
-															<span id=\"span-teste\" class=\"upload-wrapper\" >  
-																<form action=\"./post-imagem.php\" method=\"post\" id=\"form_arquivo_".strtolower($campos[$i]->campo)."\">
-																	<input name=\"pastaArquivo\" type=\"hidden\" value=\"./arquivos/".strtolower($sessao)."/\">
-																	<input name=\"largura\" type=\"hidden\" value=\"640\">
-																	<input name=\"opcao\" type=\"hidden\" value=\"1\">
-																	<input name=\"tipoArq\" type=\"hidden\" value=\"arquivo\">
-																	<input type=\"file\" name=\"file\" class=\"upload-file\" onchange=\"javascript: fncSubmitArquivo('enviar_arquivo_".strtolower($campos[$i]->campo)."', this);\" >
-																	<input type=\"submit\" id=\"enviar_arquivo_".strtolower($campos[$i]->campo)."\" style=\"display:none;\">   
-																	<img src=\"./img/img_upload.png\" class=\"upload-button\" />
-																</form> 
-															</span>
-														</td>
-														<td style=\"width: 20%\">
-															<img onclick=\"fncRemoverArquivo('".strtolower($campos[$i]->campo)."', './arquivos/".strtolower($sessao)."/', 'arquivo', 'arquivoAtual_".strtolower($campos[$i]->campo)."', '');\" src=\"./img/remove.png\" border=\"0\" title=\"Clique para remover\" style=\"cursor:pointer;margin-bottom:7px;\" class=\"upload-button\" />
-														</td>
-														<td style=\"width: 60%\">
-															<span name=\"arquivoAtual_".strtolower($campos[$i]->campo)."\" id=\"arquivoAtual_".strtolower($campos[$i]->campo)."\" onClick=\"fnAbreArquivo('".strtolower($campos[$i]->campo)."', './arquivos/".strtolower($campos[$i]->campo)."/')\"   ><br />Adicione um arquivo clicando no <img src=\"./img/img_upload.png\" border=\"0\" style=\"float:none;margin:0;width: 20px;\" /></span>
-														</td>
-													</tr>
-													<tr>
-														<td  colspan=\"3\">
-															<progress id=\"progress_arquivo_".strtolower($campos[$i]->campo)."\" value=\"0\" max=\"100\" style=\"display:none;\"></progress>
-															<span id=\"porcentagem_arquivo_".strtolower($campos[$i]->campo)."\" style=\"display:none;float: right;\">0%</span>
-														</td>
-													</tr>
-												</table>			
-				";
-				$script .= "				</div>";
-			}
-		}
-		return $script;		
-	}
-	
-	public function camposCadastros($campos){
-		$script = "";
-		for($i=0;$i< count($campos);$i++){
-			$simbolo = ($campos[$i]->obrigatorio === '1')?'*':'';
-			$mgsAlerta = ($campos[$i]->obrigatorio === '1')?' mgs_alerta':'';
-			
-			if($campos[$i]->tipo !== "imagem" && $campos[$i]->tipo !== "arquivo"){
-				$script .= "
-											<div class=\"form-group\">";
-				$script .= "
-												<label class=\"control-label\">".ucfirst(strtolower($campos[$i]->campo))." ".$simbolo."</label>";
-				
-				
-				switch($campos[$i]->tipo){
-					case "text":
-						$script .= "					  
-												  <input class=\"form-control".$mgsAlerta."\" id=\"".strtolower($campos[$i]->campo)."\" name=\"".strtolower($campos[$i]->campo)."\" type=\"text\" >";			
-					break;		
-					case "number":
-						$script .= "
-												  <input class=\"form-control".$mgsAlerta."\" id=\"".strtolower($campos[$i]->campo)."\" name=\"".strtolower($campos[$i]->campo)."\" type=\"number\" onkeypress=\"return mascara(event, this, '#');\" maxlength=\"6\" >";			
-
-					break;
-					case "monetario":"
-												  <input type=\"text\" id=\"".strtolower($campos[$i]->campo)."\" name=\"".strtolower($campos[$i]->campo)."\" class=\"maskMoney form-control\"  >";
-					
-					break;
-					case "textarea":
-						$script .= "
-												  <textarea class=\"form-control".$mgsAlerta."\" id=\"".strtolower($campos[$i]->campo)."\" name=\"".strtolower($campos[$i]->campo)."\" rows=\"4\" ></textarea>";				
-					break;
-					case "data":		
-						$script .= "
-												  <script type=\"text/javascript\" >setDatePicker('".strtolower($campos[$i]->campo)."');</script> 	
-												  <input class=\"data form-control".$mgsAlerta."\" id=\"".strtolower($campos[$i]->campo)."\" name=\"".strtolower($campos[$i]->campo)."\" value=\"\"  onkeypress=\"return mascara(event, this, '##/##/####');\" maxlength=\"10\" type=\"text\" >";
-					break;
-					case "radio-button":				
-						$script .= "              
-												  <br/><label>
-													<input type=\"radio\" name=\"".strtolower($campos[$i]->campo)."\" checked=\"checked\" value=\"1\"><span class=\"label-text\">Sim</span>
-												  </label><br/>
-												  <label>
-													<input type=\"radio\" name=\"".strtolower($campos[$i]->campo)."\" value=\"0\"><span class=\"label-text\">Não</span>
-												  </label>
-						";
-					break;
-					case "check-box":			
-						$script .= "
-						";				
-					break;
-					case "select":				
-						$script .= "
-												<select id=\"".strtolower($campos[$i]->campo)."\" name=\"".strtolower($campos[$i]->campo)."\" value=\"\" class=\"form-control".$mgsAlerta."\">
-													<option value=\"\">Selecione...</option>												
-												</select>
-						";
-					break;					
-				}
-				
-				$script .= "
-											</div>";				
-			}else if($campos[$i]->tipo !== "imagem"){				
-				  $script .= "<input type=\"hidden\" name=\"".strtolower($campos[$i]->campo)."\" id=\"".strtolower($campos[$i]->campo)."\"  />";                    
-			}else if($campos[$i]->tipo !== "arquivo"){
-				  $script .= "<input type=\"hidden\" name=\"".strtolower($campos[$i]->campo)."\" id=\"".strtolower($campos[$i]->campo)."\" />"; 
-			}	
-		}
-		return $script;
-	}
-	
 	public function telaCadastrar($sessao,$campos){
 		$script = "
 							public function telaCadastrar".$sessao."(\$post) {
@@ -209,14 +28,14 @@ class View{
 									  <div class=\"tile\">
 										<h3 class=\"tile-title\">Formulário</h3>
 										<div class=\"tile-body\">
-									  ".$this->imagemCadastros($sessao,$campos)."	
-									  ".$this->arquivoCadastros($sessao,$campos)."							 
+									  ".$this->createImagem($sessao, $campos, false, false)."	
+									  ".$this->createArquivo($sessao, $campos, false, false)."							 
 										<form action=\"#\" method=\"post\" id=\"formCadastro\" class=\"\">
 											<input type=\"hidden\" name=\"r3\" id=\"r3\" value=\"div_central\"/>
 											<input type=\"hidden\" name=\"c2\" id=\"c2\" value=\"Controlador".$sessao."\"/>
 											<input type=\"hidden\" name=\"f1\" id=\"f1\" value=\"incluir".$sessao."\"/>
 											<input type=\"hidden\" name=\"m4\" id=\"m4\" value=\"1\"/>
-											".$this->camposCadastros($campos)."
+											".$this->campos($sessao, $campos,false,false)."
 											<!--div class=\"form-group\">
 												<label class=\"control-label\">Descrição</label>
 												<textarea  id=\"descricao\" name=\"descricao\" rows=\"4\" value=\"\" class=\"form-control\" ></textarea>
@@ -327,214 +146,6 @@ class View{
 		return $script;
 	}
 	
-	public function imagemAlterar($sessao,$campos){
-		$script = "";
-		for($i=0;$i< count($campos);$i++){
-			if($campos[$i]->tipo === 'imagem'){
-				$simbolo = ($campos[$i]->obrigatorio === '1')?'*':'';
-				$mgsAlerta = ($campos[$i]->obrigatorio === '1')?' mgs_alerta':'';
-				
-				$script .= "
-											<script type=\"text/javascript\">											
-												\$(document).ready(function() {
-													fncInserirArquivo('form_imagem_".strtolower($campos[$i]->campo)."', 'progress_".strtolower($campos[$i]->campo)."', 'porcentagem_".strtolower($campos[$i]->campo)."', '".strtolower($campos[$i]->campo)."', 'imagemAtual_".strtolower($campos[$i]->campo)."', './imagens/".strtolower($sessao)."/', 'imagem');
-												});
-											</script>
-											<?php
-											if (\$obj".$sessao."[0]->get".ucfirst(strtolower($campos[$i]->campo))."()) {
-												\$imagem = \"./imagens/".strtolower($sessao)."/thumbnail\" . \$obj".$sessao."[0]->get".ucfirst(strtolower($campos[$i]->campo))."();
-											} else {
-												\$imagem = \"./img/imagemPadrao.jpg\";
-											}
-											?> 
-											";
-				$script .= "				<div class=\"form-group\">";
-				$script .= "					<table border=\"0\" style=\"width: 100%\">
-													<tr>
-														<td colspan=\"3\">
-															<label>Imagem Largura Máxima: 640px</label>&nbsp;&nbsp; 
-														</td>
-													</tr>
-													<tr style=\"height: 110px;\">
-														<td style=\"width: 20%;text-align: right;\">
-															<span id=\"span-teste\" class=\"upload-wrapper\" >  
-																<form action=\"./post-imagem.php\" method=\"post\" id=\"form_imagem_".strtolower($campos[$i]->campo)."\">
-																	<input name=\"pastaArquivo\" type=\"hidden\" value=\"./imagens/".strtolower($sessao)."/\">
-																	<input name=\"largura\" type=\"hidden\" value=\"640\">
-																	<input name=\"opcao\" type=\"hidden\" value=\"1\">
-																	<input name=\"tipoArq\" type=\"hidden\" value=\"imagem\">
-																	<input type=\"file\" name=\"file\" class=\"upload-file\" onchange=\"javascript: fncSubmitArquivo('enviar_".strtolower($campos[$i]->campo)."', this);\" >
-																	<input type=\"submit\" id=\"enviar_".strtolower($campos[$i]->campo)."\" style=\"display:none;\">   
-																	<img src=\"./img/img_upload.png\" class=\"upload-button\" />
-																</form> 
-															</span>
-														</td>
-														<td style=\"width: 20%\">
-															<img onclick=\"fncRemoverArquivo('imagem', './imagens/".strtolower($sessao)."', 'imagem', 'imagemAtual_".strtolower($campos[$i]->campo)."', './img/imagemPadrao.jpg');\" src=\"./img/remove.png\" border=\"0\" title=\"Clique para remover\" style=\"cursor:pointer;margin-bottom:7px;\" class=\"upload-button\" />
-														</td>
-														<td style=\"width: 60%\">
-															<img id=\"imagemAtual_".strtolower($campos[$i]->campo)."\" name=\"imagemAtual_".strtolower($campos[$i]->campo)."\" src=\"<?php echo \$imagem; ?>\" border=\"0\" style=\"\" />
-														</td>
-													</tr>
-													<tr>
-														<td  colspan=\"3\">
-															<progress id=\"progress_".strtolower($campos[$i]->campo)."\" value=\"0\" max=\"100\" style=\"display:none;\"></progress>
-															<span id=\"porcentagem_".strtolower($campos[$i]->campo)."\" style=\"display:none;float: right;\">0%</span>
-														</td>
-													</tr>
-												</table>			
-				";
-				$script .= "				</div>";
-			}
-		}
-		return $script;		
-	}	
-	
-	public function arquivoAlterar($sessao,$campos){
-		$script = "";
-		for($i=0;$i< count($campos);$i++){
-			if($campos[$i]->tipo === 'arquivo'){
-				$simbolo = ($campos[$i]->obrigatorio === '1')?'*':'';
-				$mgsAlerta = ($campos[$i]->obrigatorio === '1')?' mgs_alerta':'';
-				
-				$script .= "
-											<script type=\"text/javascript\">											
-												\$(document).ready(function() {
-													fncInserirArquivo('form_arquivo_".strtolower($campos[$i]->campo)."', 'progress_".strtolower($campos[$i]->campo)."', 'porcentagem_".strtolower($campos[$i]->campo)."', '".strtolower($campos[$i]->campo)."', 'arquivoAtual_".strtolower($campos[$i]->campo)."', './imagens/".strtolower($sessao)."/', 'arquivo');
-												});
-											</script>											";
-				$script .= "				<div class=\"form-group\">";
-				$script .= "					<table border=\"0\" style=\"width: 100%\">
-													<tr>
-														<td colspan=\"3\">
-															<label>Tamanho Máxima: 2 Megas.</label>&nbsp;&nbsp; 
-														</td>
-													</tr>
-													<tr style=\"height: 110px;\">
-														<td style=\"width: 20%;text-align: right;\">
-															<span id=\"span-teste\" class=\"upload-wrapper\" >  
-																<form action=\"./post-imagem.php\" method=\"post\" id=\"form_arquivo_".strtolower($campos[$i]->campo)."\">
-																	<input name=\"pastaArquivo\" type=\"hidden\" value=\"./arquivos/".strtolower($sessao)."/\">
-																	<input name=\"largura\" type=\"hidden\" value=\"640\">
-																	<input name=\"opcao\" type=\"hidden\" value=\"1\">
-																	<input name=\"tipoArq\" type=\"hidden\" value=\"arquivo\">
-																	<input type=\"file\" name=\"file\" class=\"upload-file\" onchange=\"javascript: fncSubmitArquivo('enviar_arquivo_".strtolower($campos[$i]->campo)."', this);\" >
-																	<input type=\"submit\" id=\"enviar_arquivo_".strtolower($campos[$i]->campo)."\" style=\"display:none;\">   
-																	<img src=\"./img/img_upload.png\" class=\"upload-button\" />
-																</form> 
-															</span>
-														</td>
-														<td style=\"width: 20%\">
-															<img onclick=\"fncRemoverArquivo('".strtolower($campos[$i]->campo)."', './arquivos/".strtolower($sessao)."/', 'arquivo', 'arquivoAtual_".strtolower($campos[$i]->campo)."', '');\" src=\"./img/remove.png\" border=\"0\" title=\"Clique para remover\" style=\"cursor:pointer;margin-bottom:7px;\" class=\"upload-button\" />
-														</td>
-														<td style=\"width: 60%\">
-															<span name=\"arquivoAtual_".strtolower($campos[$i]->campo)."\" id=\"arquivoAtual_".strtolower($campos[$i]->campo)."\" onClick=\"fnAbreArquivo('".strtolower($campos[$i]->campo)."', './arquivos/".strtolower($sessao)."/')\" style=\"<?php echo (\$obj".$sessao."[0]->get".ucfirst(strtolower($campos[$i]->campo))."()) ? 'cursor: pointer; text-decoration: underline;' : '' ?>\" >
-																<?php
-																if (\$obj".$sessao."[0]->get".ucfirst(strtolower($campos[$i]->campo))."()) {
-																	echo \$obj".$sessao."[0]->get".ucfirst(strtolower($campos[$i]->campo))."();
-																} else {
-																	?><br />Adicione um arquivo clicando no <img src=\"./img/img_upload.png\" border=\"0\" style=\"float:none;margin:0;width: 20px;\" /><?php
-																}
-																?>
-															</span>
-														</td>
-													</tr>
-													<tr>
-														<td  colspan=\"3\">
-															<progress id=\"progress_arquivo_".strtolower($campos[$i]->campo)."\" value=\"0\" max=\"100\" style=\"display:none;\"></progress>
-															<span id=\"porcentagem_arquivo_".strtolower($campos[$i]->campo)."\" style=\"display:none;float: right;\">0%</span>
-														</td>
-													</tr>
-												</table>			
-				";
-				$script .= "				</div>";
-			}
-		}
-		return $script;		
-	}	
-	
-	public function camposAlterar($sessao,$campos){
-		$script = "";
-		for($i=0;$i< count($campos);$i++){
-			$simbolo = ($campos[$i]->obrigatorio === '1')?'*':'';
-			$mgsAlerta = ($campos[$i]->obrigatorio === '1')?' mgs_alerta':'';
-			
-			if($campos[$i]->tipo !== "imagem" && $campos[$i]->tipo !== "arquivo"){
-				$script .= "
-											<div class=\"form-group\">";
-				$script .= "
-												<label class=\"control-label\">".ucfirst(strtolower($campos[$i]->campo))." ".$simbolo."</label>";
-				
-				
-				switch($campos[$i]->tipo){
-					case "text":
-						$script .= "					  
-												  <input class=\"form-control".$mgsAlerta."\" id=\"".strtolower($campos[$i]->campo)."\" name=\"".strtolower($campos[$i]->campo)."\" type=\"text\" value=\"<?php echo \$obj".$sessao."[0]->get".ucfirst(strtolower($campos[$i]->campo))."(); ?>\" >";			
-					break;		
-					case "number":
-						$script .= "
-												  <input class=\"form-control".$mgsAlerta."\" id=\"".strtolower($campos[$i]->campo)."\" name=\"".strtolower($campos[$i]->campo)."\" type=\"number\" onkeypress=\"return mascara(event, this, '#');\" maxlength=\"6\" value=\"<?php echo \$obj".$sessao."[0]->get".ucfirst(strtolower($campos[$i]->campo))."(); ?>\" >";			
-
-					break;
-					case "textarea":
-						$script .= "
-												  <textarea class=\"form-control".$mgsAlerta."\" id=\"".strtolower($campos[$i]->campo)."\" name=\"".strtolower($campos[$i]->campo)."\" rows=\"4\" ><?php echo \$obj".$sessao."[0]->get".ucfirst(strtolower($campos[$i]->campo))."(); ?></textarea>";				
-					break;
-					case "data":		
-						$script .= "
-												  <script type=\"text/javascript\" >setDatePicker('".strtolower($campos[$i]->campo)."');</script> 	
-												  <input class=\"data form-control".$mgsAlerta."\" id=\"".strtolower($campos[$i]->campo)."\" name=\"".strtolower($campos[$i]->campo)."\" onkeypress=\"return mascara(event, this, '##/##/####');\" maxlength=\"10\" type=\"text\" value=\"<?php echo (\$obj".$sessao."[0]->get".ucfirst(strtolower($campos[$i]->campo))."() != \"0000-00-00\") ? recuperaData(\$obj".$sessao."[0]->get".ucfirst(strtolower($campos[$i]->campo))."()) : \"\"; ?>\" >";
-
-					break;
-					case "monetario":"
-												  <input type=\"text\" id=\"".strtolower($campos[$i]->campo)."\" name=\"".strtolower($campos[$i]->campo)."\"  value=\"<?php echo \$obj".$sessao."[0]->get".ucfirst(strtolower($campos[$i]->campo))."(); ?>\" class=\"maskMoney form-control\"  >";
-					
-					break;					
-					case "radio-button":
-						$script .= "
-												<?php
-													\$sim = '';
-													\$nao = '';
-													if (\$obj".$sessao."[0]->get".ucfirst(strtolower($campos[$i]->campo))."() == \"1\") {
-														\$sim = 'checked=\"checked\"';                            
-													} elseif (\$obj".$sessao."[0]->get".ucfirst(strtolower($campos[$i]->campo))."() == \"0\") {
-														\$nao = 'checked=\"checked\"';
-													}
-												?>					
-						";
-						$script .= "              
-												  <br/><label>
-													<input type=\"radio\" <?php echo \$sim; ?> name=\"".strtolower($campos[$i]->campo)."\" value=\"1\"><span class=\"label-text\">Sim</span>
-												  </label><br/>
-												  <label>
-													<input type=\"radio\" <?php echo \$nao; ?> name=\"".strtolower($campos[$i]->campo)."\" value=\"0\"><span class=\"label-text\">Não</span>
-												  </label>
-						";
-					break;
-					case "check-box":			
-						$script .= "
-						";				
-					break;
-					case "select":				
-						$script .= "
-												<select id=\"".strtolower($campos[$i]->campo)."\" name=\"".strtolower($campos[$i]->campo)."\" value=\"\" class=\"form-control".$mgsAlerta."\">
-													<option value=\"\">Selecione...</option>												
-												</select>
-						";
-					break;
-				}
-					    $script .= "
-											</div>";				
-			}else if($campos[$i]->tipo !== "imagem"){				
-				  $script .= "<input type=\"hidden\" name=\"".strtolower($campos[$i]->campo)."\" id=\"".strtolower($campos[$i]->campo)."\" value=\"<?php echo \$obj".$sessao."[0]->get".ucfirst(strtolower($campos[$i]->campo))."(); ?>\" />";                    
-			}else if($campos[$i]->tipo !== "arquivo"){
-				  $script .= "<input type=\"hidden\" name=\"".strtolower($campos[$i]->campo)."\" id=\"".strtolower($campos[$i]->campo)."\" value=\"<?php echo \$obj".$sessao."[0]->get".ucfirst(strtolower($campos[$i]->campo))."(); ?>\" />"; 
-			}								
-
-		}
-		return $script;
-	}	
-	
 	public function telaAlterar($sessao,$campos){
 		$script = "
 							public function telaAlterar".$sessao."(\$obj".$sessao.") {
@@ -567,15 +178,15 @@ class View{
 									  <div class=\"tile\">
 										<h3 class=\"tile-title\">Formulário</h3>
 										<div class=\"tile-body\">
-									    ".$this->imagemAlterar($sessao,$campos)."	
-									    ".$this->arquivoAlterar($sessao,$campos)."	
+									    ".$this->createImagem($sessao, $campos, true, false)."	
+									    ".$this->createArquivo($sessao, $campos, true, false)."	
 										<form action=\"#\" method=\"post\" id=\"formCadastro\" class=\"\">
 											<input type=\"hidden\" name=\"r3\" id=\"r3\" value=\"div_central\"/>
 											<input type=\"hidden\" name=\"c2\" id=\"c2\" value=\"Controlador".$sessao."\"/>
 											<input type=\"hidden\" name=\"f1\" id=\"f1\" value=\"alterar".$sessao."\"/>
 											<input type=\"hidden\" name=\"m4\" id=\"m4\" value=\"2\"/>
 											<input type=\"hidden\" name=\"id\" id=\"id\" value=\"<?php echo \$obj".$sessao."[0]->getId(); ?>\"/>
-											".$this->camposAlterar($sessao,$campos)."
+											".$this->campos($sessao, $campos,true,false)."
 										  </form>
 										</div>
 										<div class=\"tile-footer\">
@@ -590,81 +201,7 @@ class View{
 		";
 		return $script;
 	}
-		
-	public function imagemVisualizar($sessao,$campos){
-		$script = "";
-		for($i=0;$i< count($campos);$i++){
-			if($campos[$i]->tipo === 'imagem'){
-				$simbolo = ($campos[$i]->obrigatorio === '1')?'*':'';
-				$mgsAlerta = ($campos[$i]->obrigatorio === '1')?' mgs_alerta':'';
-				
-				$script .= "
-											<div class=\"form-group\">
-												<label class=\"control-label\">Imagem Largura Máxima: 640px</label>&nbsp;&nbsp;
-												<?php //echo \$obj".$sessao."[0]->get".ucfirst(strtolower($campos[$i]->campo))."();
-												if (\$obj".$sessao."[0]->get".ucfirst(strtolower($campos[$i]->campo))."()) {
-													\$imagem = \"./imagens/".strtolower($sessao)."/thumbnail\" . \$obj".$sessao."[0]->get".ucfirst(strtolower($campos[$i]->campo))."();
-												} else {
-													\$imagem = \"./img/imagemPadrao.jpg\";
-												}
-												?>   
-												<span name=\"imagemLink\" id=\"<?php echo \$imagem; ?>\" title=\"Imagem\" >
-													<img name=\"imagemAtual_".strtolower($campos[$i]->campo)."\" src=\"<?php echo \$imagem; ?>\" border=\"0\" />
-												</span>
-											</div>  
-											";
-			}
-		}
-		return $script;		
-	}	
 	
-	public function arquivoVisualizar($sessao,$campos){
-		$script = "";
-		for($i=0;$i< count($campos);$i++){
-			if($campos[$i]->tipo === 'arquivo'){
-				$script .= "
-											<div class=\"form-group\">
-												<label class=\"control-label\">Arquivo Tamanho Máximo: 2MB</label>
-												<span name=\"arquivoAtual_".strtolower($campos[$i]->campo)."\" onClick=\"fnAbreArquivo('arquivo', './arquivos/".strtolower($sessao)."/')\" style=\"<?php echo (\$obj".$sessao."[0]->get".ucfirst(strtolower($campos[$i]->campo))."()) ? 'cursor: pointer; text-decoration: underline;' : '' ?>\">
-													<?php
-													if (\$obj".$sessao."[0]->get".ucfirst(strtolower($campos[$i]->campo))."()) {
-														echo \$obj".$sessao."[0]->get".ucfirst(strtolower($campos[$i]->campo))."();
-													} else {
-														?>Adicione um arquivo clicando no <img src=\"./img/img_upload.png\" border=\"0\" style=\"float:none;margin:0;width: 20px;\" /><?php
-													}
-													?>                                                    
-												</span>
-											</div>   
-				";
-			}
-		}
-		return $script;		
-	}		
-		
-	public function camposVisualizar($sessao,$campos){
-		$script = "";
-		for($i=0;$i< count($campos);$i++){
-			if($campos[$i]->tipo !== "imagem" && $campos[$i]->tipo !== "arquivo"){
-				$script .= "
-												<div class=\"form-group\">
-												  <label class=\"control-label\">".ucfirst(strtolower($campos[$i]->campo))." *</label>";			
-				if($campos[$i]->tipo === "data"){
-					$script .= "
-												  <input class=\"data form-control\" disabled=\"true\" id=\"".strtolower($campos[$i]->campo)."\" name=\"".strtolower($campos[$i]->campo)."\" onkeypress=\"return mascara(event, this, '##/##/####');\" maxlength=\"10\" type=\"text\" value=\"<?php echo (\$obj".$sessao."[0]->get".ucfirst(strtolower($campos[$i]->campo))."() != \"0000-00-00\") ? recuperaData(\$obj".$sessao."[0]->get".ucfirst(strtolower($campos[$i]->campo))."()) : \"\"; ?>\" >";
-				}else if($campos[$i]->tipo === "textarea"){
-					$script .= "
-												  <textarea disabled=\"true\" class=\"form-control\" id=\"".strtolower($campos[$i]->campo)."\" name=\"".strtolower($campos[$i]->campo)."\" rows=\"4\" ><?php echo \$obj".$sessao."[0]->get".ucfirst(strtolower($campos[$i]->campo))."(); ?></textarea>";
-				}else{
-					$script .= "
-												  <input type=\"text\" disabled=\"true\" id=\"".strtolower($campos[$i]->campo)."\" name=\"".strtolower($campos[$i]->campo)."\" value=\"<?php echo \$obj".$sessao."[0]->get".ucfirst(strtolower($campos[$i]->campo))."(); ?>\" class=\"form-control\" >";
-				}
-				$script .= "
-												</div>";						
-			}
-		}
-		return $script;
-	}	
-
 	public function telaVisualizar($sessao,$campos){
 		$script = "
 							public function telaVisualizar".$sessao."(\$obj".$sessao.") {
@@ -686,10 +223,10 @@ class View{
 									  <div class=\"tile\">
 										<h3 class=\"tile-title\">Formulário</h3>
 										<div class=\"tile-body\">
-									    ".$this->imagemVisualizar($sessao,$campos)."	
-									    ".$this->arquivoVisualizar($sessao,$campos)."	
+									    ".$this->createImagem($sessao, $campos, true,true)."		
+									    ".$this->createArquivo($sessao, $campos, true,true)."	
 										<form action=\"#\" method=\"post\" id=\"formCadastro\" class=\"\">
-											".$this->camposVisualizar($sessao,$campos)."
+											".$this->campos($sessao, $campos,true,true)."
 										  </form>
 										</div>
 										<div class=\"tile-footer\">
@@ -736,6 +273,331 @@ class View{
 		fclose($view);
 		
 	}
+		
+	public function campos($sessao,$campos,$isValue,$isDisabled){
+		$script = "";
+		for($i=0;$i< count($campos);$i++){
+			$simbolo = ($campos[$i]->obrigatorio === '1')?'*':'';
+			$mgsAlerta = ($campos[$i]->obrigatorio === '1')?' mgs_alerta':'';
+			
+			if($campos[$i]->tipo !== "imagem" && $campos[$i]->tipo !== "arquivo"){
+				$script .= "
+											<div class=\"form-group\">";
+				$script .= "
+												<label class=\"control-label\">".ucfirst(strtolower($campos[$i]->campo))." ".$simbolo."</label>";
+				
+				switch($campos[$i]->tipo){
+					case "text":
+						$script .= $this->createCampoText($sessao, $campos[$i], $mgsAlerta,$isValue,$isDisabled);		
+					break;		
+					case "number":
+						$script .= $this->createCampoNumber($sessao, $campos[$i], $mgsAlerta,$isValue,$isDisabled);	
+					break;
+					case "monetario":
+						$script .= $this->createCampoMonetario($sessao, $campos[$i], $mgsAlerta,$isValue,$isDisabled);			
+					break;
+					case "textarea":
+						$script .= $this->createCampoTextArea($sessao, $campos[$i], $mgsAlerta,$isValue,$isDisabled);			
+					break;
+					case "data":		
+						$script .= $this->createCampoData($sessao, $campos[$i], $mgsAlerta,$isValue,$isDisabled);			
+					break;					
+					case "radio-button":
+						$script .= $this->createCampoRadio($sessao, $campos[$i], $mgsAlerta,$isValue,$isDisabled);			
+					break;
+					case "check-box":			
+						$script .= $this->createCampoCheck($sessao, $campos[$i], $mgsAlerta,$isValue,$isDisabled);			
+					break;
+					case "select":		
+						$script .= $this->createCampoSelect($sessao, $campos[$i], $mgsAlerta,$isValue,$isDisabled);								
+					break;
+				}
+					    
+                $script .= "
+											</div>";				
+			}else if($campos[$i]->tipo !== "imagem"){
+				  $value = ($isValue === true)?" value=\"<?php echo \$obj".$sessao."[0]->get".ucfirst(strtolower($campos[$i]->campo))."(); ?>\" ":"";	
+				  $script .= "<input type=\"hidden\" name=\"".strtolower($campos[$i]->campo)."\" id=\"".strtolower($campos[$i]->campo)."\" ".$value." />";                    
+			}else if($campos[$i]->tipo !== "arquivo"){
+				  $value = ($isValue === true)?" value=\"<?php echo \$obj".$sessao."[0]->get".ucfirst(strtolower($campos[$i]->campo))."(); ?>\" ":"";	
+				  $script .= "<input type=\"hidden\" name=\"".strtolower($campos[$i]->campo)."\" id=\"".strtolower($campos[$i]->campo)."\" ".$value." />"; 
+			}						
+		}
+		return $script;
+	}		
+	
+	public function createCampoText($sessao, $campo, $mgsAlerta,$isValue,$isDisabled){
+		$disabled = ($isDisabled === true)? " disabled=\"true\" ":"";
+		$value = ($isValue === true)?" value=\"<?php echo \$obj".$sessao."[0]->get".ucfirst(strtolower($campo->campo))."(); ?>\" ":"";
+		$script .= "					  
+												  <input ".$disabled." class=\"form-control".$mgsAlerta."\" id=\"".strtolower($campo->campo)."\" name=\"".strtolower($campo->campo)."\" type=\"text\" ".$value." >";			
+		return $script;
+	}	
+	
+	public function createCampoNumber($sessao, $campo, $mgsAlerta,$isValue,$isDisabled){
+		$disabled = ($isDisabled === true)? " disabled=\"true\" ":"";
+		$value = ($isValue === true)?" value=\"<?php echo \$obj".$sessao."[0]->get".ucfirst(strtolower($campo->campo))."(); ?>\" ":"";
+		$script .= "					  
+												  <input ".$disabled." class=\"form-control".$mgsAlerta."\" id=\"".strtolower($campo->campo)."\" name=\"".strtolower($campo->campo)."\" type=\"number\" ".$value." onkeypress=\"return mascara(event, this, '#');\" maxlength=\"6\" >";			
+		return $script;
+	}
+
+	public function createCampoMonetario($sessao, $campo, $mgsAlerta,$isValue,$isDisabled){
+		$disabled = ($isDisabled === true)? " disabled=\"true\" ":"";
+		$value = ($isValue === true)?" value=\"<?php echo \$obj".$sessao."[0]->get".ucfirst(strtolower($campo->campo))."(); ?>\" ":"";
+		$script .= "					  
+												  <input ".$disabled." class=\"maskMoney form-control ".$mgsAlerta."\" id=\"".strtolower($campo->campo)."\" name=\"".strtolower($campo->campo)."\" type=\"text\" ".$value." >";			
+		return $script;		
+	}	
+	
+	public function createCampoTextArea($sessao, $campo, $mgsAlerta,$isValue,$isDisabled){
+		$disabled = ($isDisabled === true)? " disabled=\"true\" ":"";
+		$value = ($isValue === true)?" <?php echo \$obj".$sessao."[0]->get".ucfirst(strtolower($campo->campo))."(); ?> ":"";
+		$script .= "
+												  <textarea ".$disabled." class=\"form-control".$mgsAlerta."\" id=\"".strtolower($campo->campo)."\" name=\"".strtolower($campo->campo)."\" rows=\"4\" >".$value."</textarea>";				
+		return $script;
+	}	
+	
+	public function createCampoData($sessao, $campo, $mgsAlerta,$isValue,$isDisabled){
+		$disabled = ($isDisabled === true)? " disabled=\"true\" ":"";
+		$value = ($isValue === true)?" value=\"<?php echo (\$obj".$sessao."[0]->get".ucfirst(strtolower($campo->campo))."() != \"0000-00-00\") ? recuperaData(\$obj".$sessao."[0]->get".ucfirst(strtolower($campo->campo))."()) : \"\"; ?>\" ":"";
+		$script .= "
+												  <script type=\"text/javascript\" >setDatePicker('".strtolower($campo->campo)."');</script> 	
+												  <input ".$disabled." class=\"data form-control".$mgsAlerta."\" id=\"".strtolower($campo->campo)."\" name=\"".strtolower($campo->campo)."\" onkeypress=\"return mascara(event, this, '##/##/####');\" maxlength=\"10\" type=\"text\" ".$value." >";		
+		return $script;
+	}	
+	
+	public function createCampoRadio($sessao, $campo, $mgsAlerta,$isValue,$isDisabled){
+		$disabled = ($isDisabled === true)? " disabled=\"true\" ":"";
+		$script .= "
+												<?php
+													\$sim = '';
+													\$nao = '';							
+												?>					
+					";
+		if($isValue === true){
+			$script .= "
+												<?php
+													if (\$obj".$sessao."[0]->get".ucfirst(strtolower($campo->campo))."() == \"1\") {
+														\$sim = 'checked=\"checked\"';                            
+													} elseif (\$obj".$sessao."[0]->get".ucfirst(strtolower($campo->campo))."() == \"0\") {
+														\$nao = 'checked=\"checked\"';
+													}
+												?>					
+						";
+		}
+		$titulo = strtolower($campo->campo);	
+		$script .= "              
+												  <br/><label>
+													<input type=\"radio\" ".$disabled." <?php echo \$sim; ?> name=\"".$titulo."\" value=\"1\"><span class=\"label-text\">Sim</span>
+												  </label><br/>
+												  <label>
+													<input type=\"radio\" ".$disabled." <?php echo \$nao; ?> name=\"".$titulo."\" value=\"0\"><span class=\"label-text\">Não</span>
+												  </label>
+					";		
+		return $script;
+	}	
+	
+	public function createCampoCheck($sessao, $campo, $mgsAlerta,$isValue,$isDisabled){
+		
+		return $script;
+	}	
+	
+	public function createCampoSelect($sessao, $campo, $mgsAlerta,$isValue,$isDisabled){
+		$disabled = ($isDisabled === true)? " disabled=\"true\" ":"";
+		$value = ($isValue === true)?" value=\"<?php echo \$obj".$sessao."[0]->get".ucfirst(strtolower($campo->campo))."(); ?>\" ":"";
+		
+		$script .= "
+												<select id=\"".strtolower($campo->campo)."\" name=\"".strtolower($campo->campo)."\" ".$value." class=\"form-control".$mgsAlerta."\">
+													<option value=\"\">Selecione...</option>												
+												</select>";
+
+		return $script;
+	}	
+		
+	public function createImagem($sessao, $campos, $isValue, $isDisabled){
+		$script = "";
+		for($i=0;$i< count($campos);$i++){
+			
+			$simbolo = ($campos[$i]->obrigatorio === '1')?'*':'';
+			$mgsAlerta = ($campos[$i]->obrigatorio === '1')?' mgs_alerta':'';			
+			
+			if($campos[$i]->tipo === 'imagem' && $isDisabled === true){
+
+				$script .= "
+											<div class=\"form-group\">
+												<label class=\"control-label\">Imagem Largura Máxima: 640px</label>&nbsp;&nbsp;
+												<?php //echo \$obj".$sessao."[0]->get".ucfirst(strtolower($campos[$i]->campo))."();
+												if (\$obj".$sessao."[0]->get".ucfirst(strtolower($campos[$i]->campo))."()) {
+													\$imagem = \"./imagens/".strtolower($sessao)."/thumbnail\" . \$obj".$sessao."[0]->get".ucfirst(strtolower($campos[$i]->campo))."();
+												} else {
+													\$imagem = \"./img/imagemPadrao.jpg\";
+												}
+												?>   
+												<span name=\"imagemLink\" id=\"<?php echo \$imagem; ?>\" title=\"Imagem\" >
+													<img name=\"imagemAtual_".strtolower($campos[$i]->campo)."\" src=\"<?php echo \$imagem; ?>\" border=\"0\" />
+												</span>
+											</div>  
+				";			
+			
+			}else if($campos[$i]->tipo === 'imagem' && $isDisabled === false){
+
+				
+				$script .= "
+											<script type=\"text/javascript\">											
+												\$(document).ready(function() {
+													fncInserirArquivo('form_imagem_".strtolower($campos[$i]->campo)."', 'progress_".strtolower($campos[$i]->campo)."', 'porcentagem_".strtolower($campos[$i]->campo)."', '".strtolower($campos[$i]->campo)."', 'imagemAtual_".strtolower($campos[$i]->campo)."', './imagens/".strtolower($sessao)."/', 'imagem');
+												});
+											</script>
+											";
+				$value = "";								
+				if($isValue === true){
+					$script .= "											
+											<?php
+											if (\$obj".$sessao."[0]->get".ucfirst(strtolower($campos[$i]->campo))."()) {
+												\$imagem = \"./imagens/".strtolower($sessao)."/thumbnail\" . \$obj".$sessao."[0]->get".ucfirst(strtolower($campos[$i]->campo))."();
+											} else {
+												\$imagem = \"./img/imagemPadrao.jpg\";
+											}
+											?> 
+											";
+					$value = "<?php echo \$imagem; ?>";							
+				}else{
+					$value = "./img/imagemPadrao.jpg";
+				}
+				
+				
+				$script .= "				<div class=\"form-group\">";
+				$script .= "					<table border=\"0\" style=\"width: 100%\">
+													<tr>
+														<td colspan=\"3\">
+															<label>Imagem Largura Máxima: 640px</label>&nbsp;&nbsp; 
+														</td>
+													</tr>
+													<tr style=\"height: 110px;\">
+														<td style=\"width: 20%;text-align: right;\">
+															<span id=\"span-teste\" class=\"upload-wrapper\" >  
+																<form action=\"./post-imagem.php\" method=\"post\" id=\"form_imagem_".strtolower($campos[$i]->campo)."\">
+																	<input name=\"pastaArquivo\" type=\"hidden\" value=\"./imagens/".strtolower($sessao)."/\">
+																	<input name=\"largura\" type=\"hidden\" value=\"640\">
+																	<input name=\"opcao\" type=\"hidden\" value=\"1\">
+																	<input name=\"tipoArq\" type=\"hidden\" value=\"imagem\">
+																	<input type=\"file\" name=\"file\" class=\"upload-file\" onchange=\"javascript: fncSubmitArquivo('enviar_".strtolower($campos[$i]->campo)."', this);\" >
+																	<input type=\"submit\" id=\"enviar_".strtolower($campos[$i]->campo)."\" style=\"display:none;\">   
+																	<img src=\"./img/img_upload.png\" class=\"upload-button\" />
+																</form> 
+															</span>
+														</td>
+														<td style=\"width: 20%\">
+															<img onclick=\"fncRemoverArquivo('imagem', './imagens/".strtolower($sessao)."', 'imagem', 'imagemAtual_".strtolower($campos[$i]->campo)."', './img/imagemPadrao.jpg');\" src=\"./img/remove.png\" border=\"0\" title=\"Clique para remover\" style=\"cursor:pointer;margin-bottom:7px;\" class=\"upload-button\" />
+														</td>
+														<td style=\"width: 60%\">
+															<img id=\"imagemAtual_".strtolower($campos[$i]->campo)."\" name=\"imagemAtual_".strtolower($campos[$i]->campo)."\" src=\"".$value."\" border=\"0\" style=\"\" />
+														</td>
+													</tr>
+													<tr>
+														<td  colspan=\"3\">
+															<progress id=\"progress_".strtolower($campos[$i]->campo)."\" value=\"0\" max=\"100\" style=\"display:none;\"></progress>
+															<span id=\"porcentagem_".strtolower($campos[$i]->campo)."\" style=\"display:none;float: right;\">0%</span>
+														</td>
+													</tr>
+												</table>			
+				";
+				$script .= "				</div>";
+			}
+		}
+		return $script;		
+	}
+
+	public function createArquivo($sessao, $campos, $isValue, $isDisabled){
+		$script = "";
+		for($i=0;$i< count($campos);$i++){
+			
+			$simbolo = ($campos[$i]->obrigatorio === '1')?'*':'';
+			$mgsAlerta = ($campos[$i]->obrigatorio === '1')?' mgs_alerta':'';			
+			
+			if($campos[$i]->tipo === 'arquivo' && $isDisabled === true){
+				
+				$script .= "
+											<div class=\"form-group\">
+												<label class=\"control-label\">Arquivo Tamanho Máximo: 2MB</label>
+												<span name=\"arquivoAtual_".strtolower($campos[$i]->campo)."\" onClick=\"fnAbreArquivo('arquivo', './arquivos/".strtolower($sessao)."/')\" style=\"<?php echo (\$obj".$sessao."[0]->get".ucfirst(strtolower($campos[$i]->campo))."()) ? 'cursor: pointer; text-decoration: underline;' : '' ?>\">
+													<?php
+													if (\$obj".$sessao."[0]->get".ucfirst(strtolower($campos[$i]->campo))."()) {
+														echo \$obj".$sessao."[0]->get".ucfirst(strtolower($campos[$i]->campo))."();
+													} else {
+														?>Adicione um arquivo clicando no <img src=\"./img/img_upload.png\" border=\"0\" style=\"float:none;margin:0;width: 20px;\" /><?php
+													}
+													?>                                                    
+												</span>
+											</div>   
+				";				
+				
+			}else if($campos[$i]->tipo === 'arquivo' && $isDisabled === false){
+				$span = "";
+				if($isValue === true){
+					$span = "
+															<span name=\"arquivoAtual_".strtolower($campos[$i]->campo)."\" id=\"arquivoAtual_".strtolower($campos[$i]->campo)."\" onClick=\"fnAbreArquivo('".strtolower($campos[$i]->campo)."', './arquivos/".strtolower($sessao)."/')\" style=\"<?php echo (\$obj".$sessao."[0]->get".ucfirst(strtolower($campos[$i]->campo))."()) ? 'cursor: pointer; text-decoration: underline;' : '' ?>\" >
+																<?php
+																if (\$obj".$sessao."[0]->get".ucfirst(strtolower($campos[$i]->campo))."()) {
+																	echo \$obj".$sessao."[0]->get".ucfirst(strtolower($campos[$i]->campo))."();
+																} else {
+																	?><br />Adicione um arquivo clicando no <img src=\"./img/img_upload.png\" border=\"0\" style=\"float:none;margin:0;width: 20px;\" /><?php
+																}
+																?>
+															</span>";					
+				}else{
+					$span = "
+															<span name=\"arquivoAtual_".strtolower($campos[$i]->campo)."\" id=\"arquivoAtual_".strtolower($campos[$i]->campo)."\" onClick=\"fnAbreArquivo('".strtolower($campos[$i]->campo)."', './arquivos/".strtolower($campos[$i]->campo)."/')\"   ><br />Adicione um arquivo clicando no <img src=\"./img/img_upload.png\" border=\"0\" style=\"float:none;margin:0;width: 20px;\" /></span>";
+				}
+				
+				$script .= "
+											<script type=\"text/javascript\">											
+												\$(document).ready(function() {
+													fncInserirArquivo('form_arquivo_".strtolower($campos[$i]->campo)."', 'progress_arquivo_".strtolower($campos[$i]->campo)."', 'porcentagem_arquivo_".strtolower($campos[$i]->campo)."', '".strtolower($campos[$i]->campo)."', 'arquivoAtual_".strtolower($campos[$i]->campo)."', './arquivos/".strtolower($sessao)."/', 'arquivo');
+												});
+											</script>											";
+				$script .= "				<div class=\"form-group\">";
+				$script .= "					<table border=\"0\" style=\"width: 100%\">
+													<tr>
+														<td colspan=\"3\">
+															<label>Tamanho Máxima: 2 Megas.</label>&nbsp;&nbsp; 
+														</td>
+													</tr>
+													<tr style=\"height: 110px;\">
+														<td style=\"width: 20%;text-align: right;\">
+															<span id=\"span-teste\" class=\"upload-wrapper\" >  
+																<form action=\"./post-imagem.php\" method=\"post\" id=\"form_arquivo_".strtolower($campos[$i]->campo)."\">
+																	<input name=\"pastaArquivo\" type=\"hidden\" value=\"./arquivos/".strtolower($sessao)."/\">
+																	<input name=\"largura\" type=\"hidden\" value=\"640\">
+																	<input name=\"opcao\" type=\"hidden\" value=\"1\">
+																	<input name=\"tipoArq\" type=\"hidden\" value=\"arquivo\">
+																	<input type=\"file\" name=\"file\" class=\"upload-file\" onchange=\"javascript: fncSubmitArquivo('enviar_arquivo_".strtolower($campos[$i]->campo)."', this);\" >
+																	<input type=\"submit\" id=\"enviar_arquivo_".strtolower($campos[$i]->campo)."\" style=\"display:none;\">   
+																	<img src=\"./img/img_upload.png\" class=\"upload-button\" />
+																</form> 
+															</span>
+														</td>
+														<td style=\"width: 20%\">
+															<img onclick=\"fncRemoverArquivo('".strtolower($campos[$i]->campo)."', './arquivos/".strtolower($sessao)."/', 'arquivo', 'arquivoAtual_".strtolower($campos[$i]->campo)."', '');\" src=\"./img/remove.png\" border=\"0\" title=\"Clique para remover\" style=\"cursor:pointer;margin-bottom:7px;\" class=\"upload-button\" />
+														</td>
+														<td style=\"width: 60%\">
+															".$span."
+														</td>
+													</tr>
+													<tr>
+														<td  colspan=\"3\">
+															<progress id=\"progress_arquivo_".strtolower($campos[$i]->campo)."\" value=\"0\" max=\"100\" style=\"display:none;\"></progress>
+															<span id=\"porcentagem_arquivo_".strtolower($campos[$i]->campo)."\" style=\"display:none;float: right;\">0%</span>
+														</td>
+													</tr>
+												</table>			
+				";
+				$script .= "				</div>";
+			}
+		}
+		return $script;		
+	}		
 	
 }
 

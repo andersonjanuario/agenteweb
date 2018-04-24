@@ -104,7 +104,7 @@ require_once "view.php";
 			}
 			$sql .= " status INT(1) NULL DEFAULT '1'
 					)";				
-			
+
 			mysqli_query($conexao,$sql) or die ('Erro na execução de criar tabela!');
 			fecharBanco($conexao);
 			

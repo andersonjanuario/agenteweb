@@ -47,4 +47,40 @@ require_once "view/viewTemplate.php";
 
 
 
+
+require_once "controle/controladorTeste.php";
+require_once "dao/daoTeste.php";
+require_once "view/viewTeste.php";
+require_once "classe/Teste.php";
+
+require_once "controle/controladorTeste.php";
+require_once "dao/daoTeste.php";
+require_once "view/viewTeste.php";
+require_once "classe/Teste.php";
+
+require_once "controle/controladorTeste.php";
+require_once "dao/daoTeste.php";
+require_once "view/viewTeste.php";
+require_once "classe/Teste.php";
+
+require_once "controle/controladorTeste.php";
+require_once "dao/daoTeste.php";
+require_once "view/viewTeste.php";
+require_once "classe/Teste.php";
+
+require_once "controle/controladorTeste.php";
+require_once "dao/daoTeste.php";
+require_once "view/viewTeste.php";
+require_once "classe/Teste.php";
+
+require_once "controle/controladorTeste.php";
+require_once "dao/daoTeste.php";
+require_once "view/viewTeste.php";
+require_once "classe/Teste.php";
+
+require_once "controle/controladorTeste.php";
+require_once "dao/daoTeste.php";
+require_once "view/viewTeste.php";
+require_once "classe/Teste.php";
+
 ?>

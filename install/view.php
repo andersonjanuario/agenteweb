@@ -2,6 +2,16 @@
 
 class View{
 	
+	public function tipoQtd($campos,$tipo){
+		$contador = 0;
+		for($i=0;$i< count($campos);$i++){
+			if($campos[$i]->tipo === $tipo){	
+				$contador++;
+			}
+		}		
+		return $contador;
+	}
+	
 	public function telaCadastrar($sessao,$campos){
 		$script = "
 							public function telaCadastrar".$sessao."(\$post) {
@@ -409,7 +419,10 @@ class View{
 		
 		$script .= "
 												<select id=\"".strtolower($campo->campo)."\" name=\"".strtolower($campo->campo)."\" ".$value." class=\"form-control".$mgsAlerta."\">
-													<option value=\"\">Selecione...</option>												
+													<option value=\"\">Selecione...</option>
+													<option value=\"1\">Valor 1</option>
+													<option value=\"2\">Valor 2</option>
+													<option value=\"3\">Valor 3</option>													
 												</select>";
 
 		return $script;
@@ -496,9 +509,11 @@ class View{
 														</td>
 													</tr>
 													<tr>
-														<td  colspan=\"3\">
-															<progress id=\"progress_".strtolower($campos[$i]->campo)."\" value=\"0\" max=\"100\" style=\"display:none;\"></progress>
-															<span id=\"porcentagem_".strtolower($campos[$i]->campo)."\" style=\"display:none;float: right;\">0%</span>
+														<td  colspan=\"2\">
+															<progress id=\"progress_".strtolower($campos[$i]->campo)."\" value=\"0\" max=\"100\" style=\"display:none;float: right;\"></progress>
+														</td>
+														<td  colspan=\"1\">
+															<span id=\"porcentagem_".strtolower($campos[$i]->campo)."\" style=\"display:none;float: left;\">0%</span>
 														</td>
 													</tr>
 												</table>			
@@ -521,6 +536,7 @@ class View{
 				$script .= "
 											<div class=\"form-group\">
 												<label class=\"control-label\">Arquivo Tamanho Máximo: 2MB</label>
+												<div style=\"padding-bottom: 19px;\">
 												<span name=\"arquivoAtual_".strtolower($campos[$i]->campo)."\" onClick=\"fnAbreArquivo('arquivo', './arquivos/".strtolower($sessao)."/')\" style=\"<?php echo (\$obj".$sessao."[0]->get".ucfirst(strtolower($campos[$i]->campo))."()) ? 'cursor: pointer; text-decoration: underline;' : '' ?>\">
 													<?php
 													if (\$obj".$sessao."[0]->get".ucfirst(strtolower($campos[$i]->campo))."()) {
@@ -530,6 +546,7 @@ class View{
 													}
 													?>                                                    
 												</span>
+												</div>
 											</div>   
 				";				
 				
@@ -586,9 +603,11 @@ class View{
 														</td>
 													</tr>
 													<tr>
-														<td  colspan=\"3\">
-															<progress id=\"progress_arquivo_".strtolower($campos[$i]->campo)."\" value=\"0\" max=\"100\" style=\"display:none;\"></progress>
-															<span id=\"porcentagem_arquivo_".strtolower($campos[$i]->campo)."\" style=\"display:none;float: right;\">0%</span>
+														<td  colspan=\"2\">
+															<progress id=\"progress_arquivo_".strtolower($campos[$i]->campo)."\" value=\"0\" max=\"100\" style=\"display:none;float: right;\"></progress>
+														</td>
+														<td  colspan=\"1\">															
+															<span id=\"porcentagem_arquivo_".strtolower($campos[$i]->campo)."\" style=\"display:none;float: left;\">0%</span>
 														</td>
 													</tr>
 												</table>			

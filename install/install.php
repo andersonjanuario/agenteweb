@@ -75,9 +75,10 @@ require_once "view.php";
 			for($i=0;$i< count($campos);$i++){	
 				
 				$sql .= " ".$campos[$i]->campo." ";
+				$tamanho = ($campos[$i]->tamanho != '' && $campos[$i]->tamanho != null)? '50' :$campos[$i]->tamanho;
 				
 				if($campos[$i]->tipo === "text"){
-					$sql .= " VARCHAR(".$campos[$i]->tamanho.") ";
+					$sql .= " VARCHAR(".$tamanho.") ";
 				}else if($campos[$i]->tipo === "number"){
 					$sql .= " INT(11) ";
 				}else if($campos[$i]->tipo === "textarea"){
@@ -93,7 +94,7 @@ require_once "view.php";
 				}else if($campos[$i]->tipo === "check-box"){
 					$sql .= " VARCHAR(1) ";
 				}else if($campos[$i]->tipo === "select"){
-					$sql .= " VARCHAR(".$campos[$i]->tamanho.") ";
+					$sql .= " VARCHAR(".$tamanho.") ";
 				}
 				if($campos[$i]->obrigatorio === "1"){
 					$sql .= " NOT NULL, ";
@@ -104,7 +105,7 @@ require_once "view.php";
 			}
 			$sql .= " status INT(1) NULL DEFAULT '1'
 					)";				
-
+			
 			mysqli_query($conexao,$sql) or die ('Erro na execução de criar tabela!');
 			fecharBanco($conexao);
 			

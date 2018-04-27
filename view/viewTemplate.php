@@ -74,12 +74,14 @@ class ViewTemplate {
                                 <img id="imagemAtual" name="imagemAtual" src="./img/imagemPadrao.jpg" border="0" style="" />
                             </td>
                         </tr>
-                        <tr>
-                            <td  colspan="3">
-                                <progress id="progress" value="0" max="100" style="display:none;"></progress>
-                                <span id="porcentagem" style="display:none;float: right;">0%</span>
-                            </td>
-                        </tr>
+						<tr>
+							<td colspan="2">
+								<progress id="progress" value="0" max="100" style="display:none;float: right;"></progress>
+							</td>
+							<td colspan="1">	                                
+								<span id="porcentagem" style="display:none;float: left;">0%</span>
+							</td>
+						</tr>						
                     </table>
                 </div>
 
@@ -108,15 +110,19 @@ class ViewTemplate {
                                 <img onclick="fncRemoverArquivo('arquivo', './arquivos/template/', 'arquivo', 'arquivoAtual', '');" src="./img/remove.png" border="0" title="Clique para remover" style="cursor:pointer;margin-bottom:7px;" class="upload-button" />
                             </td>
                             <td style="width: 60%;">
-                                <span name="arquivoAtual" id="arquivoAtual" onClick="fnAbreArquivo('arquivo', './arquivos/template/')"   ><br />Adicione um arquivo clicando no <img src="./img/img_upload.png" border="0" style="float:none;margin:0;width: 20px;" /></span>
-                            </td>
+								<div style="padding-bottom: 19px;">
+									<span name="arquivoAtual" id="arquivoAtual" onClick="fnAbreArquivo('arquivo', './arquivos/template/')"   ><br />Adicione um arquivo clicando no <img src="./img/img_upload.png" border="0" style="float:none;margin:0;width: 20px;" /></span>
+								</div>
+							</td>
                         </tr>
-                        <tr>
-                            <td  colspan="3">
-                                <progress id="progress_arquivo" value="0" max="100" style="display:none;"></progress>
-                                <span id="porcentagem_arquivo" style="display:none;">0%</span>                                                  
-                            </td>
-                        </tr>
+						<tr>
+							<td colspan="2">
+								<progress id="progress_arquivo" value="0" max="100" style="display:none;float: right;"></progress>
+							</td>
+							<td colspan="1">	                                
+								<span id="porcentagem_arquivo" style="display:none;float: left;">0%</span>
+							</td>
+						</tr>						
                     </table>
                 </div>
 
@@ -398,12 +404,14 @@ class ViewTemplate {
                                 <img id="imagemAtual" name="imagemAtual" src="<?php echo $imagem; ?>" border="0" style="" />
                             </td>
                         </tr>
-                        <tr>
-                            <td  colspan="3">
-                                <progress id="progress" value="0" max="100" style="display:none;"></progress>
-                                <span id="porcentagem" style="display:none;float: right;">0%</span>
-                            </td>
-                        </tr>
+						<tr>
+							<td colspan="2">
+								<progress id="progress" value="0" max="100" style="display:none;float: right;"></progress>
+							</td>
+							<td colspan="1">	                                
+								<span id="porcentagem" style="display:none;float: left;">0%</span>
+							</td>
+						</tr>
                     </table>
                 </div> 
                 <div class="form-group">
@@ -431,6 +439,7 @@ class ViewTemplate {
                                 <img onclick="fncRemoverArquivo('arquivo', './arquivos/template/', 'arquivo', 'arquivoAtual', '');" src="./img/remove.png" border="0" title="Clique para remover" style="cursor: pointer;margin-bottom:7px;" class="upload-button" />
                             </td>
                             <td style="width: 60%">
+							<div style="padding-bottom: 19px;">
                                 <span name="arquivoAtual" id="arquivoAtual" onClick="fnAbreArquivo('arquivo', './arquivos/template/')" style="<?php echo ($objTemplate[0]->getArquivo()) ? 'cursor: pointer; text-decoration: underline;' : '' ?>"  >
                                     <?php
                                     if ($objTemplate[0]->getArquivo()) {
@@ -440,14 +449,17 @@ class ViewTemplate {
                                     }
                                     ?> 
                                 </span>
+							</div>
                             </td>
                         </tr>
-                        <tr>
-                            <td  colspan="3">
-                                <progress id="progress_arquivo" value="0" max="100" style="display:none;"></progress>
-                                <span id="porcentagem_arquivo" style="display:none;float: right;">0%</span>                                                 
-                            </td>
-                        </tr>
+						<tr>
+							<td colspan="2">
+								<progress id="progress_arquivo" value="0" max="100" style="display:none;float: right;"></progress>
+							</td>
+							<td colspan="1">	                                
+								<span id="porcentagem_arquivo" style="display:none;float: left;">0%</span>
+							</td>
+						</tr>
                     </table>  
                 </div>   
 
@@ -593,7 +605,7 @@ class ViewTemplate {
                     </span>
                 </div>             
                 <div class="form-group">
-                    <label class="control-label">Arquivo Tamanho Máximo: 2MB</label>
+                    <label class="control-label">Arquivo Tamanho Máximo: 2MB</label><div style="padding-bottom: 19px;">
                     <span name="arquivoAtual" onClick="fnAbreArquivo('arquivo', './arquivos/template/')" style="<?php echo ($objTemplate[0]->getArquivo()) ? 'cursor: pointer; text-decoration: underline;' : '' ?>">
                         <?php
                         if ($objTemplate[0]->getArquivo()) {
@@ -601,7 +613,8 @@ class ViewTemplate {
                         } else {
                             ?>Adicione um arquivo clicando no <img src="./img/img_upload.png" border="0" style="float:none;margin:0;width: 20px;" /><?php
                         }
-                        ?>                                                    
+                        ?>
+					</div>	
                     </span>
                 </div>  
                 <form action="#" method="post" id="formCadastro" class="">

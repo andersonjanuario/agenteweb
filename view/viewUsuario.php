@@ -16,7 +16,7 @@ class ViewUsuario{
           //echo ($post) ? "$.growlUI2('" . $post . "', '&nbsp;');" : "";
         ?> 
             $(document).ready(function() {
-            	fncInserirArquivo("form_imagem", "progress", "porcentagem", "imagem", "imagemAtual", "./imagens/template/", "imagem");
+            	fncInserirArquivo("form_imagem", "progress", "porcentagem", "imagem", "imagemAtual", "./imagens/usuario/", "imagem");
             });
        </script>
 
@@ -34,7 +34,7 @@ class ViewUsuario{
 	      </div>
 
 	      <div class="row">
-	        <div class="col-md-12">
+	        <div class="col-md-6">
 	          <div class="tile">
 	            <h3 class="tile-title">Formulário</h3>
 	            <div class="tile-body">
@@ -61,27 +61,39 @@ class ViewUsuario{
 	                                </span>
 	                            </td>
 	                            <td style="width: 20%">
-	                                <img onclick="fncRemoverArquivo('imagem', './imagens/usuario', 'imagem', 'imagemAtual', './img/imagemPadrao.jpg');" src="./img/remove.png" border="0" title="Clique para remover" style="cursor:pointer;margin-bottom:7px;" class="upload-button" />
+	                                <img onclick="fncRemoverArquivo('imagem', './imagens/usuario', 'imagem', 'imagemAtual', './img/imagemPadrao.jpg');" src="./img/remove.png" border="0" title="Clique para remover" style="cursor:pointer;margin-bottom:13px;" class="upload-button" />
 	                            </td>
 	                            <td style="width: 60%">
 	                                <img id="imagemAtual" name="imagemAtual" src="./img/imagemPadrao.jpg" border="0" style="" />
 	                            </td>
 	                        </tr>
 	                        <tr>
-	                            <td  colspan="3">
-	                                <progress id="progress" value="0" max="100" style="display:none;"></progress>
-	                                <span id="porcentagem" style="display:none;float: right;">0%</span>
+								<td colspan="2">
+									<progress id="progress" value="0" max="100" style="display:none;float: right;"></progress>
+								</td>
+	                            <td colspan="1">	                                
+	                                <span id="porcentagem" style="display:none;float: left;">0%</span>
 	                            </td>
 	                        </tr>
 	                    </table>
 	                </div>
-
 	              <form action="#" method="post" id="formCadastro" class="">
 		            <input type="hidden" name="r3" id="r3" value="div_central"/>
 		            <input type="hidden" name="c2" id="c2" value="ControladorUsuario"/>
 		            <input type="hidden" name="f1" id="f1" value="incluirUsuario"/>
 		            <input type="hidden" name="m4" id="m4" value="1"/> 
 		            <input type="hidden" name="imagem" id="imagem" value="" />             
+					<!--div class="row">
+						<div class="form-group col-md-2">
+							<div class="image"><img class="img-circle" id="preview" src="images/user.png" alt="" style="width:120px; height:120px;"></div>
+						</div>           
+					</div>					
+					<div class="input-group">
+						<input class="form-control" name="image" accept="image/*" required="false" id="fileinput" type="file" onchange="uploadFile(this,'preview','imagem')">
+						<span class="input-group-btn">
+							<button class="btn btn-default" onclick="removerFoto(visitanteForm)" type="button">Remover</button>
+						</span>                  
+					</div-->						
 	                <div class="form-group">
 	                  <label class="control-label">Nome *</label>
 	                  <input class="form-control mgs_alerta" id="nome" name="nome" type="text" onkeyup="this.value=this.value.toUpperCase();" >
@@ -238,12 +250,14 @@ class ViewUsuario{
                                 <img id="imagemAtual" name="imagemAtual" src="<?php echo $imagem; ?>" border="0" style="" />
                             </td>
                         </tr>
-                        <tr>
-                            <td  colspan="3">
-                                <progress id="progress" value="0" max="100" style="display:none;"></progress>
-                                <span id="porcentagem" style="display:none;float: right;">0%</span>
-                            </td>
-                        </tr>
+						<tr>
+							<td colspan="2">
+								<progress id="progress" value="0" max="100" style="display:none;float: right;"></progress>
+							</td>
+							<td colspan="1">	                                
+								<span id="porcentagem" style="display:none;float: left;">0%</span>
+							</td>
+						</tr>						
                     </table>
                 </div> 
 

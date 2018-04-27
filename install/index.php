@@ -34,16 +34,16 @@
                                 </div>
                                 <div class="form-group col-md-2">
                                     <label class="control-label">Tipo do Campo</label>
-                                    <select id="tipo" name="tipo" class="mgs_alerta form-control">
-                                        <option value="text">text</option>
-                                        <option value="number">number</option>
-                                        <option value="textarea">textarea</option>
-										<option value="imagem">imagem</option>
-										<option value="arquivo">arquivo</option>
-										<option value="data">data</option>
-										<option value="radio-button">radio-button</option>
-										<option value="check-box">check-box</option>
-										<option value="select">select</option>										
+                                    <select id="tipo" name="tipo" class="mgs_alerta form-control" onchange="checarTipoCampo(this)">
+                                        <option value="text">Texto Simples</option>
+                                        <option value="number">Campo Númerico</option>
+                                        <option value="textarea">Área de Texto</option>
+										<option value="imagem">Update de Imagem</option>
+										<option value="arquivo">Update de Arquivo</option>
+										<option value="data">Campo de Data</option>
+										<option value="radio-button">Campo de Radio-button</option>
+										<option value="check-box">Campo de Check-box</option>
+										<option value="select">Combo de Seleção</option>										
                                     </select>
                                 </div>
                                 <div class="animated-radio-button col-md-2">
@@ -69,7 +69,7 @@
                                 </div>
                                 <div class="form-group col-md-2">
                                     <label class="control-label">Tamanho Campo</label>
-                                    <input class="form-control" type="text" id="tamanho" name="tamanho" onkeyup="this.value=this.value.toLowerCase();">
+                                    <input class="form-control" type="number" id="tamanho" name="tamanho" onkeyup="this.value=this.value.toLowerCase();">
                                 </div>
 								<div class="form-group col-md-2">
 									<label class="control-label">&nbsp; &nbsp;</label><br/>
@@ -89,7 +89,7 @@
                       <th>Campo</th>
                       <th>Tipo</th>
                       <th>Grid</th>
-                      <th>Obrigatorio</th>
+                      <th>Obrigatório</th>
                       <th>Tamanho</th>
                       <th>Ação</th>
                     </tr>
@@ -126,29 +126,58 @@
             }
 
             function addCampos() {
-                totalCampos++;
-                var objeto = {  id: totalCampos,
-                                campo: $("#campo").val(),
-                                tipo: $("#tipo").val(),
-                                grid: $('input[name=grid]:checked').val(),
-                                obrigatorio: $('input[name=obrigatorio]:checked').val(),
-                                tamanho: $("#tamanho").val()
-                            };
-                campos.push(objeto);
+				if(validar() === true){
+					totalCampos++;
+					var objeto = {  id: totalCampos,
+									campo: $("#campo").val(),
+									tipo: $("#tipo").val(),
+									grid: $('input[name=grid]:checked').val(),
+									obrigatorio: $('input[name=obrigatorio]:checked').val(),
+									tamanho: $("#tamanho").val()
+								};
+					campos.push(objeto);
 
-                var html = '<tr id="linha-'+totalCampos+'"><td>'+objeto.campo+'</td><td>'+objeto.tipo+'</td><td>'+objeto.grid+'</td><td>'+objeto.obrigatorio+'</td><td>'+objeto.tamanho+'</td><td><button class="btn btn-primary" type="button" onClick="removerCampo('+totalCampos+');"><i class="fa fa-fw fa-lg fa-check-circle"></i>Remover</button></td></tr>';
-                $("#formCampos").append(html);
-				
-				$("#form-install").each(function(){
-					$('[name=campo]',this).val('');
-					$('[name=tipo]',this).val('text');
-					$('[name=tamanho]',this).val('');
-					$('[name=grid]',this)[0].checked = true;
-					$('[name=obrigatorio]',this)[0].checked = true;
+					var html = '<tr id="linha-'+totalCampos+'"><td>'+objeto.campo+'</td><td>'+objeto.tipo+'</td><td>'+objeto.grid+'</td><td>'+objeto.obrigatorio+'</td><td>'+objeto.tamanho+'</td><td><button class="btn btn-primary" type="button" onClick="removerCampo('+totalCampos+');"><i class="fa fa-fw fa-lg fa-check-circle"></i>Remover</button></td></tr>';
+					$("#formCampos").append(html);
 					
-					
-				});
+					$("#form-install").each(function(){
+						$('[name=campo]',this).val('');
+						$('[name=tipo]',this).val('text');
+						$('[name=tamanho]',this).val('');
+						$('[name=grid]',this)[0].checked = true;
+						$('[name=obrigatorio]',this)[0].checked = true;
+						
+						
+					});
+				}else{
+					alert('Os campos obrigatórios devem ser preechidos!');	
+				}
             }
+			
+			function validar(){
+				var retorno = true;
+				if($("#campo").val() === ''){
+					retorno = false;
+				}else if(($("#tipo").val() === 'text' || $("#campo").val() === 'select') && $("#tamanho").val() === ''){
+					retorno = false;
+				}
+				return retorno;
+			}
+			
+			function checarTipoCampo(elemento){
+				switch($(elemento).val()){
+					case 'text':
+						$('#tamanho').prop('disabled', false);					
+					break;
+					case 'select':
+						$('#tamanho').prop('disabled', false);					
+					break;					
+					default:
+						$('#tamanho').val('');
+						$('#tamanho').prop('disabled', true);
+					break;	
+				}
+			}
 
 
             function envio(){

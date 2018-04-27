@@ -35,6 +35,7 @@ class ControladorUsuario {
 			$usuario->setNome($post["nome"]);
 			$usuario->setLogin($post["login"]);
 			$usuario->setSenha(md5($post["senha"]));
+			//$usuario->setImagem(setImagemFile($post["imagem"],"./imagens/usuario/"));
 			$usuario->setImagem($post["imagem"]);
 			$usuario->setPerfil($post["perfil"]);			
 			$usuario->setStatus('1');
@@ -56,6 +57,9 @@ class ControladorUsuario {
 			$usuario->setNome($post["nome"]);
 			$usuario->setLogin($post["login"]);
 			$usuario->setSenha(md5($post["senha"]));
+			//if (validarImagem($post["imagem"])) { 
+				//$usuario->setImagem(setImagemFile($post["imagem"],"./imagens/usuario/"));
+			//}
 			$usuario->setImagem($post["imagem"]);
 			$usuario->setPerfil($post["perfil"]);			
 			$usuario->setStatus('1');

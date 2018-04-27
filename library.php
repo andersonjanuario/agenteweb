@@ -1,4 +1,135 @@
 <?php
+function tamanhoImagem($imagem, $largura) {
+    $tam_img = getimagesize($imagem);
+    if ($tam_img[0] > $largura) {
+        return false;
+    } else {
+        return true;
+    }
+}
+
+function redimensionaImg($path, $imagem, $largura) {
+    $arquivo_origem = $path . '/' . $imagem;
+    $arquivo_destino = $arquivo_origem;
+    $nome_arquivo_destino = $imagem;
+	$ext = exif_imagetype($arquivo_origem);
+	
+    if ($ext === 2) {
+        $img_origem = imagecreatefromjpeg($arquivo_origem);
+    }
+    if ($ext === 1) {
+        $img_origem = imagecreatefromgif($arquivo_origem);
+    }
+    if ($ext === 3) {
+        $img_origem = imagecreatefrompng($arquivo_origem);
+    }
+
+    if (imagesx($img_origem) > $largura) {
+        $nova_largura = $largura;
+        $nova_altura = $nova_largura * imagesy($img_origem) / imagesx($img_origem);
+        $img_destino = imagecreatetruecolor($nova_largura, $nova_altura);
+        imagecopyresampled($img_destino, $img_origem, 0, 0, 0, 0, $nova_largura, $nova_altura, imagesx($img_origem), imagesy($img_origem));
+
+        if ($ext === 2) {
+            imageJPEG($img_destino, $arquivo_destino, 85);
+        }
+        if ($ext === 1) {
+            imageGIF($img_destino, $arquivo_destino);
+        }
+        if ($ext === 3) {
+            imagePNG($img_destino, $arquivo_destino);
+        }
+    }
+
+    return $nome_arquivo_destino;
+}
+
+function geraThumb($path, $imagem) {
+    $arquivo_origem = $path . $imagem;
+    $arquivo_destino = $path . 'thumbnail' . $imagem;
+    $nome_arquivo_destino = 'thumbnail' . $imagem;
+	$ext = exif_imagetype($arquivo_origem);
+	
+    if ($ext === 2) {
+        $img_origem = imagecreatefromjpeg($arquivo_origem);
+    }
+    if ($ext === 1) {
+        $img_origem = imagecreatefromgif($arquivo_origem);
+    }
+    if ($ext === 3) {
+        $img_origem = imagecreatefrompng($arquivo_origem);
+    }
+
+    if (imagesx($img_origem) > $largura) {
+        if (imagesx($img_origem) > imagesy($img_origem)) {
+            $nova_largura = 100;
+            $nova_altura = $nova_largura * imagesy($img_origem) / imagesx($img_origem);
+        } else {
+            $nova_altura = 75;
+            $nova_largura = $nova_altura * imagesx($img_origem) / imagesy($img_origem);
+        }
+        if ($nova_largura > 350)
+            $nova_largura = 350;
+        $img_destino = imagecreatetruecolor($nova_largura, $nova_altura);
+        imagecopyresampled($img_destino, $img_origem, 0, 0, 0, 0, $nova_largura, $nova_altura, imagesx($img_origem), imagesy($img_origem));
+
+        if ($ext === 2) {
+            imageJPEG($img_destino, $arquivo_destino, 85);
+        }
+        if ($ext === 1) {
+            imageGIF($img_destino, $arquivo_destino);
+        }
+        if ($ext === 3) {
+            imagePNG($img_destino, $arquivo_destino);
+        }
+    }
+
+    return $nome_arquivo_destino;
+}
+
+function setImagemFile($imagem,$path) {
+
+	if (strstr($imagem, 'data:image/jpeg;base64,') || strstr($imagem, 'data:image/jpg;base64,')) {
+		$base64 = str_replace('data:image/jpeg;base64,', '', $imagem);
+		$filename_path = md5(time() . uniqid()) . ".jpg";
+	} else if (strstr($imagem, 'data:image/png;base64,')) {
+		$base64 = str_replace('data:image/png;base64,', '', $imagem);
+		$filename_path = md5(time() . uniqid()) . ".png";
+	}
+	$decoded = base64_decode($base64);
+	file_put_contents($path . $filename_path, $decoded);
+	//geraThumb($path, $filename_path); 
+	if (!tamanhoImagem($path . $filename_path, 640)) {
+		redimensionaImg($path, $filename_path, 640);
+	}	
+	return $filename_path;
+}
+
+function validarImagem($imagem) {
+	$retorno = true;
+	if (strripos($imagem, 'data:image') === false) {
+		$retorno = false;
+	}
+	return $retorno;
+}
+
+function deleteImagem($id,$posicao,$path) {
+	$item = $this->findUserById($id,true);
+	switch ($posicao) {
+		case 1:
+			$arquivoExclusao = $item->foto;
+			break;
+		case 2:
+			$arquivoExclusao = $item->fundo;
+			break;            
+	}       
+
+	if (!empty($arquivoExclusao)) {
+		if (file_exists($path . $arquivoExclusao)) {
+			unlink($path . $arquivoExclusao);
+		}
+	}
+}  
 
 function selecao($valor1, $valor2) {
     $selecao = "";
@@ -8,19 +139,6 @@ function selecao($valor1, $valor2) {
     return $selecao;
 }
 
-function destacarQtdEstoque($qtdMinimo, $qtdAtual) {
-
-    if ((int) $qtdMinimo > 0) {
-        if ((int) $qtdAtual <= (int) $qtdMinim) {
-            $color = "color: #FF0000;";
-        } else {
-            $color = "color: #0000FF;";
-        }
-    } else {
-        $color = "color: #000000;";
-    }
-    return $color;
-}
 
 function montaSelectEstados($valorSelecao) {
     $selectEstados = "";
@@ -128,19 +246,6 @@ function retornarSexo($sexo) {
     }
 }
 
-function retornarSexoAnimal($sexo) {
-    if ($sexo) {
-        switch ($sexo) {
-            case "M":
-                $sexo = "Macho";
-                break;
-            case "F":
-                $sexo = "Fêmia";
-                break;
-        }
-        return $sexo;
-    }
-}
 
 function desformataData($date) {
 
@@ -243,171 +348,6 @@ function zeroEsquerda($string) {
     return $retorno . $string;
 }
 
-/**
- * Função responsavel por geração do gráfico no formato barra
- * Deve-se utilizar o formato abaixo respeitando a quantidade de ambos 
- *  var dados = [250, 350, 450];
- *  var ticks = ['March', 'April', 'May'];
- * @param $serie -> é a informação do assunto aqual esta sendo analizado
- * @param $dados -> a massa de dados necessario para exibição dos graficos 
- * @param $ticks -> são os labels das etiquetas que representa cada barra
- */
-function exibirGraficoBarra($dados, $serie = null, $ticks, $label = null) {
-    ?>
-    <link rel="stylesheet" type="text/css" href="js/jqplot.1.0.8/jquery.jqplot.min.css" /> 
-    <!--[if lt IE 9]><script language="javascript" type="text/javascript" src="js/jqplot.1.0.8/excanvas.min.js"></script><![endif]-->
-    <script language="javascript" type="text/javascript" src="js/jqplot.1.0.8/jquery.jqplot.min.js"></script>
-    <script language="javascript" type="text/javascript" src="js/jqplot.1.0.8/plugins/jqplot.barRenderer.min.js"></script>
-    <script language="javascript" type="text/javascript" src="js/jqplot.1.0.8/plugins/jqplot.categoryAxisRenderer.min.js"></script>
-    <div id="bar-chart" class="dashboard-long" ></div>
-    <script type="text/javascript">
-                $("#div_central").css("display", "");
-                $(document).ready(function () {
-        var plot1 = $.jqplot("bar-chart", [<?php echo $dados; ?>], {
-        seriesDefaults: {
-        renderer: $.jqplot.BarRenderer,
-                rendererOptions: { fillToZero: true }
-        },
-    <?php
-    if ($label) {
-        ?>
-            series: [
-            { label: <?php echo $serie; ?> }
-            ], show: false,
-        <?php
-    }
-    ?>
-        legend: {
-        show: true,
-                placement: "insideGrid"
-        },
-                axes: {
-                xaxis: {
-                renderer: $.jqplot.CategoryAxisRenderer,
-                        ticks: <?php echo $ticks; ?>
-                },
-                        yaxis: {
-                        pad: 1.05,
-                                tickOptions: { formatString: "R$ %d   " }
-                        }
-                }
-        });
-        });</script>
-    <?php
-}
-
-/**
- * Função responsavel por geração do gráfico no formato linha
- * Deve-se utilizar o formato abaixo respeitando a quantidade de ambos 
- *  var dados = [250, 350, 450];
- *  var ticks = ['March', 'April', 'May'];
- * @param $titulo -> é a informação do assunto aqual esta sendo analizado
- * @param $label_x -> é a informação do valor x aqual esta sendo exibido no plano cartesiano 
- * @param $label_y -> é a informação do valor y aqual esta sendo exibido no plano cartesiano
- * @param $dados -> a massa de dados necessario para exibição dos graficos 
- * @param $ticks -> são os labels das etiquetas que representa cada barra
- */
-function exibirGraficoLinha($titulo, $dados, $label_x, $label_y, $ticks) {
-    ?>
-    <div id="chart1" class="dashboard-long" style="width:99%" ></div>
-    <link rel="stylesheet" type="text/css" href="js/jqplot.1.0.8/jquery.jqplot.min.css" />
-    <script type="text/javascript" src="js/jqplot.1.0.8/jquery.jqplot.min.js"></script>
-    <script type="text/javascript" src="js/jqplot.1.0.8/plugins/jqplot.canvasTextRenderer.min.js"></script>
-    <script type="text/javascript" src="js/jqplot.1.0.8/plugins/jqplot.canvasAxisLabelRenderer.min.js"></script>		
-    <script type="text/javascript">
-                $("#div_central").css("display", "");
-                $(document).ready(function () {
-        var plot2 = $.jqplot ("chart1", [<?php echo $dados; ?>], {
-        title: "<?php echo $titulo; ?>",
-                axesDefaults: {
-                labelRenderer: $.jqplot.CanvasAxisLabelRenderer
-                },
-                seriesDefaults: {
-                rendererOptions: {
-                smooth: false
-                }
-                },
-                legend: {
-                background: "white",
-                        textColor: "black",
-                        fontFamily: "Times New Roman",
-                        border: "1px solid black"
-                },
-                axes: {
-                xaxis: {
-                label: "<?php echo $label_x; ?>",
-                        pad: 0,
-                        ticks: <?php echo $ticks; ?>,
-                        tickOptions: { formatString: "R$ %d   " }
-                },
-                        yaxis: {
-                        label: "<?php echo $label_y; ?>"
-                        }
-                },
-                axesStyles: {
-                borderWidth: 0,
-                        ticks: {
-                        fontSize: "12pt",
-                                fontFamily: "Times New Roman",
-                                textColor: "black"
-                        },
-                        label: {
-                        fontFamily: "Times New Roman",
-                                textColor: "black"
-                        }
-                }
-        });
-        });</script>	    
-    <?php
-}
-
-/**
- * Função responsavel por geração do gráfico no formato pizza
- * Deve-se utilizar o formato abaixo respeitando a quantidade de ambos 
- * var dados = [['March',250], ['April',350], ['May',450]];
- * @param $dados -> a massa de dados necessario para exibição dos graficos 
- */
-function exibirGraficoPizza($dados) {
-    ?>
-    <script type="text/javascript" src="js/jqplot.1.0.8/jquery.jqplot.min.js"></script>
-    <script type="text/javascript" src="js/jqplot.1.0.8/plugins/jqplot.pieRenderer.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="js/jqplot.1.0.8/jquery.jqplot.min.css" />
-    <div id="pie1" class="dashboard-full" style="width:99%" ></div>
-    <script type="text/javascript">
-                $("#div_central").css("display", "");
-                $(document).ready(function(){
-        var plot1 = $.jqplot("pie1", [<?php echo $dados; ?>], {
-        gridPadding: {top:0, bottom:38, left:0, right:0},
-                seriesDefaults:{
-                renderer:$.jqplot.PieRenderer,
-                        trendline:{ show:true },
-                        rendererOptions: { padding: 8, showDataLabels: true }
-                },
-                legend:{
-                show:true,
-                        placement: "inside",
-                        rendererOptions: {
-                        numberRows: 31
-                        },
-                        location:"e",
-                        marginTop: "15px"
-                },
-                axesStyles: {
-                borderWidth: 0,
-                        ticks: {
-                        fontSize: "12pt",
-                                fontFamily: "Times New Roman",
-                                textColor: "black"
-                        },
-                        label: {
-                        fontFamily: "Times New Roman",
-                                textColor: "black"
-                        }
-                }
-        });
-        });</script>
-    <?php
-}
 
 function exibirQuestion($titulo, $frase) {
     ?>

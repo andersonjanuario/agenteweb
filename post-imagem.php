@@ -7,19 +7,20 @@ function removeEspacosEmBranco($valor) {
 }
 
 function geraThumb($path, $imagem) {
-    $ext = explode('.', $imagem);
-    $ext = $ext[sizeof($ext) - 1];
+    //$ext = explode('.', $imagem);
+    //$ext = $ext[sizeof($ext) - 1];
     $arquivo_origem = $path . $imagem;
     $arquivo_destino = $path . 'thumbnail' . $imagem;
     $nome_arquivo_destino = 'thumbnail' . $imagem;
-
-    if (strtolower($ext) === 'jpg') {
+	$ext = exif_imagetype($arquivo_origem);
+	
+    if ($ext === 2) {
         $img_origem = imagecreatefromjpeg($arquivo_origem);
     }
-    if (strtolower($ext) === 'gif') {
+    if ($ext === 1) {
         $img_origem = imagecreatefromgif($arquivo_origem);
     }
-    if (strtolower($ext) === 'png') {
+    if ($ext === 3) {
         $img_origem = imagecreatefrompng($arquivo_origem);
     }
 
@@ -36,13 +37,13 @@ function geraThumb($path, $imagem) {
         $img_destino = imagecreatetruecolor($nova_largura, $nova_altura);
         imagecopyresampled($img_destino, $img_origem, 0, 0, 0, 0, $nova_largura, $nova_altura, imagesx($img_origem), imagesy($img_origem));
 
-        if (strtolower($ext) === 'jpg') {
+        if ($ext === 2) {
             imageJPEG($img_destino, $arquivo_destino, 85);
         }
-        if (strtolower($ext) === 'gif') {
+        if ($ext === 1) {
             imageGIF($img_destino, $arquivo_destino);
         }
-        if (strtolower($ext) === 'png') {
+        if ($ext === 3) {
             imagePNG($img_destino, $arquivo_destino);
         }
     }
@@ -59,20 +60,41 @@ function tamanhoImagem($imagem, $largura) {
     }
 }
 
+function checarTipoImagem($imagem){
+	$im = '';
+	if($imagem != null){
+		$type = exif_imagetype($imagem);
+		switch ($type) { 
+			case 1 : 
+				$im = 'gif'; 
+			break; 
+			case 2 : 
+				$im = 'jpg'; 
+			break; 
+			case 3 : 
+				$im = 'png'; 
+			break; 
+			case 6 : 
+				$im = 'bmp'; 
+			break; 
+		}    		
+	}
+	return $im;
+}
+
 function redimensionaImg($path, $imagem, $largura) {
-    $ext = explode('.', $imagem);
-    $ext = $ext[sizeof($ext) - 1];
     $arquivo_origem = $path . '/' . $imagem;
     $arquivo_destino = $arquivo_origem;
     $nome_arquivo_destino = $imagem;
-
-    if (strtolower($ext) === 'jpg') {
+	$ext = exif_imagetype($arquivo_origem);
+	
+    if ($ext === 2) {
         $img_origem = imagecreatefromjpeg($arquivo_origem);
     }
-    if (strtolower($ext) === 'gif') {
+    if ($ext === 1) {
         $img_origem = imagecreatefromgif($arquivo_origem);
     }
-    if (strtolower($ext) === 'png') {
+    if ($ext === 3) {
         $img_origem = imagecreatefrompng($arquivo_origem);
     }
 
@@ -82,13 +104,13 @@ function redimensionaImg($path, $imagem, $largura) {
         $img_destino = imagecreatetruecolor($nova_largura, $nova_altura);
         imagecopyresampled($img_destino, $img_origem, 0, 0, 0, 0, $nova_largura, $nova_altura, imagesx($img_origem), imagesy($img_origem));
 
-        if (strtolower($ext) === 'jpg') {
+        if ($ext === 2) {
             imageJPEG($img_destino, $arquivo_destino, 85);
         }
-        if (strtolower($ext) === 'gif') {
+        if ($ext === 1) {
             imageGIF($img_destino, $arquivo_destino);
         }
-        if (strtolower($ext) === 'png') {
+        if ($ext === 3) {
             imagePNG($img_destino, $arquivo_destino);
         }
     }

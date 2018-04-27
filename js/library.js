@@ -679,7 +679,7 @@ function vaiSubmit() {
     $('#enviar').click();
 }
 
-function uploadFile(element) {
+function uploadFile(element,preview,input) {
     var item = {
         imagemName :undefined,
         imagemFile: undefined
@@ -690,10 +690,15 @@ function uploadFile(element) {
     var reader = new FileReader();
     reader.onload = function (loadEvent) {
         item.imagem = loadEvent.target.result;
-        alert(item.imagem);
+        $('#'+preview).attr('src',item.imagem);
+		$('#'+input).val(item.imagem);		
     };
     reader.readAsDataURL(file[0]);
+}
 
+function removerFile(preview,input){
+	$('#'+preview).attr('src','./img/imagemPadrao.jpg');
+	$('#'+input).val('');
 }
 
 function fecharBarraLateral(){
@@ -712,3 +717,4 @@ function detectarMobile() {
 String.prototype.capitalize = function() {
     return this.charAt(0).toUpperCase() + this.slice(1).toLowerCase();
 }
+

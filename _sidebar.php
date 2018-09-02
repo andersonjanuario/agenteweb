@@ -39,9 +39,9 @@
             ?>
                 <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-edit"></i><span class="app-menu__label">CADASTROS</span><i class="treeview-indicator fa fa-angle-right"></i></a>
                   <ul class="treeview-menu">
-                    <li f1="telaListarUsuario" c2="ControladorUsuario" r3="div_central" secao="usuario" onClick="fncButtonMenu(this)"><a class="treeview-item" href="#" onclick="fecharBarraLateral();"><i class="icon fa fa-circle-o"></i> Usuários</a></li>
+                    <li f1="telaListarUsuario" c2="ControladorUsuario" r3="div_central" secao="usuario" onClick="fncButtonMenu(this)"><a class="treeview-item" href="#" onclick="fecharBarraLateral();"><i class="icon fa fa-circle-o"></i> Usu&aacute;rios</a></li>
                     <li f1="telaListarClasse" c2="ControladorClasse" r3="div_central" secao="classe" onClick="fncButtonMenu(this)"><a class="treeview-item" href="#" onclick="fecharBarraLateral();"><i class="icon fa fa-circle-o"></i> Classes</a></li>
-                    <li f1="telaListarModulo" c2="ControladorModulo" r3="div_central" secao="modulo" onClick="fncButtonMenu(this)"><a class="treeview-item" href="#" onclick="fecharBarraLateral();"><i class="icon fa fa-circle-o"></i> Módulos</a></li>                    
+                    <li f1="telaListarModulo" c2="ControladorModulo" r3="div_central" secao="modulo" onClick="fncButtonMenu(this)"><a class="treeview-item" href="#" onclick="fecharBarraLateral();"><i class="icon fa fa-circle-o"></i> M&oacute;dulos</a></li>                    
                   </ul>
                 </li>                
             <?php

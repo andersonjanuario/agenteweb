@@ -61,7 +61,7 @@ class ViewTemplate {
                                         <input name="largura" type="hidden" value="640">
                                         <input name="opcao" type="hidden" value="1">
                                         <input name="tipoArq" type="hidden" value="imagem">
-                                        <input type="file" name="file" class="upload-file" onchange="javascript: fncSubmitArquivo('enviar', this);" >
+                                        <input type="file" name="file" class="upload-file" style="width: 30px;"  onchange="javascript: fncSubmitArquivo('enviar', this);" >
                                         <input type="submit" id="enviar" style="display:none;">   
                                         <img src="./img/img_upload.png" class="upload-button" />
                                     </form> 
@@ -100,7 +100,7 @@ class ViewTemplate {
                                         <input name="largura" type="hidden" value="640">
                                         <input name="opcao" type="hidden" value="1">
                                         <input name="tipoArq" type="hidden" value="arquivo">
-                                        <input type="file" name="file" class="upload-file" onchange="javascript: fncSubmitArquivo('enviar_arquivo', this);" >
+                                        <input type="file" name="file" class="upload-file" style="width: 30px;"  onchange="javascript: fncSubmitArquivo('enviar_arquivo', this);" >
                                         <input type="submit" id="enviar_arquivo" style="display:none;">
                                         <img src="./img/img_upload.png" class="upload-button" />
                                     </form>
@@ -147,6 +147,16 @@ class ViewTemplate {
                     <input type="radio" name="sexo" value="F"><span class="label-text">Feminino</span>
                   </label>
                 </div>
+                <div class="animated-checkbox">
+	              <label>
+	                <input type="checkbox" id="deficiente" name="deficiente" ><span class="label-text">Tem deficiência?</span>
+	              </label>
+	            </div>
+                <div class="animated-checkbox">
+	            	<label>
+	                	<input type="checkbox" id="vegano" name="vegano" ><span class="label-text">É Vegano?</span>
+	              	</label>
+	            </div>
                 <div class="form-group">
                     <label class="control-label">Profissão TextArea</label>
                     <textarea  id="profissao" name="profissao" rows="4" value="" class="form-control" ></textarea>
@@ -391,7 +401,7 @@ class ViewTemplate {
                                         <input name="largura" type="hidden" value="640">
                                         <input name="opcao" type="hidden" value="1">
                                         <input name="tipoArq" type="hidden" value="imagem">
-                                        <input type="file" name="file" class="upload-file" onchange="javascript: fncSubmitArquivo('enviar', this);" >
+                                        <input type="file" name="file" class="upload-file" style="width: 30px;"  onchange="javascript: fncSubmitArquivo('enviar', this);" >
                                         <input type="submit" id="enviar" style="display:none;">   
                                         <img src="./img/img_upload.png" class="upload-button" />
                                     </form> 
@@ -429,7 +439,7 @@ class ViewTemplate {
                                         <input name="largura" type="hidden" value="640">
                                         <input name="opcao" type="hidden" value="1">
                                         <input name="tipoArq" type="hidden" value="arquivo">
-                                        <input type="file" name="file" class="upload-file" onchange="javascript: fncSubmitArquivo('enviar_arquivo', this);" >
+                                        <input type="file" name="file" class="upload-file" style="width: 30px;"  onchange="javascript: fncSubmitArquivo('enviar_arquivo', this);" >
                                         <input type="submit" id="enviar_arquivo" style="display:none;">
                                         <img src="./img/img_upload.png" class="upload-button" />
                                     </form>
@@ -491,6 +501,17 @@ class ViewTemplate {
                         <input type="radio" name="sexo" <?php echo $femia; ?> value="F" />
                         Feminino                            
                     </div>
+	                <div class="animated-checkbox">
+		              <label>
+		                <input type="checkbox" <?php echo ($objTemplate[0]->getDeficiente() == 'on')?'checked="checked"':''; ?> id="deficiente" name="deficiente" ><span class="label-text">Tem deficiência?</span>
+		              </label>
+		            </div>
+	                <div class="animated-checkbox">
+		            	<label>
+		                	<input type="checkbox" <?php echo ($objTemplate[0]->getVegano() == 'on')?'checked="checked"':''; ?> id="vegano" name="vegano" ><span class="label-text">É Vegano?</span>
+		              	</label>
+		            </div>                    
+                    
                     <div class="form-group">
                         <label class="control-label">Profissão</label>                    
                         <textarea id="profissao" name="profissao" class="form-control" ><?php echo $objTemplate[0]->getProfissao(); ?></textarea>
@@ -638,7 +659,21 @@ class ViewTemplate {
                         <input type="radio" disabled="true" name="sexo" <?php echo $femia; ?> value="F" />
                         Feminino                            
                     </div>
-                    <div class="form-group">
+	              <div class="form-check">
+                    <label class="form-check-label">
+                      <input class="form-check-input" type="checkbox"
+                      type="checkbox" <?php echo ($objTemplate[0]->getDeficiente() == 'on')?'checked="checked"':''; ?> 
+                      id="deficiente" name="deficiente" disabled="disabled">Tem deficiência?
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <label class="form-check-label">
+                      <input class="form-check-input" type="checkbox"
+                      <?php echo ($objTemplate[0]->getVegano() == 'on')?'checked="checked"':''; ?> 
+                      id="vegano" name="vegano" disabled="disabled">É Vegano?
+                    </label>
+                  </div>
+                  	<div class="form-group">
                         <label class="control-label">Profissão</label>                    
                         <textarea id="profissao" name="profissao" disabled="true"  value="<?php echo $objTemplate[0]->getProfissao(); ?>" class="form-control" ></textarea>
                     </div>

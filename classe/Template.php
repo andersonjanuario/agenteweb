@@ -22,6 +22,8 @@ class Template{
 	private $animal;
 	private $status;	
 	private $pais;
+	private $deficiente;
+	private $vegano;
 	
 	//construtor
 	public function __construct(){}
@@ -190,5 +192,22 @@ class Template{
 	public function setPais($v){
 		$this->pais = $v;
 	}	
+	
+	public function getVegano(){
+		return $this->vegano;
+	}
+	
+	public function setVegano($v){
+		$this->vegano = $v;
+	}	
+	
+	public function getDeficiente(){
+		return $this->deficiente;
+	}
+	
+	public function setDeficiente($v){
+		$this->deficiente = $v;
+	}
+	
 }
 ?>

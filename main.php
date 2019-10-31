@@ -1,7 +1,6 @@
 <?php
 require_once 'include.php';
 if(isset($_SESSION["login"])){
-exibirQuestion("Tem certeza que deseja remover?","* Todos os itens que se relacionam também serão removidos");  
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -39,6 +38,7 @@ exibirQuestion("Tem certeza que deseja remover?","* Todos os itens que se relaci
   </body>
 </html>
 <?php
+	exibirQuestion("Tem certeza que deseja remover?","* Todos os itens que se relacionam também serão removidos");
 }else{
   echo "<script>javascript:open('index.php?m=1', '_top')</script>";
 }

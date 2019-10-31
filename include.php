@@ -1,4 +1,5 @@
 <?php
+error_reporting (E_ALL & ~ E_NOTICE & ~ E_DEPRECATED);
 //Autoload
 require_once "classe/Autoload.php";
 
@@ -42,6 +43,18 @@ require_once "view/viewModulo.php";
 require_once "view/viewTemplate.php";
 
 //Modulos Costumizados
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 ?>

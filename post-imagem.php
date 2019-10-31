@@ -1,5 +1,5 @@
 <?php
-
+error_reporting (E_ALL & ~ E_NOTICE & ~ E_DEPRECATED);
 function removeEspacosEmBranco($valor) {
     $valor = str_replace('%20', '_', $valor);
     $valor = str_replace(' ', '_', $valor);

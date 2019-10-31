@@ -18,7 +18,7 @@ class DaoTemplate extends Dados {
             $conexao = $this->conectarBanco();
             $sql = "SELECT	c.id,c.nome,c.sexo,c.profissao,c.faixa_salarial,c.data_nascimento,c.cpf,c.imagem,c.arquivo,
 							c.logradouro,c.numero,c.cep,c.estado,c.telefone_residencial,
-							c.email,c.data_cadastro,c.data_modificacao,c.id_pais,p1.nome as nome_pais,c.status							
+							c.email,c.data_cadastro,c.data_modificacao,c.id_pais,p1.nome as nome_pais,c.status,c.vegano,c.deficiente							
 							FROM tb_agenteweb_template c 							
 							LEFT JOIN tb_agenteweb_pais p1 ON (c.id_pais = p1.id)
 					WHERE c.status = '1'";
@@ -48,6 +48,9 @@ class DaoTemplate extends Dados {
                 $template->setDataCadastro($objetoTemplate->data_cadastro);
                 $template->setDataModificacao($objetoTemplate->data_modificacao);
                 $template->setStatus($objetoTemplate->status);
+                
+                $template->setVegano($objetoTemplate->vegano);
+                $template->setDeficiente($objetoTemplate->deficiente);
 
                 $pais = new Pais();
                 $pais->setId($objetoTemplate->id_pais);
@@ -84,7 +87,9 @@ class DaoTemplate extends Dados {
                                                         telefone_residencial,                                                        
                                                         email,
                                                         data_cadastro,
-                                                        id_pais,												
+                                                        id_pais,
+														vegano,
+														deficiente,												
                                                         status
                                                         )VALUES(
                                                         NULL , 
@@ -103,10 +108,11 @@ class DaoTemplate extends Dados {
                                                         '" . $template->getTelefoneResidencial() . "',                                                         
                                                         '" . $template->getEmail() . "', 
                                                         NOW(), 
-                                                        '" . $template->getPais() . "', 												
+                                                        '" . $template->getPais() . "', 	
+														'" . $template->getVegano() . "', 	
+														'" . $template->getDeficiente() . "', 												
                                                         '" . $template->getStatus() . "')";
 
-            //debug($sql);
             $retorno = mysqli_query($conexao,$sql) or die('Erro na execução do insert!');
             $this->FecharBanco($conexao);
             return $retorno;
@@ -133,6 +139,8 @@ class DaoTemplate extends Dados {
 											estado = '" . $template->getEstado() . "',
 											telefone_residencial = '" . $template->getTelefoneResidencial() . "',											
 											email = '" . $template->getEmail() . "',
+											vegano = '" . $template->getVegano() . "',
+											deficiente = '" . $template->getDeficiente() . "',
 											data_modificacao = NOW(),
 											id_pais = '" . $template->getPais() . "',
 											status = '1' WHERE id = " . $template->getId() . "";

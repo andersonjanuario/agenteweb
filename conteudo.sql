@@ -383,6 +383,8 @@ CREATE TABLE `tb_agenteweb_template` (
   `telefone_celular` varchar(14) DEFAULT NULL,
   `telefone_comercial` varchar(14) DEFAULT NULL,
   `email` varchar(100) DEFAULT NULL,
+  `vegano` varchar(100) DEFAULT NULL,
+  `deficiente` varchar(100) DEFAULT NULL,
   `data_cadastro` datetime NOT NULL,
   `data_modificacao` datetime DEFAULT NULL,
   `id_pais` int(11) NOT NULL,

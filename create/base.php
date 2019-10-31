@@ -2,10 +2,11 @@
 error_reporting ( E_ALL & ~ E_NOTICE & ~ E_DEPRECATED );
 
 function conectarBanco() {
-	$local = "fdb12.eohost.com";
-	$usuario = "2181795_bd";
-	$senha  = "2181795_bd";
-	$banco = "2181795_bd";	
+	$local = "localhost";
+	$usuario = "root";
+	$senha = "";
+	$banco = "agenteweb";
+
 	
 	$conexao = mysqli_connect ( $local, $usuario, $senha ) or die ( "nao foi possivel conectar" );
 	mysqli_set_charset ( $conexao, "utf8" );

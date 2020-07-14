@@ -39,6 +39,8 @@ class ControladorTemplate {
 			$template->setTelefoneResidencial($post["telefone_residencial"]);
 			$template->setEmail($post["email"]);
 			$template->setPais($post["pais"]);
+			$template->setVegano($post["vegano"]);
+			$template->setDeficiente($post["deficiente"]);
 			$template->setStatus('1');
 			$moduloTemplate = new DaoTemplate();
 			
@@ -62,13 +64,15 @@ class ControladorTemplate {
 			$template->setCpf($post["cpf"]);			
 			$template->setImagem($post["imagem"]);
 			$template->setArquivo($post["arquivo"]);
-                        $template->setLogradouro($post["logradouro"]);
+            $template->setLogradouro($post["logradouro"]);
 			$template->setNumero($post["numero"]);
 			$template->setCep($post["cep"]);
 			$template->setEstado($post["estado"]);
 			$template->setTelefoneResidencial($post["telefone_residencial"]);
 			$template->setEmail($post["email"]);
-			$template->setPais($post["pais"]);
+			$template->setPais($post["pais"]);			
+			$template->setVegano($post["vegano"]);
+			$template->setDeficiente($post["deficiente"]);
 			$template->setStatus('1');		
 			
 			$moduloTemplate = new DaoTemplate();

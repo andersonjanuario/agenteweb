@@ -46,11 +46,7 @@ class View{
 											<input type=\"hidden\" name=\"f1\" id=\"f1\" value=\"incluir".$sessao."\"/>
 											<input type=\"hidden\" name=\"m4\" id=\"m4\" value=\"1\"/>
 											".$this->campos($sessao, $campos,false,false)."
-											<!--div class=\"form-group\">
-												<label class=\"control-label\">Descrição</label>
-												<textarea  id=\"descricao\" name=\"descricao\" rows=\"4\" value=\"\" class=\"form-control\" ></textarea>
-											</div-->
-										  </form>
+										</form>
 										</div>
 										<div class=\"tile-footer\">
 										  <button class=\"btn btn-primary \" onClick=\"fncFormCadastro(this)\" type=\"button\"><i class=\"fa fa-fw fa-lg fa-check-circle\"></i>Salvar</button>
@@ -409,20 +405,41 @@ class View{
 	}	
 	
 	public function createCampoCheck($sessao, $campo, $mgsAlerta,$isValue,$isDisabled){
+		$titulo = strtolower($campo->campo);	
+		
+		$value = ($isValue === true)?" <?php echo (\$obj".$sessao."[0]->get".ucfirst(strtolower($campo->campo))."() == 'on' || \$obj".$sessao."[0]->get".ucfirst(strtolower($campo->campo))."() == 'o' )?'checked=\"checked\"':''; ?> ":"";
+		if ($isDisabled === true) {
+			$script .= 				"	              <div class='form-check'>
+									                    <label class='form-check-label'>
+									                      <input class='form-check-input' type='checkbox'
+									                      type='checkbox' ".$value." id='".$titulo."' name='".$titulo."' disabled='disabled'>".$titulo."
+									                    </label>
+									                  </div>";
+		}else{
+			$script .=				"<div class='animated-checkbox'>
+										<label>
+											<input type='checkbox' ".$value." id='".$titulo."' name='".$titulo."' class='".$mgsAlerta."' ><span class='label-text'>".$titulo."</span>
+										</label>
+									</div>";
+		}
 		
 		return $script;
 	}	
 	
-	public function createCampoSelect($sessao, $campo, $mgsAlerta,$isValue,$isDisabled){
+	
+	public function selectCampoSelect($sessao, $campo, $isValue, $value){
+		return ($isValue === true)?" <?php echo selecao(\"".$value."\", \$obj".$sessao."[0]->get".ucfirst(strtolower($campo->campo))."()); ?> ":"";
+		
+	}
+	public function createCampoSelect($sessao, $campo, $mgsAlerta, $isValue, $isDisabled){
 		$disabled = ($isDisabled === true)? " disabled=\"true\" ":"";
-		$value = ($isValue === true)?" value=\"<?php echo \$obj".$sessao."[0]->get".ucfirst(strtolower($campo->campo))."(); ?>\" ":"";
 		
 		$script .= "
-												<select id=\"".strtolower($campo->campo)."\" name=\"".strtolower($campo->campo)."\" ".$value." class=\"form-control".$mgsAlerta."\">
-													<option value=\"\">Selecione...</option>
-													<option value=\"1\">Valor 1</option>
-													<option value=\"2\">Valor 2</option>
-													<option value=\"3\">Valor 3</option>													
+												<select ".$disabled."  id=\"".strtolower($campo->campo)."\" name=\"".strtolower($campo->campo)."\" class=\"form-control".$mgsAlerta."\">
+													<option value=\"\" ".$this->selectCampoSelect($sessao, $campo, $isValue, '')." >Selecione...</option>
+													<option value=\"1\" ".$this->selectCampoSelect($sessao, $campo, $isValue, '1')." >Valor 1</option>
+													<option value=\"2\" ".$this->selectCampoSelect($sessao, $campo, $isValue, '2')." >Valor 2</option>
+													<option value=\"3\" ".$this->selectCampoSelect($sessao, $campo, $isValue, '3')." >Valor 3</option>													
 												</select>";
 
 		return $script;
@@ -495,7 +512,7 @@ class View{
 																	<input name=\"largura\" type=\"hidden\" value=\"640\">
 																	<input name=\"opcao\" type=\"hidden\" value=\"1\">
 																	<input name=\"tipoArq\" type=\"hidden\" value=\"imagem\">
-																	<input type=\"file\" name=\"file\" class=\"upload-file\" onchange=\"javascript: fncSubmitArquivo('enviar_".strtolower($campos[$i]->campo)."', this);\" >
+																	<input type=\"file\" name=\"file\" style=\"width: 30px;\"  class=\"upload-file\" onchange=\"javascript: fncSubmitArquivo('enviar_".strtolower($campos[$i]->campo)."', this);\" >
 																	<input type=\"submit\" id=\"enviar_".strtolower($campos[$i]->campo)."\" style=\"display:none;\">   
 																	<img src=\"./img/img_upload.png\" class=\"upload-button\" />
 																</form> 
@@ -589,7 +606,7 @@ class View{
 																	<input name=\"largura\" type=\"hidden\" value=\"640\">
 																	<input name=\"opcao\" type=\"hidden\" value=\"1\">
 																	<input name=\"tipoArq\" type=\"hidden\" value=\"arquivo\">
-																	<input type=\"file\" name=\"file\" class=\"upload-file\" onchange=\"javascript: fncSubmitArquivo('enviar_arquivo_".strtolower($campos[$i]->campo)."', this);\" >
+																	<input type=\"file\" name=\"file\" style=\"width: 30px;\"  class=\"upload-file\" onchange=\"javascript: fncSubmitArquivo('enviar_arquivo_".strtolower($campos[$i]->campo)."', this);\" >
 																	<input type=\"submit\" id=\"enviar_arquivo_".strtolower($campos[$i]->campo)."\" style=\"display:none;\">   
 																	<img src=\"./img/img_upload.png\" class=\"upload-button\" />
 																</form> 

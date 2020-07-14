@@ -54,7 +54,7 @@ class ViewUsuario{
 	                                        <input name="largura" type="hidden" value="640">
 	                                        <input name="opcao" type="hidden" value="1">
 	                                        <input name="tipoArq" type="hidden" value="imagem">
-	                                        <input type="file" name="file" class="upload-file" onchange="javascript: fncSubmitArquivo('enviar', this);" >
+	                                        <input type="file" name="file" class="upload-file" style="width: 30px;"  onchange="javascript: fncSubmitArquivo('enviar', this);" >
 	                                        <input type="submit" id="enviar" style="display:none;">   
 	                                        <img src="./img/img_upload.png" class="upload-button" />
 	                                    </form> 
@@ -237,7 +237,7 @@ class ViewUsuario{
                                         <input name="largura" type="hidden" value="640">
                                         <input name="opcao" type="hidden" value="1">
                                         <input name="tipoArq" type="hidden" value="imagem">
-                                        <input type="file" name="file" class="upload-file" onchange="javascript: fncSubmitArquivo('enviar', this);" >
+                                        <input type="file" name="file" class="upload-file" style="width: 30px;"  onchange="javascript: fncSubmitArquivo('enviar', this);" >
                                         <input type="submit" id="enviar" style="display:none;">   
                                         <img src="./img/img_upload.png" class="upload-button" />
                                     </form> 

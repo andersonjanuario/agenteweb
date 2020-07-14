@@ -1,4 +1,5 @@
 <?php
+error_reporting (E_ALL & ~ E_NOTICE & ~ E_DEPRECATED);
 function tamanhoImagem($imagem, $largura) {
     $tam_img = getimagesize($imagem);
     if ($tam_img[0] > $largura) {
@@ -133,7 +134,7 @@ function deleteImagem($id,$posicao,$path) {
 
 function selecao($valor1, $valor2) {
     $selecao = "";
-    if (($valor1 == "" && $valor2 == 1) || ($valor1 == $valor2)) {
+    if ($valor1 == $valor2) {
         $selecao = "selected='selected'";
     }
     return $selecao;

@@ -1,4 +1,5 @@
 <?php 
+error_reporting (E_ALL & ~ E_NOTICE & ~ E_DEPRECATED);
 require_once "classe.php";
 require_once "controller.php";
 require_once "dao.php";
@@ -112,8 +113,8 @@ require_once "view.php";
 			
 
 			
-			mysqli_close($conexao);
 		} catch (Exception $e) {
+			fecharBanco($conexao);
 			return $e;
 		}
 	}	

@@ -1,5 +1,5 @@
 <?php  
-
+error_reporting (E_ALL & ~ E_NOTICE & ~ E_DEPRECATED);
 $caminho = $_GET['d'];
 $arquivo = $_GET['f'];
 $file = $caminho."/".$arquivo;

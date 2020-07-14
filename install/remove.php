@@ -1,4 +1,25 @@
 <?php 
+error_reporting (E_ALL & ~ E_NOTICE & ~ E_DEPRECATED);
+
+function conectarBanco(){
+	$local = "localhost";
+	$usuario = "root";
+	$senha  = "";
+	$banco = "agenteweb";
+
+	$conexao = mysqli_connect($local,$usuario,$senha) or die( "nao foi possivel conectar" );
+	mysqli_set_charset($conexao,"utf8");
+
+	mysqli_select_db($conexao,$banco) or die ("Nao foi possivel selecionar o banco de dados");
+	return $conexao;		
+}
+
+function fecharBanco($conexao){
+	mysqli_close($conexao);
+}	
+
+$sessoes = array();
+
 if($_GET["op"] === "1"){
 	function debug($valor){
 		echo "<pre>";
@@ -56,37 +77,20 @@ if($_GET["op"] === "1"){
 		}			
 	}
 	
-	function conectarBanco(){
-		$local = "localhost";
-		$usuario = "root";
-		$senha  = "";
-		$banco = "agenteweb";
-		
-		$conexao = mysqli_connect($local,$usuario,$senha) or die( "nao foi possivel conectar" );
-		mysqli_set_charset($conexao,"utf8");
-
-		mysqli_select_db($conexao,$banco) or die ("Nao foi possivel selecionar o banco de dados");
-		return $conexao;		
-	}
-	
-	function fecharBanco($conexao){
-		mysqli_close($conexao);
-	}	
-	
-    function limparBase($sessao){
+	function limparBase($sessao){
 		$conexao = conectarBanco();
 	
 		$sql = "DROP TABLE IF EXISTS `agenteweb`.`tb_agenteweb_".$sessao."`";
-		mysqli_query($conexao,$sql) or die ('Erro na execução exclusão da tabela!');		
+		mysqli_query($conexao,$sql) or die ('Erro na execução exclusão da tabela! ['.$sql.']');		
 		
 		$sql = "SELECT `id`,`nome` FROM `tb_agenteweb_classe` WHERE LOWER(`nome`) = '".strtolower($sessao)."'";
-		$query = mysqli_query($conexao,$sql) or die ('Erro na verificação da classe!');
+		$query = mysqli_query($conexao,$sql) or die ('Erro na verificação da classe! ['.$sql.']');
 		
 		while($obj = mysqli_fetch_object($query)){
 			$sql = "DELETE FROM `tb_agenteweb_acao_usuario` WHERE `tb_agenteweb_acao_usuario`.`id_classe` = " . $obj->id . "";
-			mysqli_query($conexao,$sql) or die ('Erro na exclusão da classe usuario!');
-			$sql = "DELETE FROM tb_agenteweb_classe WHERE `id` = " . $obj->id . "";			
-			mysqli_query($conexao,$sql) or die ('Erro na exclusão da classe!');
+			mysqli_query($conexao,$sql) or die ('Erro na exclusão da classe usuario! ['.$sql.']');
+			$sql = "DELETE FROM tb_agenteweb_classe WHERE `id` = " . $obj->id . "";
+			mysqli_query($conexao,$sql) or die ('Erro na exclusão da classe! ['.$sql.']');
 		}		
 		fecharBanco($conexao);
 	}
@@ -102,6 +106,19 @@ if($_GET["op"] === "1"){
 	}else{
 		echo "<script type='text/javascript'>alert('Parametros Invalidos!');</script>";
 	}
+}else{
+	try {	
+		$conexao = conectarBanco();
+		$sql = "SELECT c.nome FROM `tb_agenteweb_classe` c WHERE c.status = '1'";
+		$query = mysqli_query($conexao,$sql) or die ('Erro na execução  do listar! ['.$sql.']');
+		while($objetoClasse =  mysqli_fetch_object($query)){
+			$sessoes[] = $objetoClasse->nome; 
+		}
+		fecharBanco($conexao);
+	} catch (Exception $e) {
+		return $e;
+	}
+	
 }
 	
 ?>
@@ -125,13 +142,25 @@ if($_GET["op"] === "1"){
             <div class="col-md-12">
                 <div class="tile">
                     <h3 class="tile-title">Remover Sessão Existente&nbsp;&nbsp;&nbsp;&nbsp;
-                        <button class="btn btn-primary" onClick="envio();" type="button"><i class="fa fa-fw fa-lg fa-check-circle"></i>Remover</button>
+                    <?php if(count($sessoes) > 0 ){ ?>
+						<button class="btn btn-primary" onClick="envio();" type="button"><i class="fa fa-fw fa-lg fa-check-circle"></i>Remover</button>&nbsp;|&nbsp;
+					<?php } ?>
+						<a href="./" class="btn btn-secundary">Tela Criar</a>						
                     </h3>
                     <div class="tile-body">
                         <form class="row" id="form-install">
-                            <div class="form-group col-md-6">
+							<div class="form-group col-md-6">
                                 <label class="control-label">Nome da Sessão</label>
-                                <input class="form-control" type="text" name="sessao" id="sessao" onkeyup="this.value=this.value.capitalize();">
+								<select name="sessao" id="sessao" class="form-control ">
+								<?php 
+								foreach ($sessoes as $sessao){
+								?>
+									<option value="<?php echo $sessao;?>"><?php echo $sessao;?></option>
+								<?php                                  	
+								}
+								 ?>                                 
+								</select>
+                                <!--input class="form-control" type="text" name="sessao" id="sessao" onkeyup="this.value=this.value.capitalize();"-->
                             </div>
                         </form>
                     </div>
@@ -151,18 +180,21 @@ if($_GET["op"] === "1"){
 			}
 		
             function envio(){
-                $.ajax({
-                    url: 'remove.php?op=1',
-                    type: 'POST',
-                    data: JSON.stringify({ 
-                        'sessao': $("#sessao").val()                        
-                    }),
-                    success: function(result) {
-                        $('#retorno').html(result);
-                    },
-                    beforeSend: function() {},
-                    complete: function() {}
-                });
+				if (confirm("Tem certeza que deseja excluir a sessão?")) {
+					$.ajax({
+						url: 'remove.php?op=1',
+						type: 'POST',
+						data: JSON.stringify({ 
+							'sessao': $("#sessao").val()                        
+						}),
+						success: function(result) {
+							$('#retorno').html(result);
+							location.reload();
+						},
+						beforeSend: function() {},
+						complete: function() {}
+					});
+				}
             }
         </script>
     </body>

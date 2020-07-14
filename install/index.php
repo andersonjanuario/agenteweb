@@ -18,7 +18,8 @@
             <div class="col-md-12">
                 <div class="tile">
                     <h3 class="tile-title">Gerar de Sessão&nbsp;&nbsp;&nbsp;&nbsp;
-                        <button class="btn btn-primary" onClick="envio();" type="button"><i class="fa fa-fw fa-lg fa-check-circle"></i>Criar</button>
+                        <button class="btn btn-primary" onClick="envio();" type="button"><i class="fa fa-fw fa-lg fa-check-circle"></i>Criar</button>&nbsp;|&nbsp;
+						<a href="./remove.php" class="btn btn-secundary">Tela Remover</a>						
                     </h3>
                     <div class="tile-body">
                         <form class="row" id="form-install">
